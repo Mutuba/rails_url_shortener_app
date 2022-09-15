@@ -3,6 +3,7 @@ class BulkUrlsImportService < ApplicationService
   require 'securerandom'
   def initialize(params)
     @file_path = params.fetch(:file_path)
+    @base_url = params.fetch(:base_url)
   end
 
   def call
@@ -12,7 +13,7 @@ class BulkUrlsImportService < ApplicationService
   private
 
   def generate_short_url
-    rand(36**8).to_s(36)
+    "#{@base_url}/#{rand(36**8).to_s(36)}"
   end
 
   def sanitize_url(long_url_arg)
@@ -29,13 +30,13 @@ class BulkUrlsImportService < ApplicationService
 
       url_hash.batch_no = batch_no
       url_hash.long_url = sanitize_url(row[0])
-      url_hash.short_url = row[1].nil? ? generate_short_url : row[1]
+      url_hash.short_url = row[1].nil? ? generate_short_url : "#{@base_url}/ #{row[1]}"
       url_hash.created_at = Time.now
       url_hash.updated_at = Time.now
       urls_array << url_hash
     end
 
-    my_proc = lambda { |rows_size, num_batches, current_batch_number, batch_duration_in_secs|
+    my_proc = lambda { |_rows_size, num_batches, current_batch_number, _batch_duration_in_secs|
       # send an email, post to a websocket,
       # update slack, alert if import is taking too long, etc.
       p num_batches

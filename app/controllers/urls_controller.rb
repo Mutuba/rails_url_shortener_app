@@ -13,9 +13,10 @@ class UrlsController < ApplicationController
   end
 
   def create
+    base_url = request.base_url
     file_path = "#{Rails.root}/tmp/bulk-import #{SecureRandom.hex}.csv"
     File.write(file_path, params[:url][:file].read)
-    UrlsBulkImportJob.perform_later file_path
+    UrlsBulkImportJob.perform_later file_path, base_url
   end
 
   private

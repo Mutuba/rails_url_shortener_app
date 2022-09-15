@@ -23,7 +23,7 @@ class BulkUrlsImportService < ApplicationService
 
   def process_csv!
     batch_no = SecureRandom.hex
-
+    urls_array = []
     CSV.foreach(@file_path, headers: true) do |row|
       url_hash = Url.new
 
@@ -32,7 +32,16 @@ class BulkUrlsImportService < ApplicationService
       url_hash.short_url = row[1].nil? ? generate_short_url : row[1]
       url_hash.created_at = Time.now
       url_hash.updated_at = Time.now
-      url_hash.save!
+      urls_array << url_hash
     end
+
+    my_proc = lambda { |rows_size, num_batches, current_batch_number, batch_duration_in_secs|
+      # send an email, post to a websocket,
+      # update slack, alert if import is taking too long, etc.
+      p num_batches
+      p current_batch_number
+    }
+
+    Url.import urls_array, batch_size: 2, batch_progress: my_proc
   end
 end

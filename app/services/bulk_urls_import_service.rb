@@ -35,13 +35,11 @@ class BulkUrlsImportService < ApplicationService
       urls_array << url_hash
     end
 
-    my_proc = lambda { |num_batches, current_batch_number|
+    my_proc = lambda { |rows_size, num_batches, current_batch_number, batch_duration_in_secs|
       # send an email, post to a websocket,
       # update slack, alert if import is taking too long, etc.
       p num_batches
       p current_batch_number
-
-      #  ActionCable.server.broadcast("video_conversion_#{@user.id}", progress) 
     }
 
     Url.import urls_array, batch_size: 2, batch_progress: my_proc

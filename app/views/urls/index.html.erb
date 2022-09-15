@@ -1,14 +1,32 @@
 <div class="container">
   <p style="color: green"><%= notice %></p>
 
-  <h1>Urls</h1>
+  <h1>Batches</h1>
 
-  <div id="urls">
-    <% @urls.each do |url| %>
-      <%= render url %>
-      <p>
-        <%= link_to "Show this url", urls_show_path(:id => url.short_url) %>
-      </p>
+  <div id="batches">
+    <% @batches.each do |batch| %>
+        <div id="<%= dom_id batch %>">
+          <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <p> <%= batch.name %></p>
+                </button>
+            </h2>
+
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <% batch.urls.each do |url| %>
+                  <%= render url %>
+                  <p>
+                    <%= link_to "Show this url", urls_show_path(:id => url.short_url) %>
+                  </p>
+                <% end %>
+              </div>
+              </div>
+            </div>
+            </div>
+        </div>
     <% end %>
   </div>
 

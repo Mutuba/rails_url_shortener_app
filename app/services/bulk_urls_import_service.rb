@@ -24,7 +24,6 @@ class BulkUrlsImportService < ApplicationService
   end
 
   def process_csv!
-
     batch = Batch.create!(name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}")
     batch_no = SecureRandom.hex
     urls_array = []

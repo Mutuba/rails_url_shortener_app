@@ -1,6 +1,7 @@
 class BulkUrlsImportService < ApplicationService
   require 'csv'
   require 'securerandom'
+  require 'faker'
   def initialize(params)
     @file_path = params.fetch(:file_path)
     @base_url = params.fetch(:base_url)
@@ -23,14 +24,16 @@ class BulkUrlsImportService < ApplicationService
   end
 
   def process_csv!
+
+    batch = Batch.create!(name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}")
     batch_no = SecureRandom.hex
     urls_array = []
     CSV.foreach(@file_path, headers: true) do |row|
       url_hash = Url.new
 
-      url_hash.batch_no = batch_no
+      url_hash.batch = batch
       url_hash.long_url = sanitize_url(row[0])
-      url_hash.short_url = row[1].nil? ? generate_short_url : "#{@base_url}/ #{row[1]}"
+      url_hash.short_url = row[1].nil? ? generate_short_url : "#{@base_url}/#{row[1]}"
       url_hash.created_at = Time.now
       url_hash.updated_at = Time.now
       urls_array << url_hash

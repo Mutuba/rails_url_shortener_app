@@ -4,9 +4,14 @@ class UrlsController < ApplicationController
 
   def index
     @urls = Url.all
+    # @batches = Batch.all
   end
 
-  def show; end
+  def show
+    render 'errors/404', status: 404 if @url.nil?
+    @url.update_attribute(:click, @url.click + 1)
+    redirect_to @url.long_url, allow_other_host: true
+  end
 
   def new
     @url = Url.new
@@ -22,7 +27,7 @@ class UrlsController < ApplicationController
   private
 
   def set_url
-    @url = Url.find(params[:id])
+    @url = Url.find_by_short_url(params[:id])
   end
 
   def url_params

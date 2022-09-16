@@ -3,8 +3,7 @@ class UrlsController < ApplicationController
   before_action :set_url, only: %i[show]
 
   def index
-    # @urls = Url.all
-    @batches = Batch.all
+    @batches = Batch.includes(:urls)
   end
 
   def show

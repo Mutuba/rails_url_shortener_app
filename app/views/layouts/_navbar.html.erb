@@ -12,27 +12,18 @@
         <li class="nav-item">
           <%= link_to "Home", urls_path, class:'nav-link'%>
         </li>
+        <% if current_user %>
         <li class="nav-item">
           <%= link_to "My Urls", new_url_path, class:"nav-link" %>
         </li>
 
-         <li class="nav-item">
+        <li class="nav-item">
           <%= link_to "Upload Urls", new_url_path, class:"nav-link" %>
         </li>
-
+        <% end %>
       </ul>
       <ul class="navbar-nav">
-      
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            My Account
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Login</a></li>
-            <li><a class="dropdown-item" href="#">Create Account</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
-          </ul>
-        </li>
+        <%= render 'user/session_manager' %>    
       </ul>
     </div>
   </div>

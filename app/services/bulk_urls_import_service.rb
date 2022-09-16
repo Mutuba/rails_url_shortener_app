@@ -35,6 +35,7 @@ class BulkUrlsImportService < ApplicationService
       url_hash.short_url = row[1].nil? ? generate_short_url : "#{@base_url}/#{row[1]}"
       url_hash.created_at = Time.now
       url_hash.updated_at = Time.now
+      url_hash.user_id = User.first.id
       urls_array << url_hash
     end
 

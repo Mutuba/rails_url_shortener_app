@@ -1,9 +1,10 @@
 class UrlsController < ApplicationController
   require 'securerandom'
   before_action :set_url, only: %i[show]
+  before_action :authenticate_user!
 
   def index
-    @batches = Batch.includes(:urls)
+    @batches = current_user.batches.includes(:urls)
   end
 
   def show
@@ -17,10 +18,16 @@ class UrlsController < ApplicationController
   end
 
   def create
+    # ActionCable.server.broadcast('UrlShortenerChannel', title: 'New things!', body: 'All the news fit to print')
+    # Turbo::StreamsChannel.broadcast_append_to('uploads',
+    #                                           target: 'All the news fit to print',
+    #                                           partial: 'layouts/alerts')
     base_url = request.base_url
     file_path = "#{Rails.root}/tmp/bulk-import #{SecureRandom.hex}.csv"
     File.write(file_path, params[:url][:file].read)
-    UrlsBulkImportJob.perform_later file_path, base_url
+    UrlsBulkImportJob.perform_later file_path, base_url, current_user
+
+    redirect_to new_url_path
   end
 
   private

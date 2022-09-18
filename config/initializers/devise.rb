@@ -23,7 +23,6 @@ class TurboFailureApp < Devise::FailureApp
   end
 end
 
-
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -45,7 +44,7 @@ Devise.setup do |config|
   config.warden do |manager|
     manager.failure_app = TurboFailureApp
   end
-  
+
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
   # Configure the class responsible to send e-mails.

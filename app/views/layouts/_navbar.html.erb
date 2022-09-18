@@ -13,17 +13,16 @@
           <%= link_to "Home", urls_path, class:'nav-link'%>
         </li>
         <% if current_user %>
-        <li class="nav-item">
-          <%= link_to "My Urls", new_url_path, class:"nav-link" %>
-        </li>
-
-        <li class="nav-item">
-          <%= link_to "Upload Urls", new_url_path, class:"nav-link" %>
-        </li>
+          <li class="nav-item">
+            <%= link_to "My Urls", urls_path, class:"nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Upload Urls", new_url_path, class:"nav-link" %>
+          </li>
         <% end %>
       </ul>
       <ul class="navbar-nav">
-        <%= render 'user/session_manager' %>    
+        <%= render 'user/session_manager' %>
       </ul>
     </div>
   </div>

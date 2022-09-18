@@ -5,6 +5,7 @@ class BulkUrlsImportService < ApplicationService
   def initialize(params)
     @file_path = params.fetch(:file_path)
     @base_url = params.fetch(:base_url)
+    @current_user = params.fetch(:current_user)
   end
 
   def call
@@ -24,7 +25,7 @@ class BulkUrlsImportService < ApplicationService
   end
 
   def process_csv!
-    batch = Batch.create!(name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}")
+    batch = Batch.create!(name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}", user: @current_user)
     batch_no = SecureRandom.hex
     urls_array = []
     CSV.foreach(@file_path, headers: true) do |row|
@@ -47,5 +48,13 @@ class BulkUrlsImportService < ApplicationService
     }
 
     Url.import urls_array, batch_size: 2, batch_progress: my_proc
+
+    # cable_ready[UserChannel].text_content(
+    #   selector: '#processed-row-number-container',
+    #   text: counter
+    # ).broadcast_to(Current.user)
+
+    # cable_ready['current_user'].console_log(message: 'Welcome to the site!')
+    # cable_ready.broadcast
   end
 end

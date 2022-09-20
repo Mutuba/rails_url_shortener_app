@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  mount ActionCable.server => '/cable'
   devise_for :users
 
+  mount ActionCable.server => '/cable'
   resources :urls, only: %i[index new]
 
   post 'urls/create', to: 'urls#create'

@@ -18,16 +18,13 @@ class UrlsController < ApplicationController
   end
 
   def create
-    # ActionCable.server.broadcast('UrlShortenerChannel', title: 'New things!', body: 'All the news fit to print')
     # Turbo::StreamsChannel.broadcast_append_to('uploads',
-    #                                           target: 'All the news fit to print',
-    #                                           partial: 'layouts/alerts')
+    #                                           target: 'All the news fit to print')
     base_url = request.base_url
     file_path = "#{Rails.root}/tmp/bulk-import #{SecureRandom.hex}.csv"
     File.write(file_path, params[:url][:file].read)
     UrlsBulkImportJob.perform_later file_path, base_url, current_user
-
-    redirect_to new_url_path
+    # redirect_to new_url_path
   end
 
   private

@@ -2,6 +2,7 @@ class BulkUrlsImportService < ApplicationService
   require 'csv'
   require 'securerandom'
   require 'faker'
+
   def initialize(params)
     @file_path = params.fetch(:file_path)
     @base_url = params.fetch(:base_url)
@@ -40,21 +41,17 @@ class BulkUrlsImportService < ApplicationService
       urls_array << url_hash
     end
 
-    my_proc = lambda { |_rows_size, num_batches, current_batch_number, _batch_duration_in_secs|
+    my_proc = lambda { |_, num_batches, current_batch_number, _|
       # send an email, post to a websocket,
       # update slack, alert if import is taking too long, etc.
-      p num_batches
-      p current_batch_number
+      # the pipe takes _rows_size, num_batches, current_batch_number, _batch_duration_in_secs
+      progress = (current_batch_number * 100) / num_batches
+      ActionCable.server.broadcast(@current_user.id,
+                                   {
+                                     content: progress
+                                   })
     }
 
-    Url.import urls_array, batch_size: 2, batch_progress: my_proc
-
-    # cable_ready[UserChannel].text_content(
-    #   selector: '#processed-row-number-container',
-    #   text: counter
-    # ).broadcast_to(Current.user)
-
-    # cable_ready['current_user'].console_log(message: 'Welcome to the site!')
-    # cable_ready.broadcast
+    Url.import urls_array, batch_size: 1, batch_progress: my_proc
   end
 end

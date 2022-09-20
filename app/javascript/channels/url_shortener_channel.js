@@ -1,19 +1,14 @@
 import consumer from "./consumer";
-consumer.subscriptions.create(
-  { channel: "UrlShortenerChannel" },
-  {
-    connected() {
-      console.log(`wtf am connected`);
-      // Called when the subscription is ready for use on the server
-    },
+consumer.subscriptions.create("UrlShortenerChannel", {
+  received(data) {
+    const progressBar = document.getElementById("progress-bar");
+    const progressWidth = document.getElementById("progress-width");
+    const progressText = document.getElementById("progress-text");
+    const progressText1 = document.getElementById("progress-text-percentage");
 
-    disconnected() {
-      // Called when the subscription has been terminated by the server
-    },
-
-    received(data) {
-      // Called when there's incoming data on the websocket for this channel
-      console.log(`wtf`);
-    },
-  }
-);
+    progressBar.style.visibility = "visible";
+    progressWidth.style.width = `${data.content}%`;
+    progressText.innerText = `${data.content}%`;
+    progressText1.innerText = `${data.content}%`;
+  },
+});

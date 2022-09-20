@@ -1,8 +1,8 @@
 class UrlShortenerChannel < ApplicationCable::Channel
   def subscribed
-    # puts 'Mutuba the boss'
-    stream_for current_user
-    stream_from 'UrlShortenerChannel'
+    puts 'Subscribed to Room Channel', current_user.id
+    stream_from current_user.id
+    # stream_from 'UrlShortenerChannel'
   end
 
   def unsubscribed

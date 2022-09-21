@@ -1,6 +1,7 @@
 import consumer from "./consumer";
 consumer.subscriptions.create("UrlShortenerChannel", {
   received(data) {
+    console.log(data.content, "Mutuba big boss");
     const progressBar = document.getElementById("progress-bar");
     const progressWidth = document.getElementById("progress-width");
     const progressText = document.getElementById("progress-text");

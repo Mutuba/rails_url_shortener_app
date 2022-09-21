@@ -37,11 +37,11 @@ class BulkUrlsImportService < ApplicationService
       url_hash.short_url = row[1].nil? ? generate_short_url : "#{@base_url}/#{row[1]}"
       url_hash.created_at = Time.now
       url_hash.updated_at = Time.now
-      url_hash.user_id = User.first.id
+      url_hash.user_id = @current_user.id
       urls_array << url_hash
     end
 
-    my_proc = lambda { |_, num_batches, current_batch_number, _|
+    my_proc = lambda { |_rows_size, num_batches, current_batch_number, _|
       # send an email, post to a websocket,
       # update slack, alert if import is taking too long, etc.
       # the pipe takes _rows_size, num_batches, current_batch_number, _batch_duration_in_secs
@@ -52,6 +52,15 @@ class BulkUrlsImportService < ApplicationService
                                    })
     }
 
-    Url.import urls_array, batch_size: 1, batch_progress: my_proc
+    instance = Url.import urls_array, batch_size: 1, batch_progress: my_proc, returning: :long_url
+
+    failed_instances = instance.failed_instances
+
+    failed_instances.size > 0 && failed_instances.each_slice(2).each do |instance|
+      FailedUrl.create(long_url: instance.long_url, batch: instance.batch, user_id: @current_user.id)
+    end
+
+    success_percentage = (instance.num_inserts * 100) / (instance.num_inserts + failed_instances.size)
+    batch.update(success_rate: success_percentage)
   end
 end

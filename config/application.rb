@@ -10,6 +10,9 @@ module UrlShortnerApp
     config.autoload_paths += %W[
       #{config.root}/app/services
     ]
+    config.logger = Logger.new('log/application.log')
+    # set the minimum log level
+    config.log_level = :warn
 
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")

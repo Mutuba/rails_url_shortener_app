@@ -1,24 +1,19 @@
-
 <div class="container">
   <div id="<%= dom_id url %>">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
         <p>
           <strong>Long url:</strong>
           <%= url.long_url %>
         </p>
-    
         <p>
           <strong>Short url:</strong>
           <%= url.short_url %>
         </p>
-    
         <p>
           <strong>Click:</strong>
           <%= url.click %>
         </p>
-    
         <p>
           <%= link_to "Visit url", urls_show_path(:id => url.short_url) %>
         </p>
@@ -26,5 +21,4 @@
     </div>
     <br/>
   </div>
-
 </div>

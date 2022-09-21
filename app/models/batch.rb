@@ -2,11 +2,12 @@
 #
 # Table name: batches
 #
-#  id         :uuid             not null, primary key
-#  name       :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :uuid             not null
+#  id           :uuid             not null, primary key
+#  name         :string           not null
+#  success_rate :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  user_id      :uuid             not null
 #
 # Indexes
 #
@@ -19,4 +20,5 @@
 class Batch < ApplicationRecord
   belongs_to :user
   has_many :urls
+  has_many :failured_urls, class_name: 'FailedUrl'
 end

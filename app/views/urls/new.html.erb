@@ -1,19 +1,21 @@
-<div class="container">
-  <h1>Bulk Upload Urls</h1>
-  <%= form_for @url, url: urls_create_path do |f| %>
-    <div class="form-group">
-      <%= f.label :file, "Upload CSV File" %>
-      <%= f.file_field :file, accept: ".csv",  class: 'form-control-file', required: true %>
+<div class="container d-flex align-items-center justify-content-center">
+  <div>
+    <h1>Bulk Upload Urls</h1>
+    <%= form_for @url, url: urls_create_path do |f| %>
+      <div class="form-group">
+        <%= f.label :file, "Upload CSV File" %>
+        <%= f.file_field :file, accept: ".csv",  class: 'form-control-file', required: true %>
+      </div>
+      <br/>
+      <br/>
+      <div class="actions">
+        <%= f.button "Upload File", type: :submit, class: "btn btn-primary" %>
+      </div>
+      <br/>
+      <br/>
     </div>
-    <br/>
-    <br/>
-    <div class="actions">
-      <%= f.button "Upload File", type: :submit, class: "btn btn-primary" %>
-    </div>
-    <br/>
-    <br/>
-  </div>
-<% end %>
+  <% end %>
+</div>
 </div>
 </div>
 </div>

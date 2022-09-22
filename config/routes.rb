@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   get 'batches', to: 'batch_metrics#index'
   get 'batch_urls', to: 'batch_metrics#batch_urls'
 
-  root 'batch_metrics#index'
+  root 'home#index'
 end

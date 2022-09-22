@@ -1,6 +1,9 @@
 <div class="container">
   <h1>Urls Listing</h1>
-  <% batch.urls.each do |url| %>
+  <% @urls.each do |url| %>
     <%= render url %>
   <% end %>
+  <%= link_to_prev_page @urls, 'Previous Page' %>
+  <%= link_to_next_page @urls, 'Next Page' %>
+  <br/>
 </div>

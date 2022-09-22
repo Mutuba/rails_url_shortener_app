@@ -25,5 +25,5 @@ class Url < ApplicationRecord
   belongs_to :batch
   belongs_to :user
   validates :long_url, presence: true, length: { minimum: 30 }
-  # after_create_commit { broadcast_append_to 'UrlShortenerChannel', title: 'New things!', body: 'All the news fit to print'}
+  paginates_per 25
 end

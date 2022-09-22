@@ -19,6 +19,6 @@
 #
 class Batch < ApplicationRecord
   belongs_to :user
-  has_many :urls
-  has_many :failured_urls, class_name: 'FailedUrl'
+  has_many :urls, class_name: 'Url'
+  has_many :failed_urls, class_name: 'FailedUrl'
 end

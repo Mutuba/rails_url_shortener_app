@@ -46,6 +46,8 @@ gem 'bootsnap', require: false
 # Use Sass to process CSS
 # gem "sassc-rails"
 gem 'devise'
+gem 'kaminari'
+gem 'pry', '~> 0.13.1'
 
 gem 'hiredis'
 gem 'redis', '>= 4.0', require: ['redis', 'redis/connection/hiredis']

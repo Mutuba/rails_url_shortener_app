@@ -1,51 +1,61 @@
 <div class="container d-flex align-items-center justify-content-center">
   <div>
-    <h1>Batches Metrics</h1>
-    <div id="batches">
-      <% @batches.each do |batch| %>
-        <div id="<%= dom_id batch %>">
-          <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="<%= batch.id %>">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne<%= batch.id %>" aria-expanded="true" aria-controls="<%= batch.id %>">
-                  <p> <%= batch.id %></p>
-                </button>
-              </h2>
-              <div id="collapseOne<%= batch.id %>" class="accordion-collapse collapse" aria-labelledby="<%= batch.id %>" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="container">
-                    <div id="<%= dom_id batch %>">
-                      <div class="card">
-                        <div class="card-body">
-                          <p>
-                            <strong>Batch name:</strong>
-                            <%= batch.name %>
-                          </p>
-                          <p>
-                            <strong>Success Percentage:</strong>
-                            <%= batch.success_rate%>
-                          </p>
-                          <p>
-                            <strong>Failed Count:</strong>
-                            <%= batch.failed_urls.size %>
-                          </p>
-                          <p>
-                            <%= link_to "View Download Status", batch_download_status_path(:id => batch.id) %>
-                          </p>
-                          <p>
-                            <%= link_to "View Batch Urls", batch_urls_path(:id => batch.id) %>
-                          </p>
+    <%  if @batches.size == 0 %>
+      <br/>
+      <br/>
+      <div class="container d-flex align-items-center justify-content-center">
+        <div class="alert alert-primary" role="alert">
+          Sorry, not sure if this is what you expected, but you do not have any batch metrics yet!
+        </div>
+      </div>
+    <% else%>
+      <h1>Batches Metrics</h1>
+      <div id="batches">
+        <% @batches.each do |batch| %>
+          <div id="<%= dom_id batch %>">
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="<%= batch.id %>">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne<%= batch.id %>" aria-expanded="true" aria-controls="<%= batch.id %>">
+                    <p> <%= batch.id %></p>
+                  </button>
+                </h2>
+                <div id="collapseOne<%= batch.id %>" class="accordion-collapse collapse" aria-labelledby="<%= batch.id %>" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <div class="container">
+                      <div id="<%= dom_id batch %>">
+                        <div class="card">
+                          <div class="card-body">
+                            <p>
+                              <strong>Batch name:</strong>
+                              <%= batch.name %>
+                            </p>
+                            <p>
+                              <strong>Success Percentage:</strong>
+                              <%= batch.success_rate%>
+                            </p>
+                            <p>
+                              <strong>Failed Count:</strong>
+                              <%= batch.failed_urls.size %>
+                            </p>
+                            <p>
+                              <%= link_to "View Download Status", batch_download_status_path(:id => batch.id) %>
+                            </p>
+                            <p>
+                              <%= link_to "View Batch Urls", batch_urls_path(:id => batch.id) %>
+                            </p>
+                          </div>
                         </div>
+                        <br/>
                       </div>
-                      <br/>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
+    <%end%>
   </div>
 </div>

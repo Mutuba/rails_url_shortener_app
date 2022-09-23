@@ -1,11 +1,21 @@
 <div class="container d-flex align-items-center justify-content-center">
   <div>
-    <h1>Urls Listing</h1>
-    <% @urls.each do |url| %>
-      <%= render url %>
-    <% end %>
-    <%= link_to_prev_page @urls, 'Previous Page' %>
-    <%= link_to_next_page @urls, 'Next Page' %>
-    <br/>
+    <%  if @urls.size == 0 %>
+      <br/>
+      <br/>
+      <div class="container d-flex align-items-center justify-content-center">
+        <div class="alert alert-primary" role="alert">
+          Sorry, not sure if this is what you expected, but you do not have any urls yet!
+        </div>
+      </div>
+    <% else%>
+      <h1>Urls Listing</h1>
+      <% @urls.each do |url| %>
+        <%= render url %>
+      <% end %>
+      <%= link_to_prev_page @urls, 'Previous Page' %>
+      <%= link_to_next_page @urls, 'Next Page' %>
+      <br/>
+    <%end%>
   </div>
 </div>

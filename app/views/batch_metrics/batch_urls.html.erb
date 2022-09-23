@@ -1,6 +1,11 @@
 <div class="container d-flex align-items-center justify-content-center">
   <div>
-    <h1>Batch Urls Listing</h1>
+    <span>
+      <strong>Batch Name:</strong>
+      <%= batch.name%>
+    </span>
+    <br/>
+    <br/>
     <% urls.each do |url| %>
       <%= render url %>
     <% end %>

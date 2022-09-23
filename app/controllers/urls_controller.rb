@@ -28,6 +28,6 @@ class UrlsController < ApplicationController
   private
 
   def set_url
-    @url = Url.find(params[:id])
+    @url = Url.find_by(id: params[:id])
   end
 end

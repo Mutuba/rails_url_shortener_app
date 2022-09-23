@@ -13,3 +13,18 @@
  *= require_tree .
  *= require_self
  */
+
+
+ body{
+    height: 100vh;
+} 
+.container{
+    height: 100%;
+    margin-top: 6px;
+    padding-top: 6px;
+}
+
+.upload-form{
+    margin-top: 12px;
+    padding-top: 12px;
+}

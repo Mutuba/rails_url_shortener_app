@@ -7,7 +7,7 @@ class UrlsController < ApplicationController
     @urls = current_user.urls.page(params[:page])
   end
 
-  def show
+  def show    
     render 'errors/404', status: 404 if @url.nil?
     @url.update_attribute(:click, @url.click + 1)
     redirect_to @url.long_url, allow_other_host: true

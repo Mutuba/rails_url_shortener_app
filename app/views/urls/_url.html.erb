@@ -8,14 +8,11 @@
         </p>
         <p>
           <strong>Short url:</strong>
-          <%= url.short_url %>
+          <%= link_to url.short_url, urls_show_path(:id => url.id) %>
         </p>
         <p>
-          <strong>Click:</strong>
+          <strong>Number of visits:</strong>
           <%= url.click %>
-        </p>
-        <p>
-          <%= link_to "Visit url", urls_show_path(:id => url.short_url) %>
         </p>
       </div>
     </div>

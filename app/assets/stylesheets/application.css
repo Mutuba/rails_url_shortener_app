@@ -28,3 +28,19 @@
     margin-top: 12px;
     padding-top: 12px;
 }
+
+.actions.account-update{
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.btn.btn-primary.cancel-account-button{
+    margin-bottom: 12px;
+
+}
+.have-an-account{
+    margin-top: 12px;
+}
+.actions.login-button{
+    padding-top: 12px;
+}

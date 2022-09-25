@@ -48,7 +48,7 @@
                               <%= batch.failed_urls.size %>
                             </p>
                             <p>
-                              <%= link_to "View Batch Urls", batch_urls_path(:id => batch.id) %>
+                              <%= button_to "View Batch Urls", batch_urls_path(:id => batch.id), class: "btn btn-primary" %>
                             </p>
                           <%end%>
                         </div>

@@ -16,10 +16,13 @@
           <%= f.label :remember_me %>
         </div>
       <% end %>
-      <div class="actions">
+      <div class="actions login-button">
         <%= f.submit "Log in" , class: "btn btn-primary"%>
       </div>
     <% end %>
+    <div class="have-an-account">
+      <p> Don't have an account? </p>
+    </div>
     <%= render "devise/shared/links" %>
   </div>
 </div>

@@ -7,8 +7,6 @@ class BatchMetricsController < ApplicationController
       return render template: 'batch_metrics/batch_not_found'  
     end
 
-    return redirect_to root_path, notice: 'Oops, you no authorized to view the resource' if @batch.user != current_user
-
     @urls = @batch.urls.page(params[:page])
     render template: 'batch_metrics/batch_urls', locals: { urls: @urls , batch: @batch}
   end
@@ -23,7 +21,6 @@ class BatchMetricsController < ApplicationController
     if @batch.nil?
       return render template: 'batch_metrics/batch_not_found'  
     end
-    # redirect_to root_path, notice: 'Oops, you no authorized to view the resource' if @batch.user != current_user
     render template: 'batch_metrics/upload_status', locals: { batch: @batch }
   end
 

@@ -1,2 +1,2 @@
-# release: bash ./release.sh
-# web: puma -C config/puma.rb
+release: bash ./release.sh
+web: puma -C config/puma.rb

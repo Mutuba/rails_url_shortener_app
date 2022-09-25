@@ -3,12 +3,10 @@ class BatchMetricsController < ApplicationController
   before_action :authenticate_user!
 
   def batch_urls
-    if @batch.nil?
-      return render template: 'batch_metrics/batch_not_found'  
-    end
+    return render template: 'batch_metrics/batch_not_found' if @batch.nil?
 
     @urls = @batch.urls.page(params[:page])
-    render template: 'batch_metrics/batch_urls', locals: { urls: @urls , batch: @batch}
+    render template: 'batch_metrics/batch_urls', locals: { urls: @urls, batch: @batch }
   end
 
   def batch_stats
@@ -18,9 +16,8 @@ class BatchMetricsController < ApplicationController
   end
 
   def upload_status
-    if @batch.nil?
-      return render template: 'batch_metrics/batch_not_found'  
-    end
+    return render template: 'batch_metrics/batch_not_found' if @batch.nil?
+
     render template: 'batch_metrics/upload_status', locals: { batch: @batch }
   end
 

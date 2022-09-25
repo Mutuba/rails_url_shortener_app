@@ -1,5 +1,5 @@
 class UrlsBulkImportJob < ApplicationJob
-  queue_as :default
+  self.queue_adapter = :sidekiq
 
   # Bulk upload urls
   def perform(file_path, base_url, current_user)

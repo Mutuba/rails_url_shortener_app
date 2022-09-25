@@ -22,7 +22,7 @@ class UrlsController < ApplicationController
     file_path = "#{Rails.root}/tmp/bulk-import #{SecureRandom.hex}.csv"
     File.write(file_path, params[:url][:file].read)
     UrlsBulkImportJob.perform_later file_path, base_url, current_user
-    redirect_to new_url_path, notice: 'New URL was successfully created.'
+    redirect_to new_url_path, notice: 'Upload process ongoing. You will get a confirmation email when upload is complete.'
   end
 
   private

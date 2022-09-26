@@ -1,10 +1,8 @@
 <div class="container d-flex align-items-center justify-content-center">
   <div>
-    <span>
-      <strong>Batch Name:</strong>
+    <div class="lead">
       <%= batch.name%>
-    </span>
-    <br/>
+    </div>
     <br/>
     <% urls.each do |url| %>
       <%= render url %>

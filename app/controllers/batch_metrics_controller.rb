@@ -11,7 +11,7 @@ class BatchMetricsController < ApplicationController
 
   def batch_stats
     @batches = current_user.batches.page(params[:page])
-    @batches.order(created_at: :asc)
+    @batches.order(created_at: :desc)
     render template: 'batch_metrics/batch_metrics'
   end
 

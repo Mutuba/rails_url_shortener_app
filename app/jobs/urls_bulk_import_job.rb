@@ -1,4 +1,5 @@
 class UrlsBulkImportJob < ApplicationJob
+  include Sidekiq::Status::Worker
   self.queue_adapter = :sidekiq
 
   # Bulk upload urls

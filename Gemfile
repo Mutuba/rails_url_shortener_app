@@ -51,8 +51,8 @@ gem 'devise'
 gem 'kaminari'
 gem 'pry', '~> 0.13.1'
 
-gem 'hiredis'
-gem 'redis', '>= 4.0', require: ['redis', 'redis/connection/hiredis']
+# gem 'hiredis'
+gem 'redis', '>= 4.0'
 gem 'twitter-bootstrap-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]

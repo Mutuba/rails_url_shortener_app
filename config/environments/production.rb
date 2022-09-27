@@ -25,7 +25,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
   config.secret_key_base = ENV['SECRET_KEY_BASE']
 
-  # config.action_cable.mount_path = ‘/cable’
+  config.action_cable.mount_path = ‘/cable’
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
 

@@ -27,6 +27,7 @@ class BulkUrlsImportService < ApplicationService
 
   def process_csv!
     batch = Batch.create!(name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}", user: @current_user)
+    puts "Processing batch #{batch.name}"
     batch_no = SecureRandom.hex
     urls_array = []
     CSV.foreach(@file_path, headers: true) do |row|
@@ -40,6 +41,7 @@ class BulkUrlsImportService < ApplicationService
       url_hash.user_id = @current_user.id
       urls_array << url_hash
     end
+    puts "Processing for user #{batch.user.id}"
 
     my_proc = lambda { |_rows_size, num_batches, current_batch_number, _|
       # send an email, post to a websocket,
@@ -52,8 +54,9 @@ class BulkUrlsImportService < ApplicationService
                                    })
     }
 
+    
     instance = Url.import urls_array, batch_size: 1, batch_progress: my_proc, returning: :long_url
-
+    puts "Processing num_inserts #{instance.num_inserts}"
     failed_instances = instance.failed_instances
 
     failed_instances.size > 0 && failed_instances.each_slice(2).each do |array_instance|
@@ -61,6 +64,7 @@ class BulkUrlsImportService < ApplicationService
         FailedUrl.create(long_url: instance.long_url, batch: instance.batch, user_id: @current_user.id)
       end
     end
+    puts "Failed urls #{FailedUrl.where(batch_id: batch.id).size}"
 
     success_percentage = (instance.num_inserts * 100) / (instance.num_inserts + failed_instances.size)
     batch.update(success_rate: success_percentage)

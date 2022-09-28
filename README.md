@@ -2,6 +2,8 @@
 
 * Ruby Urls shortner app that accepts a csv file and uploads creating a batch containing all the url.
 
+* The application uses action cable to broadcast upload progress to the UI
+
 * This application uses Ruby version 3.0.2 To install, use rvm or rbenv.
 
 * RVM

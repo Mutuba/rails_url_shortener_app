@@ -16,7 +16,8 @@
 
 `rbenv install 3.0.2`
 
-* Bundler provides a consistent environment for Ruby projects by tracking and installing the exact gems and versions that are needed. I recommend bundler version 2.0.2. To install:
+* Bundler provides a consistent environment for Ruby projects by tracking and installing 
+the exact gems and versions that are needed. I recommend bundler version 2.0.2. To install:
 
 
 * You need Rails. The rails version being used is rails version 7

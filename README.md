@@ -26,7 +26,7 @@
 `gem install rails -v '~> 7'` 
 
 
-* Installation To get up and running with the project locally, follow the following steps.
+*To get up and running with the project locally, follow the following steps.
 
 * Clone the app
 
@@ -53,6 +53,7 @@
 
 `rails s` or `rails server`
 
-* The application uses redis and sidekiq for background job processing and can be run by running the below command:-
+* The application uses redis and sidekiq for background job processing 
+* Run this commands in separate terminals to start redis and sidekiq
 
 `redis-server` to start redis server and bu`bundle exec sidekiq` to start sidekiq server

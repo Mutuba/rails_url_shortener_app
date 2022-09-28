@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/faker-ruby/faker.git
-  revision: 7507876893aaeb4917ca47e7ef58273bdaa6288d
+  revision: a7746b9576f9f035202defbf74ed437f86269121
   branch: master
   specs:
     faker (2.23.0)
@@ -113,7 +113,6 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    digest (3.1.0)
     erubi (1.11.0)
     execjs (2.8.1)
     globalid (1.0.0)
@@ -147,7 +146,7 @@ GEM
       actionpack (>= 4)
       less (~> 2.6.0)
       sprockets (>= 2)
-    loofah (2.18.0)
+    loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -158,24 +157,16 @@ GEM
     mini_mime (1.1.2)
     minitest (5.16.3)
     msgpack (1.5.6)
-    net-imap (0.2.3)
-      digest
+    net-imap (0.3.0)
       net-protocol
-      strscan
-    net-pop (0.1.1)
-      digest
+    net-pop (0.1.2)
       net-protocol
-      timeout
     net-protocol (0.1.3)
       timeout
-    net-smtp (0.3.1)
-      digest
+    net-smtp (0.3.2)
       net-protocol
-      timeout
     nio4r (2.5.8)
     nokogiri (1.13.8-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
     numerizer (0.1.1)
     orm_adapter (0.5.0)
@@ -222,8 +213,11 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
-    redis (4.8.0)
-    regexp_parser (2.5.0)
+    redis (5.0.5)
+      redis-client (>= 0.9.0)
+    redis-client (0.9.0)
+      connection_pool
+    regexp_parser (2.6.0)
     reline (0.3.1)
       io-console (~> 0.5)
     responders (3.0.1)
@@ -236,12 +230,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    serviceworker-rails (0.6.0)
-      railties (>= 3.1)
-    sidekiq (6.5.7)
-      connection_pool (>= 2.2.5)
+    sidekiq (6.5.5)
+      connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      redis (>= 4.5.0, < 5)
+      redis (>= 4.5.0)
     sidekiq-status (2.1.3)
       chronic_duration
       sidekiq (>= 5.0)
@@ -254,10 +246,9 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
-    strscan (3.0.4)
     thor (1.2.1)
     timeout (0.3.0)
-    turbo-rails (1.1.1)
+    turbo-rails (1.3.0)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
@@ -275,7 +266,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (5.0.0)
+    webdrivers (5.1.0)
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (~> 4.0)
@@ -288,9 +279,7 @@ GEM
     zeitwerk (2.6.0)
 
 PLATFORMS
-  arm64-darwin-20
   arm64-darwin-21
-  x86_64-linux
 
 DEPENDENCIES
   activerecord-import
@@ -311,7 +300,6 @@ DEPENDENCIES
   rails_12factor
   redis (>= 4.0)
   selenium-webdriver
-  serviceworker-rails
   sidekiq
   sidekiq-status
   sprockets-rails

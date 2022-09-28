@@ -1,6 +1,6 @@
 class UrlsBulkImportJob < ApplicationJob
   include Sidekiq::Status::Worker
-  # self.queue_adapter = :sidekiq
+  # self.queue_adapter = :sidekiq # Todo: should fid out why sidekiq is not working on heroku
 
   # Bulk upload urls
   def perform(file_path, base_url, current_user)

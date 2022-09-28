@@ -1,7 +1,16 @@
 <div id="batch-id" data-batch-id="<%= batch.try(:id) %>"></div>
 <div class="container d-flex align-items-center justify-content-center">
-  <div>
-    <br/>
-    <%= render "urls/import_notification" %>
-  </div>
+  <% if batch.success_rate %>
+    <div class="alert alert-success" role="alert">
+      You don't have any uploads in progress at the moment
+    </div>
+  <% else%>
+    <div>
+      <div class="alert alert-primary" role="alert">
+        Uploading!
+      </div>
+      <br/>
+      <%= render "urls/import_notification" %>
+    </div>
+  <%end%>
 </div>

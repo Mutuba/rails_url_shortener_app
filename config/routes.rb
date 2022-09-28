@@ -2,12 +2,6 @@ require 'sidekiq/web'
 require 'sidekiq-status/web'
 
 Rails.application.routes.draw do
-
-  Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
-    Rack::Utils.secure_compare(::Digest::SHA256.hexdigest(user), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_USER"])) &
-    Rack::Utils.secure_compare(::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_PASSWORD"]))
-  end
-
   devise_for :users
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'

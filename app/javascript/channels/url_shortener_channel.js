@@ -6,7 +6,6 @@ consumer.subscriptions.create(
   { channel: "UrlShortenerChannel", batch_id: batch_id },
   {
     received(data) {
-      console.log("progressText", data === 100);
       const progressBar = document.getElementById("progress-bar");
       const progressWidth = document.getElementById("progress-width");
       const progressText = document.getElementById("progress-text");

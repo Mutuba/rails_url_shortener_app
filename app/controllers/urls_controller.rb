@@ -7,7 +7,7 @@ class UrlsController < ApplicationController
     @urls = current_user.urls.order(updated_at: :desc).page(params[:page])
   end
 
-  def show    
+  def show
     render 'errors/404', status: 404 if @url.nil?
     @url.update_attribute(:click, @url.click + 1)
     redirect_to @url.long_url, allow_other_host: true
@@ -22,7 +22,8 @@ class UrlsController < ApplicationController
     file_path = "#{Rails.root}/tmp/bulk-import #{SecureRandom.hex}.csv"
     File.write(file_path, params[:url][:file].read)
     UrlsBulkImportJob.perform_later file_path, base_url, current_user
-    redirect_to new_url_path, alert: 'Upload process ongoing. You will get a confirmation email when upload is complete.'
+    redirect_to new_url_path,
+                alert: 'Upload process ongoing. You will get a confirmation email when upload is complete.'
   end
 
   private

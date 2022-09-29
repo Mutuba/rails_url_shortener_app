@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'current_upload_status', to: 'batch_metrics#current_upload_status'
   get 'batch_urls', to: 'batch_metrics#batch_urls'
   post 'batch_urls', to: 'batch_metrics#batch_urls'
-  get "csv_import_sample/download", to: "download_csv#download_sample_csv"
+  get 'csv_import_sample/download', to: 'download_csv#download_sample_csv'
 
   root 'urls#index'
 end

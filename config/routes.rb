@@ -18,5 +18,5 @@ Rails.application.routes.draw do
   post 'batch_urls', to: 'batch_metrics#batch_urls'
   get 'csv_import_sample/download', to: 'download_csv#download_sample_csv'
 
-  root 'urls#index'
+  root 'home#index'
 end

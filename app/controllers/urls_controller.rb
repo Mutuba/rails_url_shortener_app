@@ -4,7 +4,7 @@ class UrlsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @urls = current_user.urls.page(params[:page])
+    @urls = current_user.urls.order(updated_at: :desc).page(params[:page])
   end
 
   def show    

@@ -5,7 +5,7 @@ class BatchMetricsController < ApplicationController
   def batch_urls
     return render template: 'batch_metrics/batch_not_found' if @batch.nil?
 
-    @urls = @batch.urls.page(params[:page])
+    @urls = @batch.urls.order(updated_at: :desc).page(params[:page])
     render template: 'batch_metrics/batch_urls', locals: { urls: @urls, batch: @batch }
   end
 

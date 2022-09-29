@@ -19,6 +19,7 @@
 #
 class Batch < ApplicationRecord
   belongs_to :user
+  validates_presence_of :user_id
   has_many :urls, class_name: 'Url'
   has_many :failed_urls, class_name: 'FailedUrl'
 end

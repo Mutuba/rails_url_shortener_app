@@ -23,4 +23,5 @@ class User < ApplicationRecord
   has_many :batches
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  validates_confirmation_of :password
 end

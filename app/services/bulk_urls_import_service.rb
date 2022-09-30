@@ -1,9 +1,11 @@
+# handles the bulk upload process
 class BulkUrlsImportService < ApplicationService
   require 'csv'
   require 'securerandom'
   require 'faker'
 
   def initialize(params)
+    super
     @file_path = params.fetch(:file_path)
     @base_url = params.fetch(:base_url)
     @current_user = params.fetch(:current_user)
@@ -27,7 +29,6 @@ class BulkUrlsImportService < ApplicationService
 
   def process_csv!
     batch = Batch.create!(name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}", user: @current_user)
-    batch_no = SecureRandom.hex
     urls_array = []
     CSV.foreach(@file_path, headers: true) do |row|
       url_hash = Url.new
@@ -41,7 +42,7 @@ class BulkUrlsImportService < ApplicationService
       urls_array << url_hash
     end
 
-    my_proc = lambda { |_rows_size, num_batches, current_batch_number, _|
+    my_proc = lambda { |_, num_batches, current_batch_number, _|
       # send an email, post to a websocket,
       # update slack, alert if import is taking too long, etc.
       # the pipe takes _rows_size, num_batches, current_batch_number, _batch_duration_in_secs
@@ -56,8 +57,8 @@ class BulkUrlsImportService < ApplicationService
     failed_instances = instance.failed_instances
 
     failed_instances.size > 0 && failed_instances.each_slice(2).each do |array_instance|
-      array_instance.each do |instance|
-        FailedUrl.create(long_url: instance.long_url, batch: instance.batch, user_id: @current_user.id)
+      array_instance.each do |element|
+        FailedUrl.create(long_url: element.long_url, batch: element.batch, user_id: @current_user.id)
       end
     end
 

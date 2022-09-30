@@ -9,7 +9,6 @@ require 'database_cleaner'
 require 'devise'
 require_relative 'support/chrome'
 require_relative 'support/factory_bot'
-# Add additional requires below this line. Rails is not loaded until this point!
 Capybara.register_driver :selenium do |app|
   profile = Selenium::WebDriver::Firefox::Profile.new
   Capybara::Selenium::Driver.new(app, profile: profile)

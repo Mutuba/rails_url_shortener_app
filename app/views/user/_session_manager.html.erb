@@ -1,10 +1,10 @@
 <div class="container">
   <% if current_user %>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <a class="nav-link dropdown-toggle" href="#" id="navbar-drop-down" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <%= current_user.email %>
       </a>
-      <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
+      <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbar-drop-down">
         <li><%= link_to "Edit Account", edit_user_registration_path, class:"dropdown-item" %></li>
         <li><hr class="dropdown-divider"></li>
         <li><%= button_to "Sign out", destroy_user_session_path, method: :delete, class:"dropdown-item" %></li>

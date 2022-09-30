@@ -1,9 +1,11 @@
 class UrlsController < ApplicationController
   require 'securerandom'
   before_action :set_url, only: %i[show]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[index]
 
   def index
+    return redirect_to get_started_path unless user_signed_in?
+
     @urls = current_user.urls.order(updated_at: :desc).page(params[:page])
   end
 

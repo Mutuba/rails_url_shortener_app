@@ -17,7 +17,7 @@ RSpec.describe User, type: :model do
           user = User.create(email: 'testuser@gmail.com', password: 'asdf',
                              password_confirmation: 'asdf')
           expect(user).to be_invalid
-          expect(user.errors.messages[:password]).to include("is too short (minimum is 6 characters)")
+          expect(user.errors.messages[:password]).to include('is too short (minimum is 6 characters)')
           expect(user.errors.messages[:password][0]).to eq 'is too short (minimum is 6 characters)'
         end
       end

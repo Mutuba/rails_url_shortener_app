@@ -14,7 +14,6 @@ class UrlsController < ApplicationController
 
   def show
     render 'errors/404', status: :not_found if @url.nil?
-    # runs validations compared to update_attribute
     @url.update(:click, @url.click + 1)
     redirect_to @url.long_url, allow_other_host: true
   end

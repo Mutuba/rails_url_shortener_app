@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# BatchMetricsController controller
 class BatchMetricsController < ApplicationController
   before_action :set_url, only: %i[upload_status batch_urls]
   before_action :authenticate_user!

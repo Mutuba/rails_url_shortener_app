@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -69,6 +71,8 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'annotate'
   gem 'byebug'
+  gem 'rubocop', '~> 0.77'
+  gem 'rubocop-rails', '~> 2.3'
   gem 'web-console'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]

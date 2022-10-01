@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'User signs up', type: :system do
@@ -17,24 +19,15 @@ describe 'User signs up', type: :system do
     expect(page).to have_content('Welcome! You have signed up successfully.')
   end
 
-  #   scenario "invalid when email already exists" do
-  #     user = create :user
+  scenario 'invalid when email already exists' do
+    user = create :user
 
-  #     fill_in "user_email", with: user.email
-  #     fill_in "user_password", with: password
-  #     check "terms_agreement"
-  #     click_button "Get Started"
+    fill_in 'user_email', with: user.email
+    fill_in 'user_password', with: password
+    fill_in 'user_password_confirmation', with: password
+    click_button 'Get Started'
 
-  #     expect(page).to have_no_text "Welcome back"
-  #     expect(page).to have_text "Email has already been taken"
-  #   end
-
-  #   scenario "invalid without clicking agree terms" do
-  #     fill_in "user_email", with: email
-  #     fill_in "user_password", with: password
-  #     click_button "Get Started"
-
-  #     expect(page).to have_no_text "Welcome back"
-  #     expect(page).to have_text "Terms of service must be accepted"
-  #   end
+    expect(page).to have_no_text 'Welcome! You have signed up successfully.'
+    expect(page).to have_text 'Email has already been taken'
+  end
 end

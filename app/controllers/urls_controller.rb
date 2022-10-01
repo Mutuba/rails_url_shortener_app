@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# UrlsController controller
 class UrlsController < ApplicationController
   require 'securerandom'
   before_action :set_url, only: %i[show]
@@ -10,8 +13,9 @@ class UrlsController < ApplicationController
   end
 
   def show
-    render 'errors/404', status: 404 if @url.nil?
-    @url.update_attribute(:click, @url.click + 1)
+    render 'errors/404', status: :not_found if @url.nil?
+    # runs validations compared to update_attribute
+    @url.update(:click, @url.click + 1)
     redirect_to @url.long_url, allow_other_host: true
   end
 
@@ -21,11 +25,11 @@ class UrlsController < ApplicationController
 
   def create
     base_url = request.base_url
-    file_path = "#{Rails.root}/tmp/bulk-import #{SecureRandom.hex}.csv"
+    file_path = Rails.root.join("/tmp/bulk-import #{SecureRandom.hex}.csv")
     File.write(file_path, params[:url][:file].read)
     UrlsBulkImportJob.perform_later file_path, base_url, current_user
     redirect_to new_url_path,
-                alert: 'Upload process ongoing. You will get a confirmation email when upload is complete.'
+                alert: 'Upload in progress. Please sit tight'
   end
 
   private

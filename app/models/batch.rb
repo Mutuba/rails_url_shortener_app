@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: batches
@@ -19,7 +21,7 @@
 #
 class Batch < ApplicationRecord
   belongs_to :user
-  validates_presence_of :user_id
-  has_many :urls, class_name: 'Url'
-  has_many :failed_urls, class_name: 'FailedUrl'
+  validates :user_id, presence: true
+  has_many :urls, class_name: 'Url', dependent: :destroy
+  has_many :failed_urls, class_name: 'FailedUrl', dependent: :destroy
 end

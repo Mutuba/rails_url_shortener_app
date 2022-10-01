@@ -3,7 +3,7 @@
     <%= form_for @url, url: urls_create_path do |f| %>
       <div class="form-group ">
         <%= f.label :file, "Upload CSV File" %>
-        <%= f.file_field :file, accept: ".csv",  class: 'form-control-file', required: true %>
+        <%= f.file_field :file, accept: ".csv",  class: 'form-control-file'%>
       </div>
       <br/>
       <br/>

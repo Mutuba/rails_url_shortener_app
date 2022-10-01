@@ -24,6 +24,11 @@ class UrlsController < ApplicationController
   end
 
   def create
+    if file_missing?
+      flash[:notice] = 'Oops! File missing'
+      return redirect_to new_url_path
+    end
+
     base_url = request.base_url
     file_path = Rails.root.join("/tmp/bulk-import #{SecureRandom.hex}.csv")
     File.write(file_path, params[:url][:file].read)
@@ -33,6 +38,10 @@ class UrlsController < ApplicationController
   end
 
   private
+
+  def file_missing?
+    params[:url].blank?
+  end
 
   def set_url
     @url = Url.find_by(id: params[:id])

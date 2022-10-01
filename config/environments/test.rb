@@ -37,6 +37,8 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
+  # ensure thatjobs executes immediately
+  config.active_job.queue_adapter = :inline
 
   config.action_mailer.perform_caching = false
 

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 require 'webdrivers'
 ENV['RAILS_ENV'] ||= 'test'
@@ -11,8 +10,10 @@ require 'database_cleaner'
 require 'devise'
 require_relative 'support/chrome'
 require_relative 'support/factory_bot'
+require_relative 'support/controller_login_macro'
+
 Capybara.register_driver :selenium do |app|
-  profile = Selenium::WebDriver::Firefox::Profile.new
+  profile = Selenium::WebDriver::Chrome::Profile.new
   Capybara::Selenium::Driver.new(app, profile: profile)
 end
 Capybara.default_max_wait_time = 10
@@ -33,13 +34,10 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
   config.use_transactional_fixtures = true
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Warden::Test::Helpers
-  config.use_transactional_fixtures = true
+  config.extend ControllerLoginMacro, type: :controller
 
   config.infer_spec_type_from_file_location!
 

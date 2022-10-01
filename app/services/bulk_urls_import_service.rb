@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # handles the bulk upload process
 class BulkUrlsImportService < ApplicationService
   require 'csv'
@@ -56,7 +58,7 @@ class BulkUrlsImportService < ApplicationService
     instance = Url.import urls_array, batch_size: 1, batch_progress: my_proc, returning: :long_url
     failed_instances = instance.failed_instances
 
-    failed_instances.size > 0 && failed_instances.each_slice(2).each do |array_instance|
+    failed_instances.size.positive? && failed_instances.each_slice(2).each do |array_instance|
       array_instance.each do |element|
         FailedUrl.create(long_url: element.long_url, batch: element.batch, user_id: @current_user.id)
       end

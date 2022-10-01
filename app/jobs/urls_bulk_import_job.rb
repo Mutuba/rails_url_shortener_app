@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UrlsBulkImportJob < ApplicationJob
   include Sidekiq::Status::Worker
   # self.queue_adapter = :sidekiq # Todo: should fid out why sidekiq is not working on heroku

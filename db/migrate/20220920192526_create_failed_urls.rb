@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateFailedUrls < ActiveRecord::Migration[7.0]
   def change
     create_table :failed_urls, id: :uuid do |t|

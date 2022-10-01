@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationRecord < ActiveRecord::Base
   primary_abstract_class
   # Sort records by date of creation instead of primary key

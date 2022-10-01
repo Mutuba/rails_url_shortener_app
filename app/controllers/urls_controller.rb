@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# UrlsController controller
 class UrlsController < ApplicationController
   require 'securerandom'
   before_action :set_url, only: %i[show]

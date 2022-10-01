@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# DownloadCsvController controller
 class DownloadCsvController < ApplicationController
   require 'csv'
   before_action :authenticate_user!

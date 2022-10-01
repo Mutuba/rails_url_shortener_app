@@ -30,7 +30,10 @@ class BulkUrlsImportService < ApplicationService
   end
 
   def process_csv!
-    batch = Batch.create!(name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}", user: @current_user)
+    batch = Batch.create!(
+      name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}",
+      user: @current_user,
+    )
     urls_array = []
     CSV.foreach(@file_path, headers: true) do |row|
       url_hash = Url.new
@@ -38,8 +41,8 @@ class BulkUrlsImportService < ApplicationService
       url_hash.batch = batch
       url_hash.long_url = sanitize_url(row[0])
       url_hash.short_url = row[1].nil? ? generate_short_url : "#{@base_url}/#{row[1]}"
-      url_hash.created_at = Time.now
-      url_hash.updated_at = Time.now
+      url_hash.created_at = Time.zone.now
+      url_hash.updated_at = Time.zone.now
       url_hash.user_id = @current_user.id
       urls_array << url_hash
     end
@@ -51,20 +54,23 @@ class BulkUrlsImportService < ApplicationService
       progress = (current_batch_number * 100) / num_batches
       ActionCable.server.broadcast("#{@current_user.id}#{batch.id}",
                                    {
-                                     content: progress
+                                     content: progress,
                                    })
     }
 
-    instance = Url.import urls_array, batch_size: 1, batch_progress: my_proc, returning: :long_url
+    instance = Url.import urls_array, batch_size: 1, batch_progress: my_proc,
+                                      returning: :long_url
     failed_instances = instance.failed_instances
 
     failed_instances.size.positive? && failed_instances.each_slice(2).each do |array_instance|
       array_instance.each do |element|
-        FailedUrl.create(long_url: element.long_url, batch: element.batch, user_id: @current_user.id)
+        FailedUrl.create(long_url: element.long_url, batch: element.batch,
+                         user_id: @current_user.id)
       end
     end
 
-    success_percentage = (instance.num_inserts * 100) / (instance.num_inserts + failed_instances.size)
+    total_request_load = instance.num_inserts + failed_instances.size
+    success_percentage = (instance.num_inserts * 100) / total_request_load
     batch.update(success_rate: success_percentage)
   end
 end

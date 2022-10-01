@@ -27,5 +27,5 @@ class Url < ApplicationRecord
   belongs_to :batch
   belongs_to :user
   validates :long_url, presence: true, length: { minimum: 30 }
-  validates_presence_of :user_id, :batch_id, :short_url
+  validates :user_id, :batch_id, :short_url, presence: true
 end

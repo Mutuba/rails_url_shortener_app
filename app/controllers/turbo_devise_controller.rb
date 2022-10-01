@@ -2,6 +2,7 @@
 
 # TurboDeviseController controller
 class TurboDeviseController < ApplicationController
+  # Responder class
   class Responder < ActionController::Responder
     def to_turbo_stream
       controller.render(options.merge(formats: :html))

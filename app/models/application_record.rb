@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# All active records inherit from this class.
 class ApplicationRecord < ActiveRecord::Base
   primary_abstract_class
   # Sort records by date of creation instead of primary key

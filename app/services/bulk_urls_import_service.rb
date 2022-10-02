@@ -7,7 +7,7 @@ class BulkUrlsImportService < ApplicationService
   require 'faker'
 
   def initialize(params)
-    super
+    super()
     @file_path = params.fetch(:file_path)
     @base_url = params.fetch(:base_url)
     @current_user = params.fetch(:current_user)

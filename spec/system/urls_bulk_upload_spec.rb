@@ -21,7 +21,7 @@ describe 'User uploads urls using csv file', type: :system do
   before do
     @user = create :user
     visit new_user_session_path
-    allow(UrlsBulkImportJob).to receive(:perform_later).and_return(nil)
+    # allow(UrlsBulkImportJob).to receive(:perform_later)
   end
 
   scenario 'POST #create' do

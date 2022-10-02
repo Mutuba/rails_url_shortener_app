@@ -4,24 +4,9 @@ require 'rails_helper'
 require 'csv'
 
 describe 'User uploads urls using csv file', type: :system do
-  let(:header) { 'long_url, cuctom name' }
-  let(:row2) { "#{Faker::Internet.url}, #{Faker::Internet.url}" }
-  let(:row3) { "#{Faker::Internet.url}, #{Faker::Internet.url}" }
-  let(:rows) { [header, row2, row3] }
-
-  let(:file_path) { 'tmp/test.csv' }
-  let!(:csv) do
-    CSV.open(file_path, 'w') do |csv|
-      rows.each do |row|
-        csv << row.split(',')
-      end
-    end
-  end
-
   before do
     @user = create :user
     visit new_user_session_path
-    # allow(UrlsBulkImportJob).to receive(:perform_later)
   end
 
   scenario 'POST #create' do

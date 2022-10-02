@@ -12,12 +12,8 @@ module ApplicationCable
 
     private
 
-    def current_user
-      env['warden'].user
-    end
-
     def find_verified_user
-      current_user || reject_unauthorized_connection
+      env['warden'].user || reject_unauthorized_connection
     end
   end
 end

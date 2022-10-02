@@ -3,6 +3,7 @@
 # UrlShortenerChannel controller
 class UrlShortenerChannel < ApplicationCable::Channel
   def subscribed
+    reject if params[:batch_id].blank?
     stream_from "#{current_user.id}#{params[:batch_id]}"
     Rails.logger.info "streaming for user id ##{current_user.id}in UrlShortenerChannel"
   end

@@ -38,6 +38,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Warden::Test::Helpers
   config.extend ControllerLoginMacro, type: :controller
+  config.include ActionCable::TestHelper
 
   config.infer_spec_type_from_file_location!
 

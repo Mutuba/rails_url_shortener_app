@@ -91,6 +91,7 @@ group :test do
   # gem 'selenium-webdriver'
   gem 'shoulda-matchers', '4.0.0.rc1'
   gem 'webdrivers', '~> 5.0', require: false
+  gem 'action-cable-testing'
 end
 
 group :production do

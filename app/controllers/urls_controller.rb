@@ -29,7 +29,7 @@ class UrlsController < ApplicationController
     end
 
     base_url = request.base_url
-    file_path = Rails.root.join("/tmp/bulk-import #{SecureRandom.hex}.csv")
+    file_path = Rails.root.join("/tmp/bulk-import #{SecureRandom.uuid}.csv")
     File.write(file_path, params[:url][:file].read)
     UrlsBulkImportJob.perform_later file_path.to_path, base_url, current_user
     redirect_to new_url_path, alert: 'Upload in progress. Please sit tight'

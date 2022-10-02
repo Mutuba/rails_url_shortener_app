@@ -39,6 +39,8 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.extend ControllerLoginMacro, type: :controller
   config.include ActionCable::TestHelper
+  config.include ActiveJob::TestHelper
+  ActiveJob::Base.queue_adapter = :test
 
   config.infer_spec_type_from_file_location!
 

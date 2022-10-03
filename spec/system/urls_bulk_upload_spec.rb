@@ -4,7 +4,9 @@ require 'rails_helper'
 require 'csv'
 
 describe 'User uploads urls using csv file', type: :system do
+  include ActiveJob::TestHelper
   before do
+    allow(SecureRandom).to receive(:uuid).and_return('12abcd1234')
     @user = create :user
     visit new_user_session_path
   end
@@ -16,7 +18,8 @@ describe 'User uploads urls using csv file', type: :system do
     click_link 'Upload Urls'
     page.attach_file('url_file', Rails.root.join('spec/fixtures/test_file.csv'))
     click_button 'Upload File'
-
+    perform_enqueued_jobs
+    assert_performed_jobs 1
     expect(page).to have_content('Upload in progress. Please sit tight')
   end
 

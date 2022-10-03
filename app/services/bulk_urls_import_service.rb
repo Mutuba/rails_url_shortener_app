@@ -57,16 +57,23 @@ class BulkUrlsImportService < ApplicationService
 
     instance = Url.import urls_array, batch_size: 1, batch_progress: my_proc,
                                       returning: :long_url
-    failed_instances = instance.failed_instances
+
+    instance.failed_instances.size.positive? && record_failed_urls(instance.failed_instances)
+    record_batch_metrics(instance, batch)
+  end
+
+  def record_batch_metrics(instance, batch)
+    total_request_load = instance.num_inserts + instance.failed_instances.size
+    success_percentage = (instance.num_inserts * 100) / total_request_load
+    batch.update(success_rate: success_percentage)
+  end
+
+  def record_failed_urls(failed_instances)
     failed_instances.size.positive? && failed_instances.each_slice(2).each do |array_instance|
       array_instance.each do |element|
         FailedUrl.create(long_url: element.long_url, batch: element.batch,
                          user_id: @current_user.id)
       end
     end
-
-    total_request_load = instance.num_inserts + failed_instances.size
-    success_percentage = (instance.num_inserts * 100) / total_request_load
-    batch.update(success_rate: success_percentage)
   end
 end

@@ -52,16 +52,12 @@ class BulkUrlsImportService < ApplicationService
       # update slack, alert if import is taking too long, etc.
       # the pipe takes _rows_size, num_batches, current_batch_number, _batch_duration_in_secs
       progress = (current_batch_number * 100) / num_batches
-      ActionCable.server.broadcast("#{@current_user.id}#{batch.id}",
-                                   {
-                                     content: progress,
-                                   })
+      ActionCable.server.broadcast("#{@current_user.id}#{batch.id}", { content: progress })
     }
 
     instance = Url.import urls_array, batch_size: 1, batch_progress: my_proc,
                                       returning: :long_url
     failed_instances = instance.failed_instances
-
     failed_instances.size.positive? && failed_instances.each_slice(2).each do |array_instance|
       array_instance.each do |element|
         FailedUrl.create(long_url: element.long_url, batch: element.batch,

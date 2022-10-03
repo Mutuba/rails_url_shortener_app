@@ -12,7 +12,7 @@ RSpec.describe UrlsBulkImportJob, type: :job do
       @user = create :user
     end
 
-    it 'uploads a urls' do
+    it 'uploads a urls by enqueuing job' do
       UrlsBulkImportJob.perform_later(string_file_path, base_url, @user)
       expect(UrlsBulkImportJob).to have_been_enqueued.exactly(:once)
     end

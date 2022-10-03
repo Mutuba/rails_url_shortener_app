@@ -14,7 +14,7 @@ RSpec.describe 'Urls', type: :request do
       sign_in user
     end
     it 'contains the file to be uploaded' do
-      post '/urls/create', params: { url: {file: file} }
+      post '/urls/create', params: { url: { file: file } }
       expect(response).to redirect_to(new_url_path)
       expect(UrlsBulkImportJob).to have_been_enqueued.exactly(:once)
       expect(flash[:alert]).to eq 'Upload in progress. Please sit tight'

@@ -10,7 +10,8 @@ require 'database_cleaner'
 require 'devise'
 require_relative 'support/chrome'
 require_relative 'support/factory_bot'
-require_relative 'support/controller_login_macro'
+require_relative 'support/request_login_macro'
+require_relative 'support/sign_in_support'
 
 Capybara.register_driver :selenium do |app|
   profile = Selenium::WebDriver::Chrome::Profile.new
@@ -35,15 +36,15 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
-  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Warden::Test::Helpers
-  config.extend ControllerLoginMacro, type: :controller
   config.include ActionCable::TestHelper
   config.include ActiveJob::TestHelper
   ActiveJob::Base.queue_adapter = :test
+  config.include Devise::Test::IntegrationHelpers, type: :request
 
   config.infer_spec_type_from_file_location!
 
+  config.include Rails.application.routes.url_helpers, type: :request
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:

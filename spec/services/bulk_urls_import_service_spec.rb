@@ -13,7 +13,13 @@ RSpec.describe BulkUrlsImportService, type: :model do
       expect(current_user.urls.size).to eq(3)
       expect(current_user.batches.size).to eq(1)
       expect(current_user.batches[0].success_rate).to eq(100)
-      # expect { ActionCable.server.broadcast }.to have_broadcasted_to.with
+      expect do
+        ActionCable.server.broadcast(
+          "#{current_user.id}#{current_user.batches[0].id}", { content: '100' }
+        )
+      end
+        .to have_broadcasted_to("#{current_user.id}#{current_user.batches[0]
+        .id}").with(content: '100')
     end
   end
 

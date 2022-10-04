@@ -10,8 +10,6 @@ require 'database_cleaner'
 require 'devise'
 require_relative 'support/chrome'
 require_relative 'support/factory_bot'
-require_relative 'support/request_login_macro'
-require_relative 'support/sign_in_support'
 
 Capybara.register_driver :selenium do |app|
   profile = Selenium::WebDriver::Chrome::Profile.new

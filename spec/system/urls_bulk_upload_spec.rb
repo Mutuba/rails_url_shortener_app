@@ -4,7 +4,6 @@ require 'rails_helper'
 require 'csv'
 
 describe 'User uploads urls using csv file', type: :system do
-  include ActiveJob::TestHelper
   before do
     allow(SecureRandom).to receive(:uuid).and_return('12abcd1234')
     @user = create :user

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ControllerLoginMacro
+module RequestLoginMacro
   def login_user
     # Before each test, create and login the user
     before(:each) do

@@ -35,7 +35,7 @@ RSpec.describe 'Urls', type: :request do
     end
   end
 
-  describe 'GET /urls/index' do # get :show, id: contact
+  describe 'GET /urls/index' do
     let(:user) { create(:user) }
     let!(:batch) { create(:batch, user: user) }
     let!(:url) { create_list(:url, 10,  user: user, batch: batch) }

@@ -9,12 +9,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <% if !current_user%>
-                <li class="nav-item">
-          <%= link_to "Home", get_started_path, class:'nav-link'%>
+        <% if !current_user %>
+          <li class="nav-item">
+            <%= link_to "Home", get_started_path, class:'nav-link'%>
         </li>
-        <% end%>
-        
+        <% end %>
+
         <% if current_user %>
           <li class="nav-item">
             <%= link_to "Batch Metrics", batch_stats_path, class:"nav-link" %>

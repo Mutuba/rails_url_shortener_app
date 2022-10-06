@@ -29,7 +29,7 @@ describe 'User uploads urls using csv file', type: :system do
     assert_performed_jobs 1
     expect(page).to have_content('Upload in progress. Please sit tight')
     click_link 'Batch Metrics'
-    expect(page).to have_content('Batch Metrics')    
+    expect(page).to have_content('Batch Metrics')
     click_on(class: 'accordion-button')
     expect(page).to have_button('View Batch Urls')
     click_on 'View Batch Urls'

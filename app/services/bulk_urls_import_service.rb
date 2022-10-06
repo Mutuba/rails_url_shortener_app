@@ -30,23 +30,26 @@ class BulkUrlsImportService < ApplicationService
   end
 
   def process_csv!
-    batch = Batch.create!(
+    batch = Batch.create(
       name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}",
       user: @current_user,
     )
     urls_array = []
-    CSV.foreach(@file_path, headers: true) do |row|
-      url_hash = Url.new
+    begin
+      CSV.foreach(@file_path, headers: true) do |row|
+        url_hash = Url.new
 
-      url_hash.batch = batch
-      url_hash.long_url = sanitize_url(row[0])
-      url_hash.short_url = row[1].nil? ? generate_short_url : "#{@base_url}/#{row[1]}"
-      url_hash.created_at = Time.zone.now
-      url_hash.updated_at = Time.zone.now
-      url_hash.user_id = @current_user.id
-      urls_array << url_hash
+        url_hash.batch = batch
+        url_hash.long_url = sanitize_url(row[0])
+        url_hash.short_url = row[1].nil? ? generate_short_url : "#{@base_url}/#{row[1]}"
+        url_hash.created_at = Time.zone.now
+        url_hash.updated_at = Time.zone.now
+        url_hash.user_id = @current_user.id
+        urls_array << url_hash
+      end
+    rescue CSV::MalformedCSVError => e
+      Rails.logger.info e.message
     end
-
     my_proc = lambda { |_, num_batches, current_batch_number, _|
       # send an email, post to a websocket,
       # update slack, alert if import is taking too long, etc.

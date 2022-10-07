@@ -13,7 +13,8 @@ class UrlsController < ApplicationController
   end
 
   def show
-    render 'errors/404', status: :not_found if @url.nil?
+    return render 'errors/404', status: :not_found if @url.nil?
+
     @url.update(click: @url.click + 1)
     redirect_to @url.long_url, allow_other_host: true
   end

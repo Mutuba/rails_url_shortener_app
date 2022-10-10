@@ -27,6 +27,7 @@ gem 'turbo-rails'
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem 'activerecord-import'
 gem 'sidekiq'
+gem "sidekiq-scheduler", "~> 3.0"
 gem 'stimulus-rails'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -56,6 +57,7 @@ gem 'pry', '~> 0.13.1'
 # gem 'hiredis'
 gem 'redis', '>= 4.0'
 gem 'twitter-bootstrap-rails'
+# gem "sidekiq-cron"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

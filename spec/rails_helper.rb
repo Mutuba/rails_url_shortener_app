@@ -39,7 +39,7 @@ RSpec.configure do |config|
   config.include ActiveJob::TestHelper
   ActiveJob::Base.queue_adapter = :test
   config.include Devise::Test::IntegrationHelpers, type: :request
-
+  include ActiveSupport::Testing::TimeHelpers
   config.infer_spec_type_from_file_location!
 
   config.include Rails.application.routes.url_helpers, type: :request

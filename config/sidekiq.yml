@@ -1,6 +1,8 @@
-development:
-  :concurrency: 5
-production:
-  :concurrency: 6
-:queues:
-  - default
+:max_retries: 0
+:dynamic: true
+:schedule:
+  expunge_expired_urls:
+    cron: '0 * * * * *'   
+    class: "ExpungeExpiredUrlsJob"
+    queue: expunge_expired_urls
+    # every: 2 minutes

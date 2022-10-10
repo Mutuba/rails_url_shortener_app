@@ -3,9 +3,10 @@
 require 'sidekiq/web'
 require 'sidekiq-status'
 
-# Sidekiq::Web.use Rack::Auth::Basic do |username, password|
-#   username == ENV["SIDEKIQ_USERNAME"] && password == ENV["SIDEKIQ_PASSWORD"]
-# end
+schedule_file = "config/schedule.yml"
+if File.exist?(schedule_file) && Sidekiq.server?
+   Sidekiq::Cron::Job.load_from_hash YAML.load_file(schedule_file)
+end
 
 Sidekiq.configure_server do |config|
   config.redis = { ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE } }

@@ -1,40 +1,49 @@
-version: "2"
+version: "3.9"
+
 services:
+
   postgres:
-    image: postgres
+    image: postgres:14.2
+    environment:
+      POSTGRES_USER: url_shortner_app
+      POSTGRES_PASSWORD: baraka1234
+    ports: 
+      - '5432:5432'
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    expose:
-      - "5432"
-    env_file:
-      - '.env.docker'
+      - url-shortner-app-postgres:/var/lib/postgresql/data
+
   redis:
-    image: redis
-    expose:
-      - "6379"
-  rails:
+    image: redis:7.0
+    ports:
+      - '6379:6379'
+    volumes:
+      - url-shortner-app-redis:/var/lib/redis/data
+
+  app:
     build:
       context: .
-      dockerfile: ./Dockerfile
-    image: urls_shortener_app:latest
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -e development -p 3000 -b '0.0.0.0'"
-    env_file:
-      - '.env.docker'
+    image: url_shortener_app:latest
     volumes:
       - .:/myapp
-    ports:
-      - 3000:3000
-    depends_on:
+    links:
+      - postgres
       - redis
-      - postgres
-  rails_worker:
-    image: urls_shortener_app:latest
-    command: bash -c "bundle exec sidekiq"
+    ports:
+      - '3000:3000'
     env_file:
-      - '.env.docker'
-    volumes:
-      - .:/myapp
-    depends_on:
+      - .env
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -e development -p 3000 -b '0.0.0.0'"
+
+  sidekiq:
+    build:
+      context: .
+    command: bundle exec sidekiq 
+    image: url_shortener_app_worker:latest
+    links:
       - postgres
+      - redis
+    env_file:
+      - .env
 volumes:
-  pgdata:
+  url-shortner-app-postgres:
+  url-shortner-app-redis:

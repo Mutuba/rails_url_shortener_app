@@ -53,6 +53,7 @@ gem 'bootsnap', require: false
 gem 'devise'
 gem 'kaminari'
 gem 'pry', '~> 0.13.1'
+gem 'unicorn', '~> 6.1.0'
 
 # gem 'hiredis'
 gem 'redis', '>= 4.0'

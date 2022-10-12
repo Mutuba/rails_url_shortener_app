@@ -161,6 +161,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    kgio (2.11.4)
     less (2.6.0)
       commonjs (~> 0.2.7)
     less-rails (4.0.0)
@@ -244,6 +245,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
+    raindrops (0.20.0)
     rake (13.0.6)
     redis (4.8.0)
     regexp_parser (2.6.0)
@@ -336,6 +338,9 @@ GEM
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.8.0)
+    unicorn (6.1.0)
+      kgio (~> 2.6)
+      raindrops (~> 0.7)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -393,6 +398,7 @@ DEPENDENCIES
   turbo-rails
   twitter-bootstrap-rails
   tzinfo-data
+  unicorn (~> 6.1.0)
   web-console
   webdrivers (~> 5.0)
 

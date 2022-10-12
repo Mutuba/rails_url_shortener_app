@@ -1,4 +1,6 @@
+# Dockerfile development version
 FROM ruby:3.0.2
+
 RUN apt-get update -qq && apt-get install -y curl postgresql-client cmake
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get update && apt-get install -y nodejs
@@ -18,12 +20,19 @@ RUN bundle install
 
 COPY . /myapp
 
-# Add a script to be executed every time the container starts.
+# # Install gems
+# WORKDIR $INSTALL_PATH
+# COPY url_shortner_app/ .
+# RUN rm -rf node_modules vendor
+# RUN gem install rails bundler
+# RUN bundle install
+# RUN yarn install
+
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 EXPOSE 6006
 
-# Start the main process.
+# Start server
 CMD ["rails", "server", "-b", "0.0.0.0"]

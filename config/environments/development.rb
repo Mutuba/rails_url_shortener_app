@@ -73,6 +73,8 @@ Rails.application.configure do
 
   config.action_cable.url = 'ws:localhost:3000/cable'
 
+  config.hosts << "url_shortener_app"
+
   config.action_cable.allowed_request_origins = [%r{http://*}, %r{https://*}]
   config.action_cable.worker_pool_size = 5
 end

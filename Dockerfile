@@ -20,14 +20,6 @@ RUN bundle install
 
 COPY . /myapp
 
-# # Install gems
-# WORKDIR $INSTALL_PATH
-# COPY url_shortner_app/ .
-# RUN rm -rf node_modules vendor
-# RUN gem install rails bundler
-# RUN bundle install
-# RUN yarn install
-
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]

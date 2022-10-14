@@ -51,7 +51,6 @@ class BulkUrlsImportService < ApplicationService
       Rails.logger.info e.message
     rescue Errno::EACCES => e
       Rails.logger.info e.message
-    end
     rescue CSV::MalformedCSVError => e
       Rails.logger.info e.message
     end

@@ -7,7 +7,6 @@ RSpec.describe ExpungeExpiredUrlsService, type: :model do
   let!(:batch) { create(:batch, user: user) }
 
   before do
-    Time.current
     travel_to 10.days.ago do
       create_list(:url, 10, user: user, batch: batch)
     end

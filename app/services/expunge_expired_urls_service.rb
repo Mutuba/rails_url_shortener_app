@@ -4,7 +4,7 @@
 class ExpungeExpiredUrlsService < ApplicationService
   def call
     # urls = Url.where('created_at <  ? ', 10.days.ago)
-    puts "Expired jobs were deleted"
+    Rails.logger.debug 'Expired jobs were deleted'
     urls = Url.all
 
     urls.each(&:delete)

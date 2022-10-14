@@ -8,6 +8,7 @@
 # execute at every 5 minutes, ex: 12:05, 12:10, 12:15...etc
 require 'sidekiq-scheduler'
 
+# calls ExpungeExpiredUrlsService
 class ExpungeExpiredUrlsJob < ApplicationJob
   include Sidekiq::Status::Worker
 

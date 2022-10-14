@@ -4,9 +4,8 @@ services:
 
   postgres:
     image: postgres:14.2
-    environment:
-      POSTGRES_USER: url_shortner_app
-      POSTGRES_PASSWORD: baraka1234
+    env_file:
+      - .env
     ports: 
       - '5432:5432'
     volumes:
@@ -42,6 +41,8 @@ services:
     links:
       - postgres
       - redis
+    volumes:
+      - .:/myapp
     env_file:
       - .env
 volumes:

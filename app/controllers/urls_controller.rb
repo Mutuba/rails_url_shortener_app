@@ -39,7 +39,7 @@ class UrlsController < ApplicationController
     end
 
     base_url = request.base_url
-    UrlsBulkImportJob.perform_later file_path.to_path, base_url, current_user
+    UrlsBulkImportJob.perform_later(file_path.to_path, base_url, current_user)
     redirect_to new_url_path, alert: 'Upload in progress. Please sit tight'
   end
 

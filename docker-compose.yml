@@ -27,6 +27,7 @@ services:
     links:
       - postgres
       - redis
+      - webdriver_chrome
     ports:
       - '3000:3000'
     env_file:
@@ -45,6 +46,8 @@ services:
       - .:/myapp
     env_file:
       - .env
+  webdriver_chrome:
+      image: selenium/standalone-chrome
 volumes:
   url-shortner-app-postgres:
   url-shortner-app-redis:

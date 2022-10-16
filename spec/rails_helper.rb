@@ -2,19 +2,21 @@
 
 require 'spec_helper'
 require 'webdrivers'
-ENV['RAILS_ENV'] ||= 'test'
+# ENV['RAILS_ENV'] ||= 'test'
+ENV['RAILS_ENV'] = 'test'
 require_relative '../config/environment'
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'database_cleaner'
 require 'devise'
-require_relative 'support/chrome'
+require_relative 'support/capybara'
 require_relative 'support/factory_bot'
 
 Capybara.register_driver :selenium do |app|
   profile = Selenium::WebDriver::Chrome::Profile.new
   Capybara::Selenium::Driver.new(app, profile: profile)
 end
+
 Capybara.default_max_wait_time = 10
 Capybara.default_driver = :selenium_chrome
 Capybara.javascript_driver = :selenium
@@ -48,6 +50,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.before(:suite) do
+    DatabaseCleaner.allow_remote_database_url = true
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
   end

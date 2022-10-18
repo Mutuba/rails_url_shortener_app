@@ -15,8 +15,6 @@ services:
     image: redis:7.0
     ports:
       - '6379:6379'
-    volumes:
-      - url-shortner-app-redis:/var/lib/redis/data
 
   app:
     build:
@@ -37,7 +35,7 @@ services:
   sidekiq:
     build:
       context: .
-    command: bundle exec sidekiq 
+    command: bash -c "bundle exec sidekiq"  
     image: url_shortener_app_worker:latest
     links:
       - postgres
@@ -50,4 +48,3 @@ services:
       image: selenium/standalone-chrome
 volumes:
   url-shortner-app-postgres:
-  url-shortner-app-redis:

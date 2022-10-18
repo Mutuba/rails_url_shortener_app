@@ -5,4 +5,3 @@
     cron: '0 * * * * *'   
     class: "ExpungeExpiredUrlsJob"
     queue: expunge_expired_urls
-    # every: 2 minutes

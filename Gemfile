@@ -59,9 +59,6 @@ gem 'unicorn', '~> 6.1.0'
 gem 'redis', '>= 4.0'
 gem 'twitter-bootstrap-rails'
 # gem "sidekiq-cron"
-
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
 gem 'faker'
 
 group :development, :test do

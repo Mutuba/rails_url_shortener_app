@@ -28,7 +28,6 @@ class UrlsController < ApplicationController
       flash[:alert] = 'Oops! File missing'
       return redirect_to new_url_path
     end
-
     begin
       file_path = Rails.root.join("/tmp/bulk-import #{SecureRandom.uuid}.csv")
       File.write(file_path, params[:url][:file].read)

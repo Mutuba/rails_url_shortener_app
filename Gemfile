@@ -88,7 +88,6 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'selenium-webdriver'
-  # gem 'webdrivers', require: !ENV['SELENIUM_REMOTE_URL']
   gem 'shoulda-matchers', '4.0.0.rc1'
   gem 'webdrivers', '~> 5.0', require: false
   gem 'action-cable-testing'

@@ -2,6 +2,7 @@
 
 # UrlShortenerChannel controller
 class UrlShortenerChannel < ApplicationCable::Channel
+  
   def subscribed
     reject if params[:batch_id].blank?
 

@@ -10,8 +10,7 @@ class UrlShortenerChannel < ApplicationCable::Channel
     Rails.logger.info "streaming for user id #{current_user.id} in UrlShortenerChannel"
   end
 
-  def unsubscribed
-    
+  def unsubscribed 
     stop_all_streams
   end
 end

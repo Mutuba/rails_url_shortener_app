@@ -9,6 +9,7 @@
 require 'sidekiq-scheduler'
 
 # calls ExpungeExpiredUrlsService
+
 class ExpungeExpiredUrlsJob < ApplicationJob
   include Sidekiq::Status::Worker
 

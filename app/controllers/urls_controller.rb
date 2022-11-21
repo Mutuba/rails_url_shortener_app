@@ -3,7 +3,6 @@
 # UrlsController controller
 class UrlsController < ApplicationController
   require 'securerandom'
-  
   before_action :set_url, only: %i[show]
   before_action :authenticate_user!, except: %i[index]
 

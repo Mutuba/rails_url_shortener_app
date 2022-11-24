@@ -14,7 +14,6 @@ class BulkUrlsImportService < ApplicationService
   end
 
   def call
-    
     process_csv!
   end
 

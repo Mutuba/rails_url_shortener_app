@@ -20,6 +20,7 @@ class BulkUrlsImportService < ApplicationService
   private
 
   def generate_short_url
+    
     "#{@base_url}/#{rand(36**8).to_s(36)}"
   end
 

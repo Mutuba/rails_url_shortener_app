@@ -18,7 +18,7 @@ class BulkUrlsImportService < ApplicationService
   end
 
   private
-  
+
   def generate_short_url
     "#{@base_url}/#{rand(36**8).to_s(36)}"
   end
@@ -54,7 +54,7 @@ class BulkUrlsImportService < ApplicationService
     rescue CSV::MalformedCSVError => e
       Rails.logger.info e.message
     end
-    
+
     my_proc = lambda { |_, num_batches, current_batch_number, _|
       # send an email, post to a websocket,
       # update slack, alert if import is taking too long, etc.
@@ -67,18 +67,18 @@ class BulkUrlsImportService < ApplicationService
                                       returning: :long_url
 
     instance.failed_instances.size.positive? &&
-    record_failed_urls(instance.failed_instances)
+      record_failed_urls(instance.failed_instances)
     record_batch_metrics(instance, batch)
   end
 
   def record_failed_urls(failed_instances)
     failed_instances.size.positive? &&
-    failed_instances.each_slice(2).each do |array_instance|
-      array_instance.each do |element|
-        FailedUrl.create(long_url: element.long_url, batch: element.batch,
-                         user_id: @current_user.id)
+      failed_instances.each_slice(2).each do |array_instance|
+        array_instance.each do |element|
+          FailedUrl.create(long_url: element.long_url, batch: element.batch,
+                           user_id: @current_user.id)
+        end
       end
-    end
   end
 
   def record_batch_metrics(instance, batch)

@@ -34,7 +34,9 @@ class BulkUrlsImportService < ApplicationService
       name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}",
       user: @current_user,
     )
+
     urls_array = []
+    
     begin
       CSV.foreach(@file_path, headers: true) do |row|
         url_hash = Url.new

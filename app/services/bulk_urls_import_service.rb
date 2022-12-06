@@ -48,6 +48,7 @@ class BulkUrlsImportService < ApplicationService
         urls_array << url_hash
       end
     rescue Errno::ENOENT => e
+      
       Rails.logger.info e.message
     rescue Errno::EACCES => e
       Rails.logger.info e.message

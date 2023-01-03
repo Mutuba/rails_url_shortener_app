@@ -59,6 +59,7 @@ class BulkUrlsImportService < ApplicationService
       # send an email, post to a websocket,
       # update slack, alert if import is taking too long, etc.
       # the pipe takes _rows_size, num_batches, current_batch_number, _batch_duration_in_secs
+      
       progress = (current_batch_number * 100) / num_batches
       ActionCable.server.broadcast("#{@current_user.id}#{batch.id}", { content: progress })
     }

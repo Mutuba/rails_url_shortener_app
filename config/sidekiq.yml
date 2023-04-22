@@ -2,6 +2,6 @@
 :dynamic: true
 :schedule:
   expunge_expired_urls:
-    cron: '0 * * * * *'   
-    class: "ExpungeExpiredUrlsJob"
-    queue: expunge_expired_urls
+    cron: "*/1 * * * *"
+    class: "PurgeExpiredUrlsJob"
+    queue: purge_expired_urls

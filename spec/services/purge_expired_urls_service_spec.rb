@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ExpungeExpiredUrlsService, type: :model do
+RSpec.describe PurgeExpiredUrlsService, type: :model do
   let!(:user) { create(:user) }
   let!(:batch) { create(:batch, user: user) }
 
@@ -18,7 +18,7 @@ RSpec.describe ExpungeExpiredUrlsService, type: :model do
     Url.where('created_at < ?', 10.days.ago)
 
     expect(Url.all.count).to eq 20
-    ExpungeExpiredUrlsService.call
+    PurgeExpiredUrlsService.call
 
     expect(Url.count).to eq 0
   end

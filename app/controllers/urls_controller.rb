@@ -3,7 +3,6 @@
 # UrlsController controller
 class UrlsController < ApplicationController
   require 'securerandom'
-
   before_action :set_url, only: %i[show]
   before_action :authenticate_user!, except: %i[index]
 
@@ -14,8 +13,7 @@ class UrlsController < ApplicationController
   end
 
   def show
-    return render 'errors/404', status: :not_found if @url.nil?
-
+    render 'errors/404', status: :not_found if @url.nil?
     @url.update(click: @url.click + 1)
     redirect_to @url.long_url, allow_other_host: true
   end
@@ -30,17 +28,11 @@ class UrlsController < ApplicationController
       return redirect_to new_url_path
     end
 
-    begin
-      file_path = Rails.root.join("/public/bulk-import#{SecureRandom.uuid}.csv")
-      File.write(file_path, params[:url][:file].read)
-    rescue Errno::ENOENT => e
-      Rails.logger.info e.message
-    rescue Errno::EACCES => e
-      Rails.logger.info e.message
-    end
-
     base_url = request.base_url
-    UrlsBulkImportJob.perform_later(file_path.to_path, base_url, current_user)
+    file_path = Rails.root.join("/tmp/bulk-import #{SecureRandom.uuid}.csv")
+    File.write(file_path, params[:url][:file].read)
+    UrlsBulkImportJob.perform_later file_path.to_path, base_url, current_user
+
     redirect_to new_url_path, alert: 'Upload in progress. Please sit tight'
   end
 

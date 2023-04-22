@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # deletes expired jobs
-class ExpungeExpiredUrlsService < ApplicationService
+class PurgeExpiredUrlsService < ApplicationService
   def call
     # urls = Url.where('created_at <  ? ', 10.days.ago)
     urls = Url.all

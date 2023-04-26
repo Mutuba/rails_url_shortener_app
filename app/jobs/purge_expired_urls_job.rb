@@ -6,14 +6,18 @@
 # Sidekiq::Cron::Job.create(name: 'Hard worker - every 5min',
 # cron: '*/5 * * * *', class: 'HardWorker')
 # execute at every 5 minutes, ex: 12:05, 12:10, 12:15...etc
-require 'sidekiq-scheduler'
+# require 'sidekiq-scheduler'
+require 'sidekiq-status'
 # calls PurgeExpiredUrlsService
 
 class PurgeExpiredUrlsJob < ApplicationJob
-  include Sidekiq::Status::Worker
+  # include Sidekiq::Status::Worker
+  
+
   queue_as :default
 
   def perform(*args)
-    PurgeExpiredUrlsService.call
+    # PurgeExpiredUrlsService.call
+    puts "Running job now..."
   end
 end

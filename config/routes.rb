@@ -5,9 +5,9 @@ require 'sidekiq-status/web'
 
 Rails.application.routes.draw do
   devise_for :users
-  authenticate :user do
-    mount Sidekiq::Web => '/sidekiq'
-  end
+  # authenticate :user do
+   mount Sidekiq::Web => '/sidekiq'
+  # end
   mount ActionCable.server => '/cable'
   resources :urls, only: %i[new index]
 

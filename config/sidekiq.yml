@@ -1,7 +1,6 @@
 :max_retries: 0
-:dynamic: true
 :schedule:
-  expunge_expired_urls:
-    cron: "*/1 * * * *"
-    class: "PurgeExpiredUrlsJob"
+  purge_expired_urls:
+    cron: "0 * * * * *"
+    class: "HelloWorld"
     queue: purge_expired_urls

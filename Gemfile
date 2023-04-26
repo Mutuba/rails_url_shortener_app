@@ -60,7 +60,7 @@ gem 'unicorn', '~> 6.1.0'
 # gem 'hiredis'
 gem 'redis', '>= 4.0'
 gem 'twitter-bootstrap-rails'
-# gem "sidekiq-cron"
+# gem 'sidekiq-cron'
 gem 'faker'
 
 group :development, :test do

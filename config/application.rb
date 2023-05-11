@@ -12,6 +12,7 @@ module UrlShortnerApp
     config.autoload_paths += %W[
       #{config.root}/app/services,
     ]
+    # config.active_job.queue_adapter = :sidekiq
 
     config.logger = Logger.new('log/application.log')
     # set the minimum log level

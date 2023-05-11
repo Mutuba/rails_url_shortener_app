@@ -1,6 +1,12 @@
-:max_retries: 0
+:verbose: false
+:concurrency: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+:timeout: 30
+
+:queues:
+  - default
+
 :schedule:
-  purge_expired_urls:
-    cron: "0 * * * * *"
-    class: "HelloWorld"
-    queue: purge_expired_urls
+  HelloWorldWorker:
+    cron: "* * * * *"
+    queue: default
+    enabled: true

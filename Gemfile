@@ -28,6 +28,7 @@ gem 'turbo-rails'
 gem 'activerecord-import'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
+gem 'sidekiq-unique-jobs'
 gem 'stimulus-rails'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]

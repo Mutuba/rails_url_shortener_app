@@ -12,9 +12,11 @@ require 'sidekiq-status'
 
 class PurgeExpiredUrlsJob < ApplicationJob
   # include Sidekiq::Status::Worker
-  
-
+ 
   queue_as :default
+
+  sidekiq_options lock: :until_executed,
+    on_conflict: :reject
 
   def perform(*args)
     # PurgeExpiredUrlsService.call

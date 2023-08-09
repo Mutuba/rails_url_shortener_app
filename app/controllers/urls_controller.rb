@@ -30,13 +30,12 @@ class UrlsController < ApplicationController
 
     base_url = request.base_url
     file = params[:url][:file]
-
+    
     import_service = FileWriterService.call(
-      file:,
-      base_url:,
-      current_user:,
-    )
-    import_service.perform
+       file: file,
+       base_url: base_url, 
+       current_user: current_user
+      )
 
     redirect_to new_url_path, alert: 'Upload in progress. Please sit tight'
   end

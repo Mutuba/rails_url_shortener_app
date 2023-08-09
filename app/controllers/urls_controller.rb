@@ -29,9 +29,14 @@ class UrlsController < ApplicationController
     end
 
     base_url = request.base_url
-    file_path = Rails.root.join('public', "bulk-import-#{SecureRandom.uuid}.csv")
-    File.write(file_path, params[:url][:file].read)
-    UrlsBulkImportJob.perform_later file_path.to_path, base_url, current_user
+    file = params[:url][:file]
+
+    import_service = FileWriterService.call(
+      file:,
+      base_url:,
+      current_user:,
+    )
+    import_service.perform
 
     redirect_to new_url_path, alert: 'Upload in progress. Please sit tight'
   end

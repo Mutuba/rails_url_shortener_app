@@ -28,7 +28,7 @@ class BatchMetricsController < ApplicationController
     batch = Batch.last
     return render template: 'batch_metrics/batch_not_found' if batch.nil?
 
-    render template: 'batch_metrics/current_upload_status', locals: { batch: batch }
+    render template: 'batch_metrics/current_upload_status', locals: { batch: }
   end
 
   private

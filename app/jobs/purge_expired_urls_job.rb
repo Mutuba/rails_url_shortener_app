@@ -8,18 +8,18 @@
 # execute at every 5 minutes, ex: 12:05, 12:10, 12:15...etc
 # require 'sidekiq-scheduler'
 require 'sidekiq-status'
-# calls PurgeExpiredUrlsService
 
+# calls PurgeExpiredUrlsService
 class PurgeExpiredUrlsJob < ApplicationJob
   # include Sidekiq::Status::Worker
- 
+
   queue_as :default
 
   sidekiq_options lock: :until_executed,
-    on_conflict: :reject
+                  on_conflict: :reject
 
-  def perform(*args)
+  def perform(*_args)
     # PurgeExpiredUrlsService.call
-    puts "Running job now..."
+    # puts 'Running job now...'
   end
 end

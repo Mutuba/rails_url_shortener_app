@@ -14,7 +14,7 @@ require_relative 'support/factory_bot'
 
 Capybara.register_driver :selenium do |app|
   profile = Selenium::WebDriver::Chrome::Profile.new
-  Capybara::Selenium::Driver.new(app, profile: profile)
+  Capybara::Selenium::Driver.new(app, profile:)
 end
 
 Capybara.default_max_wait_time = 10

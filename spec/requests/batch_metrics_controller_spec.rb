@@ -6,8 +6,8 @@ require 'rails_helper'
 RSpec.describe 'BatchMetrics', type: :request do
   describe 'GET /batch_urls' do
     let(:user) { create(:user) }
-    let!(:batch) { create(:batch, user: user) }
-    let!(:url) { create_list(:url, 10,  user: user, batch: batch) }
+    let!(:batch) { create(:batch, user:) }
+    let!(:url) { create_list(:url, 10, user:, batch:) }
 
     before do
       sign_in user
@@ -22,8 +22,8 @@ RSpec.describe 'BatchMetrics', type: :request do
 
   describe 'GET /batch/stats' do
     let(:user) { create(:user) }
-    let!(:batches) { create_list(:batch, 10, user: user) }
-    let!(:url) { create(:url, user: user, batch: batches[0]) }
+    let!(:batches) { create_list(:batch, 10, user:) }
+    let!(:url) { create(:url, user:, batch: batches[0]) }
     before do
       sign_in user
     end
@@ -36,8 +36,8 @@ RSpec.describe 'BatchMetrics', type: :request do
 
   describe 'GET /batch/upload_status/' do
     let(:user) { create(:user) }
-    let!(:batch) { create(:batch, user: user) }
-    let!(:url) { create(:url, user: user, batch: batch) }
+    let!(:batch) { create(:batch, user:) }
+    let!(:url) { create(:url, user:, batch:) }
     before do
       sign_in user
       allow(Batch).to receive(:find_by).and_return(batch)
@@ -53,8 +53,8 @@ RSpec.describe 'BatchMetrics', type: :request do
 
   describe 'GET /current_upload_status/' do
     let(:user) { create(:user) }
-    let!(:batch) { create(:batch, user: user) }
-    let!(:url) { create(:url, user: user, batch: batch) }
+    let!(:batch) { create(:batch, user:) }
+    let!(:url) { create(:url, user:, batch:) }
 
     context 'when batch is not nil' do
       before do

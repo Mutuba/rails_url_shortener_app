@@ -7,7 +7,7 @@ RSpec.describe ApplicationCable::Connection, type: :channel do
   let(:env) { instance_double('env') }
 
   context 'with a verified user' do
-    let(:warden) { instance_double('warden', user: user) }
+    let(:warden) { instance_double('warden', user:) }
 
     before do
       allow_any_instance_of(ApplicationCable::Connection).to receive(:env).and_return(env)

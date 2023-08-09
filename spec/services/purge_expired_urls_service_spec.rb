@@ -4,14 +4,14 @@ require 'rails_helper'
 
 RSpec.describe PurgeExpiredUrlsService, type: :model do
   let!(:user) { create(:user) }
-  let!(:batch) { create(:batch, user: user) }
+  let!(:batch) { create(:batch, user:) }
 
   before do
     travel_to 10.days.ago do
-      create_list(:url, 10, user: user, batch: batch)
+      create_list(:url, 10, user:, batch:)
     end
     Time.current
-    create_list(:url, 10, user: user, batch: batch)
+    create_list(:url, 10, user:, batch:)
   end
 
   it ' finds urs and deletes them' do

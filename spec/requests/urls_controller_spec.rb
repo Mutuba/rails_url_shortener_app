@@ -15,7 +15,7 @@ RSpec.describe 'Urls', type: :request do
     end
     context 'params contains the file to be uploaded' do
       it 'uploads the uploaded' do
-        post '/urls/create', params: { url: { file: file } }
+        post '/urls/create', params: { url: { file: } }
         expect(response).to redirect_to(new_url_path)
         expect(UrlsBulkImportJob).to have_been_enqueued.exactly(:once)
         perform_enqueued_jobs
@@ -37,8 +37,8 @@ RSpec.describe 'Urls', type: :request do
 
   describe 'GET /urls/index' do
     let(:user) { create(:user) }
-    let!(:batch) { create(:batch, user: user) }
-    let!(:url) { create_list(:url, 10,  user: user, batch: batch) }
+    let!(:batch) { create(:batch, user:) }
+    let!(:url) { create_list(:url, 10, user:, batch:) }
 
     before do
       sign_in user
@@ -53,8 +53,8 @@ RSpec.describe 'Urls', type: :request do
 
   describe 'GET /urls/show' do
     let(:user) { create(:user) }
-    let!(:batch) { create(:batch, user: user) }
-    let!(:url) { create(:url, user: user, batch: batch) }
+    let!(:batch) { create(:batch, user:) }
+    let!(:url) { create(:url, user:, batch:) }
     let(:previous_clicks) { 0 }
     before do
       sign_in user

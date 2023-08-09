@@ -7,7 +7,7 @@ RSpec.configure do |config|
 
     driven_by :selenium, using: :chrome, options: {
       browser: :remote,
-      url: url,
+      url:,
       desired_capabilities: :chrome,
     }
 

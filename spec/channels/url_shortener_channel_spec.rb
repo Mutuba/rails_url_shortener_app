@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe UrlShortenerChannel, type: :channel do
   before do
     current_user = create :user
-    stub_connection current_user: current_user
+    stub_connection current_user:
   end
 
   it 'rejects when no batch id' do

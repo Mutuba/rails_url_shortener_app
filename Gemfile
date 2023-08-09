@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.4'
+ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4'
@@ -53,13 +53,12 @@ gem 'bootsnap', require: false
 # gem "sassc-rails"
 gem 'devise'
 gem 'kaminari'
-gem 'pry', '~> 0.13.1'
+# gem 'pry', '~> 0.13.1'
 gem 'unicorn', '~> 6.1.0'
 
 # gem 'hiredis'
 gem 'redis', '>= 4.0'
 gem 'twitter-bootstrap-rails'
-# gem 'sidekiq-cron'
 gem 'faker'
 
 group :development, :test do
@@ -90,7 +89,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '4.0.0.rc1'
-  gem 'webdrivers', '~> 5.0', require: false
+  # gem 'webdrivers', '~> 5.0', require: false
   gem 'action-cable-testing'
 end
 

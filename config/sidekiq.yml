@@ -4,9 +4,8 @@
 
 :queues:
   - default
-
-:schedule:
-  HelloWorldWorker:
-    cron: "* * * * *"
-    queue: default
-    enabled: true
+# :schedule:
+#   HelloWorldWorker:
+#     cron: "* * * * *"
+#     queue: default
+#     enabled: true

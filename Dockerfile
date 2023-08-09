@@ -1,30 +1,39 @@
 # Dockerfile development version
-FROM ruby:3.0.4
+FROM ruby:3.2.2
 
 RUN apt-get update -qq && apt-get install -y curl postgresql-client cmake
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get update && apt-get install -y nodejs
 RUN apt-get update && apt-get install -y ffmpeg
-# Needed for PDF preview. In Heroku is available with
-# `heroku buildpacks:add -i 1 https://github.com/heroku/heroku-buildpack-activestorage-preview`
-RUN apt-get install -y vim nano
-RUN npm i -g yarn@1.19.1
 
-RUN mkdir /myapp
-WORKDIR /myapp
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt-get install -y nodejs
+
+RUN apt-get install -y vim nano
+
+RUN mkdir /app
+WORKDIR /app
 
 # Install all the gems needed
-COPY Gemfile /myapp/Gemfile
-COPY Gemfile.lock /myapp/Gemfile.lock
+COPY Gemfile /app/Gemfile
+COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 
-COPY . /myapp
+RUN bundle binstubs --all
+
+RUN touch $HOME/.bashrc
+
+RUN echo "alias ll='ls -alF'" >> $HOME/.bashrc
+RUN echo "alias la='ls -A'" >> $HOME/.bashrc
+RUN echo "alias l='ls -CF'" >> $HOME/.bashrc
+RUN echo "alias q='exit'" >> $HOME/.bashrc
+RUN echo "alias c='clear'" >> $HOME/.bashrc
+
+COPY . /app
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
-EXPOSE 6006
 
 # Start server
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-b", "0.0.0.0", "/bin/bash"]

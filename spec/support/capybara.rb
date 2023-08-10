@@ -1,19 +1,37 @@
 # frozen_string_literal: true
 
-# spec/support/capybara.rb
-RSpec.configure do |config|
-  config.before :each, type: :system, js: true do
-    url = "http://#{ENV['SELENIUM_REMOTE_HOST']}:4444/wd/hub"
+Capybara.asset_host = "http://localhost:3000"
 
-    driven_by :selenium, using: :chrome, options: {
-      browser: :remote,
-      url:,
-      desired_capabilities: :chrome,
-    }
+Capybara.register_driver :chrome_headless do |app|
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.args << "--headless"
+  browser_options.args << "--disable-gpu"
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    options: browser_options
+  )
+end
 
-    Capybara.server_host = `/sbin/ip route|awk '/scope/ { print $9 }'`.strip
-    Capybara.server_port = '43447'
-    session_server       = Capybara.current_session.server
-    Capybara.app_host    = "http://#{session_server.host}:#{session_server.port}"
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.javascript_driver = :chrome_headless
+
+module SeleniumErrors
+  def selenium_errors
+    page
+      .driver
+      .browser
+      .manage
+      .logs
+      .get(:browser)
+      .select { |e| e.level == "SEVERE" && e.message.present? }
+      .map(&:message)
+      .reject { |x| x.match(/Access-Control-Allow-Origin/) }
+      .to_a
   end
 end
+
+RSpec.configure { |config| config.include SeleniumErrors, type: :feature }

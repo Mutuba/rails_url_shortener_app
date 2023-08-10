@@ -1,25 +1,17 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'webdrivers'
-# ENV['RAILS_ENV'] ||= 'test'
+# require "timecop"
 ENV['RAILS_ENV'] = 'test'
-require_relative '../config/environment'
+require_relative "../config/environment"
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 require 'database_cleaner'
 require 'devise'
-require_relative 'support/capybara'
-require_relative 'support/factory_bot'
 
-Capybara.register_driver :selenium do |app|
-  profile = Selenium::WebDriver::Chrome::Profile.new
-  Capybara::Selenium::Driver.new(app, profile:)
+Dir[Rails.root.join("spec", "support", "**", "*.rb")].sort.each do |f|
+  require f
 end
-
-Capybara.default_max_wait_time = 10
-Capybara.default_driver = :selenium_chrome
-Capybara.javascript_driver = :selenium
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|

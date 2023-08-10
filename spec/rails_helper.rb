@@ -47,8 +47,6 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers, type: :request
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
-  # arbitrary gems may also be filtered via:
-  # config.filter_gems_from_backtrace("gem name")
   config.before(:suite) do
     DatabaseCleaner.allow_remote_database_url = true
     DatabaseCleaner.clean_with(:truncation)

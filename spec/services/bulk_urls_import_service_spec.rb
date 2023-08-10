@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -39,6 +40,13 @@ RSpec.describe UrlsCsvBatchUploadService do
     let(:current_user) { create(:user) }
     let(:base_url) { Faker::Internet.url }
     let!(:file_path) { Rails.root.join('spec/fixtures/bad_csv_data_file.csv') }
+    subject(:batch_upload_service) do
+      described_class.call(
+        file_path:,
+        base_url:,
+        current_user:,
+      )
+    end
 
     context 'when the file has invalid data' do
       it 'record failed urls' do
@@ -49,13 +57,20 @@ RSpec.describe UrlsCsvBatchUploadService do
     end
 
     context 'when csv file cannot be read' do
-      it 'records failed URLs and handles processing errors' do
+      before do
         allow(CSV).to receive(:foreach).and_raise(CSV::MalformedCSVError.new(
                                                     'Malformed CSV error message', 42
                                                   ))
-        # expect(Rails.logger).to receive(:info).with(instance_of(CSV::MalformedCSVError))
+      end
+
+      it 'raises relevent errors' do
+        expect do
+          batch_upload_service
+        end.to raise_error(CSV::MalformedCSVError,
+                           'Malformed CSV error message in line 42.')
         expect(current_user.failed_urls.size).to eq(0)
       end
     end
   end
 end
+

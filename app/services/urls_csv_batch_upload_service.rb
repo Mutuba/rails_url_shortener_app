@@ -28,6 +28,7 @@ class UrlsCsvBatchUploadService < ApplicationService
       end
     rescue Errno::ENOENT, Errno::EACCES, CSV::MalformedCSVError => e
       Rails.logger.info e.message
+      raise
     ensure
       File.delete(@file_path) if !Rails.env.test? && File.exist?(@file_path)
     end

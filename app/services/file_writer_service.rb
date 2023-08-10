@@ -10,8 +10,14 @@ class FileWriterService < ApplicationService
   end
 
   def call
-    file_path = Rails.root.join('public', "bulk-import-#{SecureRandom.uuid}.csv")
-    File.write(file_path, @file.read)
-    UrlsCsvBatchUploadJob.perform_later(file_path.to_path, @base_url, @current_user)
+    begin
+      file_path = Rails.root.join('public', "bulk-import-#{SecureRandom.uuid}.csv")
+      File.write(file_path, @file.read)
+      UrlsCsvBatchUploadJob.perform_later(file_path.to_path, @base_url, @current_user)
+    rescue StandardError => e
+      Rails.logger.error("An error occurred while writing the file: #{e.message}")
+      raise e
+    end
   end
 end
+

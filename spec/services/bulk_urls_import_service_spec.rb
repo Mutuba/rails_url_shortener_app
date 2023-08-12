@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -73,4 +72,3 @@ RSpec.describe UrlsCsvBatchUploadService do
     end
   end
 end
-

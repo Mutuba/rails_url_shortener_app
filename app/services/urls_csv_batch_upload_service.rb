@@ -30,7 +30,7 @@ class UrlsCsvBatchUploadService < ApplicationService
       Rails.logger.info e.message
       raise
     ensure
-      File.delete(@file_path) if !Rails.env.test? && File.exist?(@file_path)
+      File.delete(@file_path)
     end
 
     instance = import_urls(urls_array, batch)
@@ -57,7 +57,6 @@ class UrlsCsvBatchUploadService < ApplicationService
   end
 
   def generate_short_url
-    byebug
     "#{@base_url}/#{SecureRandom.hex(4)}"
   end
 

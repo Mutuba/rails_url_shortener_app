@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe UrlsCsvBatchUploadJob, type: :job do
+  let(:user) { create(:user) } 
   let(:base_url) { Faker::Internet.url }
   let(:string_file_path) do
     'spec/fixtures/sample_urls_upload_file.csv'
@@ -12,35 +13,29 @@ RSpec.describe UrlsCsvBatchUploadJob, type: :job do
   end
 
   describe '#perform_later' do
-    subject(:perform_job) do
-      UrlsCsvBatchUploadJob.perform_later(
-        string_file_path:,
-        base_url:,
-        current_user: @user,
-      )
-    end
-
-    before do
-      @user = create(:user)
-    end
-
     it 'uploads a urls by enqueuing job' do
-      expect { perform_job }.to
-      have_enqueued_job(UrlsCsvBatchUploadJob).exactly(:once)
-      perform_job
+      expect {
+        UrlsCsvBatchUploadJob.perform_later(
+          string_file_path: string_file_path,
+           base_url: base_url,
+          current_user: user
+        )
+      }.to change {
+        ActiveJob::Base.queue_adapter.enqueued_jobs.count
+      }.by 1
+   
+      perform_enqueued_jobs
+
+       expect(ActiveJob::Base.queue_adapter.enqueued_jobs.size).to eq(0)
     end
   end
 
   describe '#perform_now' do
-    before do
-      @user = create :user
-    end
-
     subject(:perform_job) do
       described_class.perform_now(
         string_file_path:,
         base_url:,
-        current_user: @user,
+        current_user: user,
       )
     end
 
@@ -48,7 +43,7 @@ RSpec.describe UrlsCsvBatchUploadJob, type: :job do
       expect(UrlsCsvBatchUploadService).to receive(:call).with(
         file_path:,
         base_url:,
-        current_user: @user,
+        current_user: user,
       )
       perform_job
       expect { perform_job }.not_to raise_error
@@ -57,7 +52,6 @@ RSpec.describe UrlsCsvBatchUploadJob, type: :job do
 
   describe '#perform_now raises errors if any' do
     before do
-      @user = create :user
       allow(UrlsCsvBatchUploadService).to receive(:call).and_raise(
         StandardError,
         'Some error',
@@ -68,7 +62,7 @@ RSpec.describe UrlsCsvBatchUploadJob, type: :job do
       described_class.perform_now(
         string_file_path:,
         base_url:,
-        current_user: @user,
+        current_user: user,
       )
     end
 

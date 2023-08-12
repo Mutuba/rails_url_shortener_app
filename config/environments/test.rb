@@ -38,7 +38,7 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
   # ensure thatjobs executes immediately
-  config.active_job.queue_adapter = :inline
+  # config.active_job.queue_adapter = :inline
 
   config.action_mailer.perform_caching = false
 
@@ -55,6 +55,7 @@ Rails.application.configure do
 
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
+  config.active_job.queue_adapter = :test
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

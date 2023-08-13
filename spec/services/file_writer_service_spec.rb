@@ -31,44 +31,27 @@ RSpec.describe FileWriterService, type: :service do
     end
   end
 
-  describe '#call with bad data/with invalid CSV file' do
-    let(:current_user) { create(:user) }
-    let(:base_url) { Faker::Internet.url }
-    let(:file) do
-      Rack::Test::UploadedFile.new(
-        Rails.root.join('spec/fixtures/sample_urls_upload_file.csv'), 'text/csv'
-      )
-    end
-    subject(:batch_upload_service) do
-      described_class.call(
-        file_path:,
-        base_url:,
-        current_user:,
-      )
-    end
+  # describe '#call with bad data/with invalid CSV file' do
+  #   let(:current_user) { create(:user) }
+  #   let(:base_url) { Faker::Internet.url }
+  #   let(:file) do
+  #     Rack::Test::UploadedFile.new(
+  #       Rails.root.join('spec/fixtures/bad_csv_data_file.csv'), 'text/csv'
+  #     )
+  #   end
 
-    # context 'when the file has invalid data' do
-    #   it 'record failed urls' do
-    #     UrlsCsvBatchUploadService.call(file_path:, base_url:, current_user:)
-    #     expect(current_user.failed_urls.size).to eq(2)
-    #     expect(current_user.batches[0].success_rate).to eq(33)
-    #   end
-    # end
+  #   before do
+  #     allow(FileWriterService).to receive(:call).with(file:,
+  #                                                     base_url:,
+  #                                                     current_user:)
+  #                                                     .and_raise(Errno::ENOENT)
 
-    # context 'when csv file cannot be read' do
-    #   before do
-    #     allow(CSV).to receive(:foreach).and_raise(CSV::MalformedCSVError.new(
-    #                                                 'Malformed CSV error message', 42
-    #                                               ))
-    #   end
-
-    #   it 'raises relevent errors' do
-    #     expect do
-    #       batch_upload_service
-    #     end.to raise_error(CSV::MalformedCSVError,
-    #                        'Malformed CSV error message in line 42.')
-    #     expect(current_user.failed_urls.size).to eq(0)
-    #   end
-    # end
-  end
+  #   end
+  #   context 'when the file is not found' do
+  #     it 'record failed urls' do
+  #       expect(FileWriterService.call(file:, base_url:, current_user:))
+  #       .to raise_error(Errno::ENOENT)
+  #     end
+  #   end
+  # end
 end

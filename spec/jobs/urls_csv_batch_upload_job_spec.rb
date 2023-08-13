@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe UrlsCsvBatchUploadJob, type: :job do
-  let(:user) { create(:user) } 
+  let(:user) { create(:user) }
   let(:base_url) { Faker::Internet.url }
   let(:string_file_path) do
     'spec/fixtures/sample_urls_upload_file.csv'
@@ -14,19 +14,19 @@ RSpec.describe UrlsCsvBatchUploadJob, type: :job do
 
   describe '#perform_later' do
     it 'uploads a urls by enqueuing job' do
-      expect {
+      expect do
         UrlsCsvBatchUploadJob.perform_later(
-          string_file_path: string_file_path,
-           base_url: base_url,
-          current_user: user
+          string_file_path:,
+          base_url:,
+          current_user: user,
         )
-      }.to change {
+      end.to change {
         ActiveJob::Base.queue_adapter.enqueued_jobs.count
       }.by 1
-   
+
       perform_enqueued_jobs
 
-       expect(ActiveJob::Base.queue_adapter.enqueued_jobs.size).to eq(0)
+      expect(ActiveJob::Base.queue_adapter.enqueued_jobs.size).to eq(0)
     end
   end
 

@@ -12,7 +12,6 @@ class FileWriterService < ApplicationService
   def call
     file_path = Rails.root.join('public', "bulk-import-#{SecureRandom.uuid}.csv")
     File.write(file_path, @file.read)
-
     UrlsCsvBatchUploadJob.perform_later(
       string_file_path: file_path.to_path,
       base_url: @base_url,

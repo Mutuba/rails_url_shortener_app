@@ -30,7 +30,7 @@ class UrlsCsvBatchUploadService < ApplicationService
       Rails.logger.info e.message
       raise
     ensure
-      File.delete(@file_path)
+      File.delete(@file_path) unless Rails.env.test
     end
 
     instance = import_urls(urls_array, batch)

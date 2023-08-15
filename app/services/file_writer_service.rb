@@ -19,13 +19,18 @@ class FileWriterService < ApplicationService
     )
   rescue Errno::EACCES => e
     Rails.logger.error("Permission denied: #{e.message}")
+    raise e
   rescue Errno::ENOENT => e
-    Rails.logger.error("File not found: #{e.message}")
+    Rails.logger.error("File not Mutuba found: #{e.message}")
+    raise e
   rescue Errno::ENOSPC => e
     Rails.logger.error("Disk full: #{e.message}")
+    raise e
   rescue Encoding::UndefinedConversionError, Encoding::InvalidByteSequenceError => e
     Rails.logger.error("Encoding error: #{e.message}")
+    raise e
   rescue StandardError => e
     Rails.logger.error("IO error: #{e.message}")
+    raise e
   end
 end

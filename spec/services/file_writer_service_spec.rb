@@ -5,8 +5,10 @@ require 'rails_helper'
 RSpec.describe FileWriterService, type: :service do
   let(:current_user) { create(:user) }
   let(:file) do
-    Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/sample_urls_upload_file.csv'),
-                                 'text/csv')
+    Rack::Test::UploadedFile.new(
+      Rails.root.join('spec/fixtures/sample_urls_upload_file.csv'),
+      'text/csv',
+    )
   end
   let(:base_url) { 'http://example.com' }
 
@@ -31,27 +33,25 @@ RSpec.describe FileWriterService, type: :service do
     end
   end
 
-  # describe '#call with bad data/with invalid CSV file' do
-  #   let(:current_user) { create(:user) }
-  #   let(:base_url) { Faker::Internet.url }
-  #   let(:file) do
-  #     Rack::Test::UploadedFile.new(
-  #       Rails.root.join('spec/fixtures/bad_csv_data_file.csv'), 'text/csv'
-  #     )
-  #   end
+  describe '#call with bad data/with invalid CSV file' do
+    let(:current_user) { create(:user) }
+    let(:base_url) { Faker::Internet.url }
+    let(:file) do
+      Rack::Test::UploadedFile.new(
+        Rails.root.join('spec/fixtures/bad_csv_data_file.csv'), 'text/csv'
+      )
+    end
 
-  #   before do
-  #     allow(FileWriterService).to receive(:call).with(file:,
-  #                                                     base_url:,
-  #                                                     current_user:)
-  #                                                     .and_raise(Errno::ENOENT)
+    before do
+      allow(File).to receive(:write).and_raise(Errno::ENOENT)
+    end
 
-  #   end
-  #   context 'when the file is not found' do
-  #     it 'record failed urls' do
-  #       expect(FileWriterService.call(file:, base_url:, current_user:))
-  #       .to raise_error(Errno::ENOENT)
-  #     end
-  #   end
-  # end
+    context 'when the file is not found' do
+      it 'handles file not found error' do
+        expect do
+          FileWriterService.call(file:, base_url:, current_user:)
+        end.to raise_error(Errno::ENOENT)
+      end
+    end
+  end
 end

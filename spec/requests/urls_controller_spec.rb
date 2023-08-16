@@ -7,7 +7,7 @@ RSpec.describe 'Urls', type: :request do
   describe 'POST /urls/create' do
     let(:user) { create(:user) }
     let(:file) do
-      Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/test_file.csv'), 'text/csv')
+      Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/sample_urls_upload_file.csv'), 'text/csv')
     end
 
     before do
@@ -17,7 +17,8 @@ RSpec.describe 'Urls', type: :request do
       it 'uploads the uploaded' do
         post '/urls/create', params: { url: { file: } }
         expect(response).to redirect_to(new_url_path)
-        expect(UrlsBulkImportJob).to have_been_enqueued.exactly(:once)
+
+        expect(UrlsCsvBatchUploadJob).to have_been_enqueued.exactly(:once)
         perform_enqueued_jobs
         assert_performed_jobs 1
         expect(Batch.count).to eq(1)
@@ -30,7 +31,7 @@ RSpec.describe 'Urls', type: :request do
         post '/urls/create', params: {}
         expect(response).to redirect_to(new_url_path)
         expect(flash[:alert]).to eq 'Oops! File missing'
-        expect(UrlsBulkImportJob).not_to have_been_enqueued.exactly(:once)
+        expect(UrlsCsvBatchUploadJob).not_to have_been_enqueued.exactly(:once)
       end
     end
   end

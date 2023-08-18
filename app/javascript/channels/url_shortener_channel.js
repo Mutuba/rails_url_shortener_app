@@ -2,7 +2,7 @@ import consumer from "./consumer";
 const batch_element = document.getElementById("batch-id");
 const batch_id = batch_element.getAttribute("data-batch-id");
 
-consumer.subscriptions.create(
+const subscription = consumer.subscriptions.create(
   { channel: "UrlShortenerChannel", batch_id: batch_id },
   {
     received(data) {
@@ -20,11 +20,10 @@ consumer.subscriptions.create(
       if (data.content === 100) {
         progressText.innerText = "Upload complete";
         progressText1.innerText = "100%";
+
         progressAlert.innerText = "Upload complete";
 
         subscription.unsubscribe();
-      } else {
-        progressText.innerText = `Uploading data to our servers: ${progressText.innerText}`;
       }
     },
   }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# UrlsCsvBatchUploadService.
+# UrlsCsvBatchUploadService
 class UrlsCsvBatchUploadService < ApplicationService
   require 'csv'
 

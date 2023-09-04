@@ -17,6 +17,7 @@ class FileWriterService < ApplicationService
       base_url: @base_url,
       current_user: @current_user,
     )
+    
   rescue Errno::EACCES => e
     Rails.logger.error("Permission denied: #{e.message}")
     raise e

@@ -3,7 +3,7 @@
 # UrlsController controller
 class UrlsController < ApplicationController
   require 'securerandom'
-  
+
   before_action :set_url, only: %i[show]
   before_action :authenticate_user!, except: %i[index]
 
@@ -26,6 +26,7 @@ class UrlsController < ApplicationController
   def create
     if file_missing?
       flash[:alert] = 'Oops! File missing'
+      
       return redirect_to new_url_path
     end
 

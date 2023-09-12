@@ -78,7 +78,7 @@ class UrlsCsvBatchUploadService < ApplicationService
     failed_instances.each_slice(2) do |array_instance|
       array_instance.each do |element|
         FailedUrl.create(long_url: element&.long_url, batch: element&.batch,
-                         user_id: @current_user.id)
+                         user_id: @current_user&.id)
       end
     end
   end

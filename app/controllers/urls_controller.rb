@@ -26,7 +26,7 @@ class UrlsController < ApplicationController
   def create
     if file_missing?
       flash[:alert] = 'Oops! File missing'
-      
+
       return redirect_to new_url_path
     end
 

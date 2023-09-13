@@ -7,7 +7,10 @@ RSpec.describe 'Urls', type: :request do
   describe 'POST /urls/create' do
     let(:user) { create(:user) }
     let(:file) do
-      Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/sample_urls_upload_file.csv'), 'text/csv')
+      Rack::Test::UploadedFile.new(
+        Rails.root.join('spec/fixtures/sample_urls_upload_file.csv'),
+        'text/csv',
+      )
     end
 
     before do

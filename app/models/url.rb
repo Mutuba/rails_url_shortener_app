@@ -23,6 +23,7 @@
 #  fk_rails_...  (batch_id => batches.id)
 #  fk_rails_...  (user_id => users.id)
 #
+
 class Url < ApplicationRecord
   belongs_to :batch
   belongs_to :user

@@ -13,6 +13,7 @@ gem 'sprockets-rails'
 
 gem 'sidekiq-status'
 # Use postgresql as the database for Active Record
+
 gem 'pg'
 
 # Use the Puma web server [https://github.com/puma/puma]

@@ -56,6 +56,7 @@ gem 'kaminari'
 gem 'unicorn', '~> 6.1.0'
 
 # gem 'hiredis'
+
 gem 'redis', '>= 4.0'
 gem 'twitter-bootstrap-rails'
 gem 'faker'

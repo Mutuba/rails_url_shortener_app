@@ -22,7 +22,7 @@ class FileWriterService < ApplicationService
     Rails.logger.error("Permission denied: #{e.message}")
     raise e
   rescue Errno::ENOENT => e
-    Rails.logger.error("File not Mutuba found: #{e.message}")
+    Rails.logger.error("File not found: #{e.message}")
     raise e
   rescue Errno::ENOSPC => e
     Rails.logger.error("Disk full: #{e.message}")

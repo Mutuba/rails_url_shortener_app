@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # FileWriterService
+
 class FileWriterService < ApplicationService
   def initialize(**params)
     super()

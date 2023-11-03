@@ -18,7 +18,6 @@ class UrlsCsvBatchUploadJob < ApplicationJob
       UrlsCsvBatchUploadService.call(file_path:, base_url:,
                                      current_user:)
     rescue StandardError => e
-      
       Rails.logger.error("An error occurred: #{e.message}")
     end
   end

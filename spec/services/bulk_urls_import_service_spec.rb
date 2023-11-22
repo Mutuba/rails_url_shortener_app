@@ -21,7 +21,6 @@ RSpec.describe UrlsCsvBatchUploadService do
         expect { batch_upload_service }.to change { Url.count }.by(25)
         expect(current_user.urls.size).to eq(25)
         expect(current_user.batches.size).to eq(1)
-        
         expect(current_user.batches[0].success_rate).to eq(100)
         expect do
           ActionCable.server.broadcast(

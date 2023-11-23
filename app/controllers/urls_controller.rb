@@ -31,6 +31,7 @@ class UrlsController < ApplicationController
     end
 
     base_url = request.base_url
+    
     file = params[:url][:file]
 
     FileWriterService.call(

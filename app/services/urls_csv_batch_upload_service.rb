@@ -66,11 +66,11 @@ class UrlsCsvBatchUploadService < ApplicationService
 
   def import_urls(urls_array, batch)
 
-    my_proc = lambda { |_, num_batches, current_batch_number, _|
+    progress = lambda { |_, num_batches, current_batch_number, _|
       progress = (current_batch_number * 100) / num_batches
       ActionCable.server.broadcast("#{@current_user&.id}#{batch&.id}", { content: progress })
     }
-    Url.import urls_array, batch_size: 2, batch_progress: my_proc, returning: :long_url
+    Url.import urls_array, batch_size: 2, batch_progress: progress, returning: :long_url
   end
 
   def record_failed_urls(failed_instances)

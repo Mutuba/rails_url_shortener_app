@@ -65,6 +65,7 @@ class UrlsCsvBatchUploadService < ApplicationService
   end
 
   def import_urls(urls_array, batch)
+    
     my_proc = lambda { |_, num_batches, current_batch_number, _|
       progress = (current_batch_number * 100) / num_batches
       ActionCable.server.broadcast("#{@current_user&.id}#{batch&.id}", { content: progress })

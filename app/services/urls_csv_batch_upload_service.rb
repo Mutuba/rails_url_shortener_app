@@ -74,7 +74,6 @@ class UrlsCsvBatchUploadService < ApplicationService
   end
 
   def record_failed_urls(failed_instances)
-    
     return unless failed_instances&.size&.positive?
 
     failed_instances.each_slice(2) do |array_instance|

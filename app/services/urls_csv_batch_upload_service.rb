@@ -34,6 +34,7 @@ class UrlsCsvBatchUploadService < ApplicationService
     end
 
     instance = import_urls(urls_array, batch)
+    
     record_failed_urls(instance&.failed_instances)
     record_batch_metrics(instance, batch)
   end

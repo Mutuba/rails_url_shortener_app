@@ -18,6 +18,7 @@ class UrlsCsvBatchUploadService < ApplicationService
   private
 
   def process_csv!
+    
     batch = create_batch
     urls_array = []
 

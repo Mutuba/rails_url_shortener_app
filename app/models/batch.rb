@@ -22,6 +22,7 @@
 class Batch < ApplicationRecord
   belongs_to :user
   validates :user_id, presence: true
+  
   has_many :urls, class_name: 'Url', dependent: :destroy
   has_many :failed_urls, class_name: 'FailedUrl', dependent: :destroy
 end

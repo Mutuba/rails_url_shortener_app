@@ -12,7 +12,6 @@ class UrlsCsvBatchUploadService < ApplicationService
   end
 
   def call
-    
     process_csv!
   end
 

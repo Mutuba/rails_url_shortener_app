@@ -52,7 +52,6 @@ class UrlsCsvBatchUploadService < ApplicationService
   def create_batch
     Batch.create!(
       name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}",
-      
       user: @current_user,
     )
   end

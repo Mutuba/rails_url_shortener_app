@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   get 'urls/show', to: 'urls#show'
   get 'batch/stats', to: 'batch_metrics#batch_stats'
   get 'batch/upload_status', to: 'batch_metrics#upload_status'
-  
   get 'current_upload_status', to: 'batch_metrics#current_upload_status'
   get 'batch_urls', to: 'batch_metrics#batch_urls'
   post 'batch_urls', to: 'batch_metrics#batch_urls'

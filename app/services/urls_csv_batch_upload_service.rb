@@ -61,6 +61,7 @@ class UrlsCsvBatchUploadService < ApplicationService
   end
 
   def sanitize_url(long_url_arg)
+    
     long_url_arg.strip.downcase.sub(%r{(https?://)|(www\.)}, 'http://')
   end
 

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'batch_urls', to: 'batch_metrics#batch_urls'
   post 'batch_urls', to: 'batch_metrics#batch_urls'
   get 'csv_import_sample/download', to: 'download_csv#download_sample_csv'
+  
   get 'get_started', to: 'home#index'
 
   root 'urls#index'

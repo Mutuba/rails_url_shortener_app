@@ -7,7 +7,9 @@ class UrlShortenerChannel < ApplicationCable::Channel
     
     Rails.logger.info "Subscribing to user and batch channels for user id #{user_id} and batch id #{batch_id} in UrlShortenerChannel"
 
+    reject if user_id.nil?
     reject if batch_id.blank?
+
     stream_from "user_#{user_id}_batch_#{batch_id}"
     Rails.logger.info "Streaming for user id #{user_id} and batch id #{batch_id} in UrlShortenerChannel"
   end

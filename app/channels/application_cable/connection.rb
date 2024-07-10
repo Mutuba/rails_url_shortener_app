@@ -12,10 +12,7 @@ module ApplicationCable
 
     private
 
-    def find_verified_user
-      
-      # binding.pry
-      
+    def find_verified_user      
       env['warden'].user || reject_unauthorized_connection
     end
   end

@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
-# UrlShortenerChannel controller
 class UrlShortenerChannel < ApplicationCable::Channel
   def subscribed
-    reject if params[:batch_id].blank?
-    stream_from "#{current_user&.id}#{params[:batch_id]}"
-    Rails.logger.info "streaming for user id #{current_user&.id} in UrlShortenerChannel"
+    user_id = current_user.id
+    batch_id = params[:batch_id]
+    
+    Rails.logger.info "Subscribing to user and batch channels for user id #{user_id} and batch id #{batch_id} in UrlShortenerChannel"
+
+    reject if batch_id.blank?
+    stream_from "user_#{user_id}_batch_#{batch_id}"
+    Rails.logger.info "Streaming for user id #{user_id} and batch id #{batch_id} in UrlShortenerChannel"
   end
 
   def unsubscribed

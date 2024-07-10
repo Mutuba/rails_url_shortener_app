@@ -13,6 +13,9 @@ module ApplicationCable
     private
 
     def find_verified_user
+      
+      # binding.pry
+      
       env['warden'].user || reject_unauthorized_connection
     end
   end

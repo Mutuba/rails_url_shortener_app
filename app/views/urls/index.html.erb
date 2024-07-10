@@ -1,21 +1,22 @@
-<div class="container d-flex align-items-center justify-content-center">
+<div class="container d-flex align-items-center justify-content-center mt-4">
   <div>
-    <%  if @urls.size == 0 %>
+    <% if @urls.empty? %>
       <br/>
       <br/>
       <div class="container d-flex align-items-center justify-content-center">
         <div class="alert alert-primary" role="alert">
-          Sorry, not sure if this is what you expected, but you do not have any urls yet!
+          Sorry, not sure if this is what you expected, but you do not have any URLs yet!
         </div>
       </div>
-    <% else%>
+    <% else %>
       <% @urls.each do |url| %>
         <%= render url %>
       <% end %>
 
-      <%= link_to_prev_page @urls, 'Previous Page', class: "btn btn-primary" %>
-      <%= link_to_next_page @urls, 'Next Page', class: "btn btn-primary" %>
-      <br/>
-    <%end%>
+      <div class="d-flex justify-content-center">
+        <%= link_to_prev_page @urls, 'Previous Page', class: "btn btn-primary mx-2" %>
+        <%= link_to_next_page @urls, 'Next Page', class: "btn btn-primary mx-2" %>
+      </div>
+    <% end %>
   </div>
 </div>

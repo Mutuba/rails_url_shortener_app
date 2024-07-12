@@ -3,10 +3,6 @@
     <div class="card">
       <div class="card-body">
         <p>
-          <strong>Long url:</strong>
-          <%= url.long_url %>
-        </p>
-        <p>
           <strong>Short url:</strong>
           <%= link_to url.short_url, url_path(:id => url.id) %>
         </p>

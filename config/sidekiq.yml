@@ -4,8 +4,13 @@
 
 :queues:
   - default
-# :schedule:
-#   HelloWorldWorker:
-#     cron: "* * * * *"
-#     queue: default
-#     enabled: true
+  - hello_world
+  - purge_expired_urls
+:scheduler:
+  :schedule:
+    HelloWorldWorker:
+      cron: "0 * * * * *"
+      class: HelloWorldWorker
+    PurgeExpiredUrlsJob:
+      cron: "0 * * * * *"
+      class: PurgeExpiredUrlsJob

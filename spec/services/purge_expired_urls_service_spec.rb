@@ -14,12 +14,9 @@ RSpec.describe PurgeExpiredUrlsService, type: :model do
     create_list(:url, 10, user:, batch:)
   end
 
-  it ' finds urs and deletes them' do
-    Url.where('created_at < ?', 10.days.ago)
-
+  it 'finds urs older than 10 days and deletes them' do
     expect(Url.all.count).to eq 20
     PurgeExpiredUrlsService.call
-
-    expect(Url.count).to eq 0
+    expect(Url.count).to eq 10
   end
 end

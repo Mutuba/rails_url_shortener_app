@@ -4,11 +4,11 @@ require 'sidekiq-scheduler'
 # HelloWorldWorker
 class HelloWorldWorker
   include Sidekiq::Worker
-  include Sidekiq::Status::Worker
+  queue_as :hello_world
 
   sidekiq_options retry: false
 
   def perform
-    # puts 'Hello world!'
+    logger.info 'Hello world!'
   end
 end

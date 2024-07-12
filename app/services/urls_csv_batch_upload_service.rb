@@ -40,7 +40,7 @@ class UrlsCsvBatchUploadService < ApplicationService
   def process_url_hash(row, batch)
     url_hash = Url.new
     url_hash.batch = batch
-    url_hash.long_url = sanitize_url(row[0])
+    url_hash.long_url = row[0]
     url_hash.short_url = row[1].nil? ? generate_short_url : "#{@base_url}/#{row[1]}"
     url_hash.created_at = Time.zone.now
     url_hash.updated_at = Time.zone.now
@@ -57,10 +57,6 @@ class UrlsCsvBatchUploadService < ApplicationService
 
   def generate_short_url
     "#{@base_url}/#{SecureRandom.hex(4)}"
-  end
-
-  def sanitize_url(long_url_arg)
-    long_url_arg.strip.downcase.sub(%r{(https?://)|(www\.)}, 'http://')
   end
 
   def import_urls(urls_array, batch)

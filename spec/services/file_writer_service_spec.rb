@@ -33,7 +33,7 @@ RSpec.describe FileWriterService, type: :service do
     end
   end
 
-  describe '#call with bad data/with invalid CSV file' do
+  describe '#call with bad data or with invalid CSV file' do
     let(:current_user) { create(:user) }
     let(:base_url) { Faker::Internet.url }
     let(:file) do

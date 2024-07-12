@@ -5,11 +5,11 @@ class UrlsController < ApplicationController
   require 'securerandom'
 
   before_action :set_url, only: %i[show]
-  before_action :authenticate_user!, except: %i[index]
+  before_action :authenticate_user!
 
   def index
-     return redirect_to get_started_path unless user_signed_in?
-
+    return redirect_to get_started_path unless user_signed_in?
+     
     @urls = current_user.urls.order(updated_at: :desc).page(params[:page])
   end
 
@@ -31,7 +31,7 @@ class UrlsController < ApplicationController
   end
 
   def new
-    @url = Url.new
+    @new_url = Url.new
   end
 
   def create
@@ -49,7 +49,7 @@ class UrlsController < ApplicationController
         base_url: base_url,
         current_user: current_user
       )
-      redirect_to new_url_path, notice: 'Upload in progress. Please sit tight.'
+      redirect_to new_url_path  
     rescue StandardError => e
       logger.error("Error while processing file upload: #{e.message}")
       redirect_to new_url_path, alert: 'Error occurred during upload. Please try again later.'

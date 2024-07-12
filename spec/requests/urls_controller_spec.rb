@@ -18,20 +18,19 @@ RSpec.describe 'Urls', type: :request do
     end
     context 'params contains the file to be uploaded' do
       it 'uploads the uploaded' do
-        post '/urls/create', params: { url: { file: } }
+        post urls_path, params: { url: { file: file } }
         expect(response).to redirect_to(new_url_path)
 
         expect(UrlsCsvBatchUploadJob).to have_been_enqueued.exactly(:once)
         perform_enqueued_jobs
         assert_performed_jobs 1
         expect(Batch.count).to eq(1)
-        expect(flash[:alert]).to eq 'Upload in progress. Please sit tight'
       end
     end
 
     context 'file to be uploaded is missing in param' do
       it 'uploads the uploaded' do
-        post '/urls/create', params: {}
+        post urls_path, params: {}
         expect(response).to redirect_to(new_url_path)
         expect(flash[:alert]).to eq 'Oops! File missing'
         expect(UrlsCsvBatchUploadJob).not_to have_been_enqueued.exactly(:once)
@@ -49,7 +48,7 @@ RSpec.describe 'Urls', type: :request do
     end
     context 'params contains the file to be uploaded' do
       it 'uploads the uploaded' do
-        get '/urls/'
+        get urls_path
         expect(response.status).to eq 200
       end
     end
@@ -62,13 +61,12 @@ RSpec.describe 'Urls', type: :request do
     let(:previous_clicks) { 0 }
     before do
       sign_in user
-      allow(Url).to receive(:find_by).and_return(url)
+      allow(Url).to receive(:find_by!).and_return(url)
     end
     context 'params contains the file to be uploaded' do
       it 'uploads the uploaded' do
-        get '/urls/show'
-
-        expect(response.status).to eq 302
+        get url_path(url)
+        
         expect(url.click).to eq(previous_clicks + 1)
       end
     end

@@ -1,0 +1,28 @@
+<%# app/views/upload_status/upload_status.html.erb %>
+<div id="user-id" data-user-id="<%= current_user.id %>"></div>
+<div class="container mt-4">
+  <% if batches.nil? %>
+    <div class="alert alert-success" role="alert">
+      You don't have any uploads in progress at the moment
+    </div>
+  <% else %>
+  <% batches.each do |batch|%>
+    <div class="row">
+      <div class="col-12 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <div id="batch-id-<%= batch.id %>" data-batch-id="<%= batch.id %>"></div>
+            <div id="progress-container-<%= batch.id %>">
+              <div class="alert alert-primary" role="alert" id="progress-alert-<%= batch.id %>">
+                Uploading batch <%= batch.id %>!
+              </div>
+              <br/>
+              <%= render "urls/import_notification", batch: batch %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  <% end %>
+</div>

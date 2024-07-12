@@ -14,33 +14,38 @@
  *= require_self
  */
 
-
- body{
-    height: 100vh;
-} 
-.container{
-    height: 100%;
-    margin-top: 6px;
-    padding-top: 6px;
+body {
+  height: 100vh;
+}
+.container {
+  height: 100%;
+  margin-top: 6px;
+  padding-top: 6px;
 }
 
-.upload-form{
-    margin-top: 12px;
-    padding-top: 12px;
+.upload-form {
+  margin-top: 12px;
+  padding-top: 12px;
 }
 
-.actions.account-update{
-    padding-top: 12px;
-    padding-bottom: 12px;
+.actions.account-update {
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
-.btn.btn-primary.cancel-account-button{
-    margin-bottom: 12px;
+.btn.btn-primary.cancel-account-button {
+  margin-bottom: 12px;
+}
+.have-an-account {
+  margin-top: 12px;
+}
+.actions.login-button {
+  padding-top: 12px;
+}
+.navbar-custom .nav-link {
+  color: white !important;
+}
 
-}
-.have-an-account{
-    margin-top: 12px;
-}
-.actions.login-button{
-    padding-top: 12px;
+.navbar-custom .navbar-brand {
+  color: white !important;
 }

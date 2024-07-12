@@ -15,7 +15,7 @@ RSpec.describe 'BatchMetrics', type: :request do
     end
 
     it 'returns stats for current batch' do
-      get batch_urls_path
+      get batch_metrics_batch_urls_path
       expect(response.status).to eq 200
     end
   end
@@ -28,54 +28,38 @@ RSpec.describe 'BatchMetrics', type: :request do
       sign_in user
     end
     it 'return available batches' do
-      get batch_stats_path
+      get batch_metrics_batch_stats_path
 
       expect(response.status).to eq 200
     end
   end
 
-  describe 'GET /batch/upload_status/' do
-    let(:user) { create(:user) }
-    let!(:batch) { create(:batch, user:) }
-    let!(:url) { create(:url, user:, batch:) }
-    before do
-      sign_in user
-      allow(Batch).to receive(:find_by).and_return(batch)
-    end
-    context 'when a batch is available' do
-      it 'uploads the uploaded' do
-        get batch_upload_status_path
-
-        expect(response.status).to eq 200
-      end
-    end
-  end
-
-  describe 'GET /current_upload_status/' do
+  describe 'GET /upload_status/' do
     let(:user) { create(:user) }
     let!(:batch) { create(:batch, user:) }
     let!(:url) { create(:url, user:, batch:) }
 
-    context 'when batch is not nil' do
+    context 'when batches exist' do
       before do
         sign_in user
-        allow(Batch).to receive(:find_by).and_return(batch)
       end
       it 'request is successful' do
-        get current_upload_status_path
+        get batch_metrics_upload_status_path
 
         expect(response).to be_successful
         expect(response.status).to eq 200
       end
     end
 
-    context 'when batch is nil' do
+    context 'when batches is empty' do
       before do
         sign_in user
-        allow(Batch).to receive(:last).and_return(nil)
+        empty_relation = instance_double(ActiveRecord::Relation, where: Batch.none)
+        allow(user).to receive(:batches).and_return(empty_relation)
       end
+
       it 'request is successful' do
-        get current_upload_status_path
+        get batch_metrics_upload_status_path
 
         expect(response.body).to include('Sorry, batch number not found!')
       end

@@ -1,24 +1,24 @@
-<div class="container d-flex align-items-center justify-content-center">
-  <div class="upload-form">
-
-    <%= form_for @url, url: urls_create_path do |f| %>
-      <div class="form-group ">
-        <%= f.label :file, "Upload CSV File" %>
-        <%= f.file_field :file, accept: ".csv",  class: 'form-control-file'%>
-      </div>
-      <br/>
-      <br/>
-      <div class="actions">
-        <%= f.button "Upload File", type: :submit, class: "btn btn-primary" %>
-      </div>
-      <br/>
-      <br/>
-      You can click <a href="/csv_import_sample/download/">here</a> to
-      download a sample csv file.
-      <br />
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div id="upload-status"></div>
     </div>
-  <% end %>
-
-</div>
-</div>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+      <div class="upload-form">
+        <%= form_for @new_url, url: urls_path, html: { data: { turbo: true } } do |f| %>
+          <div class="form-group d-flex align-items-center justify-content-center">
+            <%= f.file_field :file, accept: ".csv", class: "form-control" %>
+          </div>
+          <div class="actions mt-4">
+            <%= f.button "Upload File", type: :submit, class: "btn btn-primary mr-2" %>
+          </div>
+        <% end %>
+        <p class=" mt-4">
+          You can click <a href="/download/">here</a> to download a sample CSV file.
+        </p>
+      </div>
+    </div>
+  </div>
 </div>

@@ -17,16 +17,16 @@ class BatchMetricsController < ApplicationController
     render template: 'batch_metrics/batch_metrics', locals: { batches: @batches }
   end
 
-  def current_upload_status
+  def upload_status
     @batches = current_user.batches.where(success_rate: nil).order(created_at: :desc)
     return render template: 'batch_metrics/batch_not_found' if @batches.empty?
 
-    render template: 'batch_metrics/current_upload_status', locals: { batches: @batches }
+    render template: 'upload_status/upload_status', locals: { batches: @batches }
   end
 
   private
 
-  def set_batch    
+  def set_batch        
     @batch = Batch.find_by(id: params[:id])
   end
 end

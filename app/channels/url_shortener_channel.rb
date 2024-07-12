@@ -12,11 +12,6 @@ class UrlShortenerChannel < ApplicationCable::Channel
       return
     end
 
-    if batch_id.blank?
-      reject
-      return
-    end
-
     stream_from "user_#{user_id}_batch_#{batch_id}"
     logger.info "Streaming for user id #{user_id} and batch id #{batch_id} in UrlShortenerChannel"
   end

@@ -32,7 +32,7 @@
                               </div>
                             </div>
                             <p>
-                              <%= link_to "View Progress", batch_upload_status_path(:id => batch.id), class: "btn btn-primary"%>
+                              <%= link_to "View Progress", batch_metrics_upload_status_path, class: "btn btn-primary"%>
                             </p>
                           <% else%>
                             <p>
@@ -48,7 +48,7 @@
                               <%= batch.failed_urls.size %>
                             </p>
                             <p>
-                              <%= button_to "View Batch Urls", batch_urls_path(:id => batch.id), class: "btn btn-primary" %>
+                              <%= button_to "View Batch Urls", batch_metrics_batch_urls_path(:id => batch.id), class: "btn btn-primary" %>
                             </p>
                           <%end%>
                         </div>
@@ -63,7 +63,7 @@
         </div>
       <% end %>
     </div>
-    <%= link_to_prev_page @batches, 'Previous Page', class: "btn btn-primary" %>
+    <%= link_to_prev_page @batches, 'Prev Page', class: "btn btn-primary" %>
     <%= link_to_next_page @batches, 'Next Page' , class: "btn btn-primary"%>
   <%end%>
 </div>

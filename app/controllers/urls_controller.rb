@@ -42,14 +42,13 @@ class UrlsController < ApplicationController
 
     base_url = request.base_url
     file = url_params[:file]
-
     begin
       FileWriterService.call(
         file: file,
         base_url: base_url,
         current_user: current_user
       )
-      redirect_to new_url_path  
+      redirect_to new_url_path, alert: 'File upload in progress. Hold tight'
     rescue StandardError => e
       logger.error("Error while processing file upload: #{e.message}")
       redirect_to new_url_path, alert: 'Error occurred during upload. Please try again later.'

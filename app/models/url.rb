@@ -25,6 +25,8 @@
 #
 
 class Url < ApplicationRecord
+  include Taggable
+  
   belongs_to :batch
   belongs_to :user
   validates :long_url, presence: true, length: { minimum: 30 }

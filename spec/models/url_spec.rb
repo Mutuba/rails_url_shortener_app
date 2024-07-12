@@ -36,4 +36,5 @@ RSpec.describe Url, type: :model do
   it { should validate_presence_of(:batch_id) }
   it { should validate_presence_of(:long_url) }
   it { should validate_presence_of(:short_url) }
+  it_behaves_like "taggable"
 end

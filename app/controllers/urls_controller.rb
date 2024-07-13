@@ -69,7 +69,6 @@ class UrlsController < ApplicationController
 
   def url_params
     params.require(:url).permit(:file, :long_url, :short_url, tag_names: [])
-
   end
 
   def handle_tags(url, tags)

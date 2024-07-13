@@ -19,11 +19,14 @@ class UrlsCsvBatchUploadService < ApplicationService
   def process_csv!
     batch = create_batch
     urls_array = []
+    url_tag_associations = []
 
     begin
       CSV.foreach(@file_path, headers: true) do |row|
         url_hash = process_url_hash(row, batch)
         urls_array << url_hash
+        tag_names = row['tags']&.split(',')
+        url_tag_associations << { url_hash: url_hash, tag_names: tag_names } if tag_names
       end
     rescue Errno::ENOENT, Errno::EACCES, CSV::MalformedCSVError => e
       logger.info e.message
@@ -34,18 +37,19 @@ class UrlsCsvBatchUploadService < ApplicationService
 
     instance = import_urls(urls_array, batch)
     record_failed_urls(instance&.failed_instances)
+    associate_tags_with_urls(url_tag_associations) # url_tag_associations[:url_hash] is an actual active record object
     record_batch_metrics(instance, batch)
   end
 
   def process_url_hash(row, batch)
-    url_hash = Url.new
-    url_hash.batch = batch
-    url_hash.long_url = row[0]
-    url_hash.short_url = row[1].nil? ? generate_short_url : "#{@base_url}/#{row[1]}"
-    url_hash.created_at = Time.zone.now
-    url_hash.updated_at = Time.zone.now
-    url_hash.user_id = @current_user.id
-    url_hash
+    Url.new(
+      batch: batch,
+      long_url: row[0],
+      short_url: row[1].nil? ? generate_short_url : "#{@base_url}/#{row[1]}",
+      created_at: Time.zone.now,
+      updated_at: Time.zone.now,
+      user_id: @current_user.id
+    )
   end
 
   def create_batch
@@ -64,7 +68,20 @@ class UrlsCsvBatchUploadService < ApplicationService
       progress = (current_batch_number * 100) / num_batches
       ActionCable.server.broadcast("user_#{@current_user.id}_batch_#{batch.id}", { content: progress })
     }
-    Url.import urls_array, batch_size: 2, batch_progress: progress, returning: :long_url
+    Url.import urls_array, batch_size: 2, batch_progress: progress, returning: :id
+  end
+
+  def associate_tags_with_urls(url_tag_associations)
+    url_tag_associations.each do |url_tag_association|
+      url = url_tag_association[:url_hash]
+      create_tags(url, url_tag_association[:tag_names])
+    end
+  end
+
+  def create_tags(url, tag_names)
+    tag_names.each do |tag_name|
+      url.tags.find_or_create_by(name: tag_name)
+    end
   end
 
   def record_failed_urls(failed_instances)

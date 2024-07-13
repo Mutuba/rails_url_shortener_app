@@ -11,7 +11,8 @@
 #
 # Indexes
 #
-#  index_tags_on_taggable  (taggable_type,taggable_id)
+#  index_tags_on_name_and_taggable_type_and_taggable_id  (name,taggable_type,taggable_id) UNIQUE
+#  index_tags_on_taggable                                (taggable_type,taggable_id)
 #
 require 'rails_helper'
 

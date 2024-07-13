@@ -68,7 +68,6 @@ class UrlsController < ApplicationController
   private
 
   def url_params
-    # params.require(:url).permit(:file)
     params.require(:url).permit(:file, :long_url, :short_url, tag_names: [])
 
   end

@@ -1,5 +1,5 @@
 <div class="container">
-  <div id="<%= dom_id url %>">
+  <div id="<%= dom_id(url) %>">
     <div class="card">
       <div class="card-body">
         <p>
@@ -10,6 +10,13 @@
           <strong>Number of visits:</strong>
           <%= url.click %>
         </p>
+        <% if url.tags.present? %>
+          <p>
+          <strong>Tags:</strong>
+          <%= url.tags.map(&:name).join(', ') %>
+        </p>
+        <% end %>
+        <%= link_to 'Edit', edit_url_path(url), class: "btn btn-primary" %>
       </div>
     </div>
     <br/>

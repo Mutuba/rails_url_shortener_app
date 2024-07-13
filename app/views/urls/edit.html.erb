@@ -1,0 +1,23 @@
+<div class="container d-flex align-items-center justify-content-center mt-4">
+  <%= form_with(model: @url, local: true) do |form| %>
+    <div class="mb-3">
+      <%= form.label :long_url, style: "display: block" %>
+      <%= form.text_field :long_url, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :short_url, style: "display: block" %>
+      <%= form.text_field :short_url, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :tags, style: "display: block" %>
+      <%= form.text_field :tag_names, class: "form-control", value: @url.tags.pluck(:name).join(', ') %>
+      <small class="form-text text-muted">Enter tags separated by commas.</small>
+    </div>
+
+    <div>
+      <%= form.submit "Update URL", class: "btn btn-primary mt-4" %>
+    </div>
+  <% end %>
+</div>

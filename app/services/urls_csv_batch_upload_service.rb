@@ -25,7 +25,7 @@ class UrlsCsvBatchUploadService < ApplicationService
       CSV.foreach(@file_path, headers: true) do |row|
         url_hash = process_url_hash(row, batch)
         urls_array << url_hash
-        tag_names = row['tags']&.split(',')
+        tag_names = row['tags']&.split(',')&.map(&:strip)&.reject(&:blank?)
         url_tag_associations << { url_hash: url_hash, tag_names: tag_names } if tag_names
       end
     rescue Errno::ENOENT, Errno::EACCES, CSV::MalformedCSVError => e

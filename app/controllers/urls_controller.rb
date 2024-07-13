@@ -3,8 +3,7 @@
 # UrlsController controller
 class UrlsController < ApplicationController
   require 'securerandom'
-
-  before_action :set_url, only: %i[show]
+  before_action :set_url, only: %i[show edit update]
   before_action :authenticate_user!
 
   def index
@@ -55,10 +54,31 @@ class UrlsController < ApplicationController
     end
   end
 
+  def edit;end
+
+  def update
+    if @url.update(url_params)      
+      handle_tags(@url, params[:url][:tag_names])
+      redirect_to urls_path, alert: 'URL was successfully updated.'
+    else
+      render :edit
+    end
+  end
+
   private
 
   def url_params
-    params.require(:url).permit(:file)
+    # params.require(:url).permit(:file)
+    params.require(:url).permit(:file, :long_url, :short_url, tag_names: [])
+
+  end
+
+  def handle_tags(url, tags)
+    tag_names = tags.split(',').map(&:strip).reject(&:blank?)
+    url.tags.where.not(name: new_tag_names).destroy_all
+    tag_names.each do |name|
+      url.tags.find_or_create_by(name: name)
+    end
   end
 
   def file_missing?

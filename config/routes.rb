@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/cable'
 
-  resources :urls, only: %i[new show index create]
+  resources :urls, only: %i[new show index create update edit]
 
   namespace :batch_metrics do
     get :batch_stats

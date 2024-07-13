@@ -49,3 +49,8 @@ body {
 .navbar-custom .navbar-brand {
   color: white !important;
 }
+.pagination-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}

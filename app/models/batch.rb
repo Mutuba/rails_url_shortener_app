@@ -27,4 +27,6 @@ class Batch < ApplicationRecord
   has_many :failed_urls, class_name: 'FailedUrl', dependent: :destroy
 
   scope :active, -> { where(deleted: false) }
+  scope :with_success_rate_nil, -> { where(success_rate: nil) }
+  scope :recently_created, -> { order(created_at: :desc) }
 end

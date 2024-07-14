@@ -7,7 +7,7 @@ class BatchMetricsController < ApplicationController
 
   def batch_urls
     return render template: 'batch_metrics/batch_not_found' unless @batch
-    
+
     @tags = current_user.urls.joins(:tags).distinct.pluck(:name)
     @urls = @batch.urls.order(updated_at: :desc).page(params[:page])
     render template: 'batch_metrics/batch_urls', locals: { urls: @urls, batch: @batch }
@@ -19,7 +19,7 @@ class BatchMetricsController < ApplicationController
   end
 
   def upload_status
-    @batches = current_user.batches.active..where(success_rate: nil).order(created_at: :desc)
+    @batches = current_user.batches.active.where(success_rate: nil).order(created_at: :desc)
     logger.info "batch_stats #{@batches.count}"
     return render template: 'batch_metrics/batch_not_found' if @batches.empty?
 

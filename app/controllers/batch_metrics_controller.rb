@@ -19,6 +19,7 @@ class BatchMetricsController < ApplicationController
 
   def upload_status
     @batches = current_user.batches.where(success_rate: nil).order(created_at: :desc)
+    logger.info "batch_stats #{@batches.count}"
     return render template: 'batch_metrics/batch_not_found' if @batches.empty?
 
     render template: 'upload_status/upload_status', locals: { batches: @batches }

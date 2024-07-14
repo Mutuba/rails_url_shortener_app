@@ -3,7 +3,7 @@ import consumer from "./consumer";
 document.addEventListener("DOMContentLoaded", () => {
   const userId = document
     .getElementById("user-id")
-    .getAttribute("data-user-id");
+    ?.getAttribute("data-user-id");
 
   if (!userId) {
     console.error("User ID not found.");

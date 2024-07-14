@@ -6,8 +6,8 @@ require 'rails_helper'
 RSpec.describe 'BatchMetrics', type: :request do
   describe 'GET /batch_urls' do
     let(:user) { create(:user) }
-    let!(:batch) { create(:batch, user:) }
-    let!(:url) { create_list(:url, 10, user:, batch:) }
+    let(:batch) { create(:batch, user:) }
+    let(:url) { create_list(:url, 10, user:, batch:) }
 
     before do
       sign_in user
@@ -22,8 +22,8 @@ RSpec.describe 'BatchMetrics', type: :request do
 
   describe 'GET /batch/stats' do
     let(:user) { create(:user) }
-    let!(:batches) { create_list(:batch, 10, user:) }
-    let!(:url) { create(:url, user:, batch: batches[0]) }
+    let(:batches) { create_list(:batch, 10, user:) }
+    let(:url) { create(:url, user:, batch: batches[0]) }
     before do
       sign_in user
     end
@@ -36,8 +36,8 @@ RSpec.describe 'BatchMetrics', type: :request do
 
   describe 'GET /upload_status/' do
     let(:user) { create(:user) }
-    let!(:batch) { create(:batch, user:) }
-    let!(:url) { create(:url, user:, batch:) }
+    let(:batch) { create(:batch, user:) }
+    let(:url) { create(:url, user:, batch:) }
 
     context 'when batches exist' do
       before do
@@ -62,6 +62,25 @@ RSpec.describe 'BatchMetrics', type: :request do
         get batch_metrics_upload_status_path
 
         expect(response.body).to include('Sorry, batch number not found!')
+      end
+    end
+  end
+
+  describe "DELETE /delete" do
+    let(:user) { create(:user) }
+    let(:batch) { create(:batch, user:) }
+
+    before do
+      sign_in user
+    end
+
+    context 'when batches exist' do
+      it 'request is successful' do
+        delete batch_metric_path(batch)
+        batch.reload        
+        expect(batch.deleted).to eq(true)
+        expect(response.status).to eq 302
+        expect(flash[:alert]).to eq 'Batch marked as deleted successfully.'
       end
     end
   end

@@ -77,9 +77,9 @@ class UrlsController < ApplicationController
     end
   end
 
-  def destroy    
-    if @url.update(deleted: true)
-      flash[:alert] = "Urll marked as deleted successfully."
+  def destroy
+    if @url.update(deleted: true)      
+      flash[:alert] = "Url marked as deleted successfully."
     else
       flash[:error] = "Failed to mark batch as deleted."
     end

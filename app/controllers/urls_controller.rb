@@ -9,7 +9,7 @@ class UrlsController < ApplicationController
   def index
     return redirect_to get_started_path unless user_signed_in?
      
-    @urls = current_user.urls.order(updated_at: :desc).page(params[:page])
+    @urls = current_user.urls.active.order(updated_at: :desc).page(params[:page])
   end
 
   def show
@@ -65,10 +65,7 @@ class UrlsController < ApplicationController
     end
   end
 
-  def destroy
-    
-    binding.pry
-    
+  def destroy    
     if @url.update(deleted: true)
       flash[:alert] = "Urll marked as deleted successfully."
     else
@@ -96,7 +93,7 @@ class UrlsController < ApplicationController
   end
 
   def set_url
-    @url = Url.find_by!(id: params[:id])
+    @url = Url.active.find_by!(id: params[:id])
   end
 end
 

@@ -27,9 +27,11 @@
 
 class Url < ApplicationRecord
   include Taggable
-  
+
   belongs_to :batch
   belongs_to :user
   validates :long_url, presence: true, length: { minimum: 30 }
   validates :user_id, :batch_id, :short_url, presence: true
+
+  scope :active, -> { where(deleted: false) }
 end

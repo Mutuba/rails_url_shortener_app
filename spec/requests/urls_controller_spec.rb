@@ -61,12 +61,11 @@ RSpec.describe 'Urls', type: :request do
     let(:previous_clicks) { 0 }
     before do
       sign_in user
-      allow(Url).to receive(:find_by!).and_return(url)
     end
     context 'params contains the file to be uploaded' do
       it 'uploads the uploaded' do
         get url_path(url)
-
+        url.reload
         expect(url.click).to eq(previous_clicks + 1)
       end
     end
@@ -79,7 +78,7 @@ RSpec.describe 'Urls', type: :request do
 
     before do
       sign_in user
-      allow(Url).to receive(:find_by!).and_return(url)
+      allow(Url).to receive(:find).and_return(url)
     end
 
     context 'when the url id is passed in params' do

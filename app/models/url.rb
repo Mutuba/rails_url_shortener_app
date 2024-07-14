@@ -34,4 +34,5 @@ class Url < ApplicationRecord
   validates :user_id, :batch_id, :short_url, presence: true
 
   scope :active, -> { where(deleted: false) }
+  scope :recently_created, -> { order(created_at: :desc) }
 end

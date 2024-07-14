@@ -105,7 +105,7 @@ class UrlsController < ApplicationController
   end
 
   def set_url
-    @url = Url.active.find_by!(id: params[:id])
+    @url = Url.active.find(params[:id])
   end
 end
 

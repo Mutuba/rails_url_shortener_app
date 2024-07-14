@@ -6,13 +6,21 @@ class BatchMetricsController < ApplicationController
   before_action :authenticate_user!
 
   def batch_urls
-    return render template: 'batch_metrics/batch_not_found' unless @batch
-
-    @tags = current_user.urls.joins(:tags).distinct.pluck(:name)
-    @urls = @batch.urls.recently_created.page(params[:page])
+    
+    # binding.pry
+    
+    @tags = current_user.urls
+                        .joins(:tags)
+                        .distinct
+                        .pluck(:name)
+    @urls = @batch.urls
+                  .active
+                  .recently_created
+                  .page(params[:page])
+  
     render template: 'batch_metrics/batch_urls', locals: { urls: @urls, batch: @batch }
   end
-
+  
   def batch_stats
     @batches = current_user.batches
     .active
@@ -29,7 +37,7 @@ class BatchMetricsController < ApplicationController
     render template: 'upload_status/upload_status', locals: { batches: @batches }
   end
 
-  def destroy    
+  def destroy
     if @batch.update(deleted: true)
       flash[:alert] = "Batch marked as deleted successfully."
     else
@@ -40,7 +48,7 @@ class BatchMetricsController < ApplicationController
 
   private
 
-  def set_batch        
-    @batch = Batch.active.find_by(id: params[:id])
+  def set_batch
+    @batch = Batch.active.find(params[:id])
   end
 end

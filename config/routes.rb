@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   namespace :batch_metrics do
     get :batch_stats
     get :upload_status
-    match :batch_urls, via: %i[get post]
+    get :batch_urls
   end
 
   get '/download', to: 'download_csv#download_sample_csv'

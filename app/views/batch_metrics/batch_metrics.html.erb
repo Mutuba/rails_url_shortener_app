@@ -1,4 +1,4 @@
-<div class="container d-flex align-items-center justify-content-center">
+<div class="container">
   <div>
     <%  if @batches.size == 0 %>
       <br/>
@@ -9,7 +9,7 @@
         </div>
       </div>
     <% else%>
-      <h1>Batch Metrics</h1>
+      <h1 class="batch-metrics-header text-center">Batch Metrics</h1>
       <div id="batches">
         <% @batches.each do |batch| %>
           <div id="<%= dom_id batch %>">
@@ -49,10 +49,10 @@
                             </p>
                             <div class="batch-buttons">
                               <p>
-                                <%= button_to "View Batch Urls", batch_metrics_batch_urls_path(:id => batch.id), class: "btn btn-primary" %>
+                                <%= link_to "View Batch Urls", batch_metrics_batch_urls_path(id: batch.id), class: "btn btn-primary" %>
                               </p>
                               <p>
-                                <%= button_to "Delete Batch", batch_metric_path(:id => batch.id), method: :delete, data: { confirm: "Are you sure you want to delete the batch" },class: "btn btn-danger" %>
+                                <%= button_to "Delete Batch", batch_metric_path(id: batch.id), method: :delete, data: { confirm: "Are you sure you want to delete the batch" },class: "btn btn-danger" %>
                               </p>
                             </div>
                           <%end%>

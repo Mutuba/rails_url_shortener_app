@@ -11,11 +11,10 @@ RSpec.describe 'BatchMetrics', type: :request do
 
     before do
       sign_in user
-      allow(Batch).to receive(:find_by).and_return(batch)
     end
 
     it 'returns stats for current batch' do
-      get batch_metrics_batch_urls_path
+      get batch_metrics_batch_urls_path(id: batch.id)
       expect(response.status).to eq 200
     end
   end

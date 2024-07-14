@@ -5,6 +5,7 @@
 # Table name: batches
 #
 #  id           :uuid             not null, primary key
+#  deleted      :boolean          default(FALSE)
 #  name         :string           not null
 #  success_rate :integer
 #  created_at   :datetime         not null

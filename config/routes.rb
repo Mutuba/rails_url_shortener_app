@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   resources :urls, only: %i[new show index create update edit]
 
+  resources :batch_metrics, only: [:destroy]
+
   namespace :batch_metrics do
     get :batch_stats
     get :upload_status

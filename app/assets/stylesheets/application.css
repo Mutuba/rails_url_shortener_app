@@ -49,8 +49,7 @@ body {
 .navbar-custom .navbar-brand {
   color: white !important;
 }
-.pagination-buttons {
+.batch-buttons {
   display: flex;
   justify-content: space-between;
-  padding: 8px;
 }

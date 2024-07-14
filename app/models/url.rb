@@ -6,6 +6,7 @@
 #
 #  id         :uuid             not null, primary key
 #  click      :integer          default(0)
+#  deleted    :boolean          default(FALSE)
 #  long_url   :string
 #  short_url  :string
 #  created_at :datetime         not null

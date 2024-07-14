@@ -3,7 +3,7 @@
 # UrlsController controller
 class UrlsController < ApplicationController
   require 'securerandom'
-  before_action :set_url, only: %i[show edit update]
+  before_action :set_url, only: %i[show edit update destroy]
   before_action :authenticate_user!
 
   def index
@@ -63,6 +63,18 @@ class UrlsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    
+    binding.pry
+    
+    if @url.update(deleted: true)
+      flash[:alert] = "Urll marked as deleted successfully."
+    else
+      flash[:error] = "Failed to mark batch as deleted."
+    end
+    redirect_to urls_path
   end
 
   private

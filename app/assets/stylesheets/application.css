@@ -53,3 +53,8 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.url-buttons {
+  display: flex;
+  justify-content: space-between;
+}

@@ -18,7 +18,10 @@
           <% end %>
         </p>
         <% end %>
-        <%= link_to 'Edit', edit_url_path(url), class: "btn btn-primary" %>
+        <div class="url-buttons">
+          <%= link_to 'Edit', edit_url_path(url), class: "btn btn-primary" %>
+          <%= button_to 'Delete', url_path(url), method: :delete, data: { message: "Are you sure you want to delete URL?" }, class: "btn btn-danger" %>
+        </div>
       </div>
     </div>
     <br/>

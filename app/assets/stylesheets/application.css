@@ -58,3 +58,15 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.filter-tags {
+  margin-bottom: 20px;
+}
+
+.filter-tags .btn {
+  margin-right: 10px;
+}
+
+.card {
+  margin-bottom: 20px;
+}

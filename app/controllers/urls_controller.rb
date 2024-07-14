@@ -8,8 +8,20 @@ class UrlsController < ApplicationController
 
   def index
     return redirect_to get_started_path unless user_signed_in?
-     
-    @urls = current_user.urls.active.order(updated_at: :desc).page(params[:page])
+
+    @tags = current_user.urls.joins(:tags).distinct.pluck(:name)
+    if params[:tags].present?
+      selected_tags = params[:tags].map(&:strip).reject(&:blank?)
+      @urls = current_user.urls
+                         .joins(:tags)
+                         .where(tags: { name: selected_tags })
+                         .group('urls.id')
+                         .having('COUNT(tags.id) = ?', selected_tags.count)
+                         .order(updated_at: :desc)
+                         .page(params[:page])                         
+    else
+      @urls = current_user.urls.order(updated_at: :desc).page(params[:page])
+    end
   end
 
   def show

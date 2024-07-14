@@ -7,7 +7,8 @@ class BatchMetricsController < ApplicationController
 
   def batch_urls
     return render template: 'batch_metrics/batch_not_found' unless @batch
-
+    
+    @tags = current_user.urls.joins(:tags).distinct.pluck(:name)
     @urls = @batch.urls.order(updated_at: :desc).page(params[:page])
     render template: 'batch_metrics/batch_urls', locals: { urls: @urls, batch: @batch }
   end

@@ -13,7 +13,9 @@
         <% if url.tags.present? %>
           <p>
           <strong>Tags:</strong>
-          <%= url.tags.map(&:name).join(', ') %>
+          <% url.tags.each do |tag|%>
+            <span class="badge bg-primary"><%= tag.name %></span>
+          <% end %>
         </p>
         <% end %>
         <%= link_to 'Edit', edit_url_path(url), class: "btn btn-primary" %>

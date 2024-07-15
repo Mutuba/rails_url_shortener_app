@@ -2,6 +2,7 @@
 <div class="container mt-4">
   <div class="row">
     <!-- Filter Sidebar -->
+    <% if @urls.present? %>
     <div class="col-md-3">
       <div class="filter-tags mb-4">
         <h5>Filter by Tags</h5>
@@ -20,12 +21,15 @@
         <% end %>
       </div>
     </div>
+    <% end %>
 
     <!-- URL Listings -->
-    <div class="col-md-9">
+    <div class="col-md-12">
       <% if @urls.empty? %>
-        <div class="alert alert-primary" role="alert">
-          Sorry, not sure if this is what you expected, but you do not have any URLs yet!
+        <div class="container d-flex align-items-center justify-content-center">
+          <div class="alert alert-primary" role="alert">
+            Sorry, not sure if this is what you expected, but you do not have any URLs yet!
+          </div>
         </div>
       <% else %>
         <% @urls.each do |url| %>

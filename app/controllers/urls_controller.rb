@@ -10,23 +10,19 @@ class UrlsController < ApplicationController
   def index
     return redirect_to home_path unless user_signed_in?
 
-    @tags = current_user.urls.joins(:tags).distinct.pluck(:name)
+    @tags = Url.tag_names_for(current_user)
     if params[:tags].present?
       selected_tags = params[:tags].map(&:strip).reject(&:blank?)
       @urls = current_user.urls
-                         .joins(:tags)
-                         .where(tags: { name: selected_tags })
-                         .group('urls.id')
-                         .having('COUNT(tags.id) = ?', selected_tags.count)
-                         .order(updated_at: :desc)
-                         .page(params[:page])                         
+                         .with_tags(selected_tags)
+                         .page(params[:page])
     else
       @urls = current_user.urls.order(updated_at: :desc).page(params[:page])
     end
   end
 
   def show
-    if log_visit
+    if @url.log_visit(current_user, request.remote_ip)
       respond_to do |format|
         format.html do
           render inline: <<-HTML.strip_heredoc
@@ -72,8 +68,8 @@ class UrlsController < ApplicationController
   def edit;end
 
   def update
-    if @url.update(url_params)      
-      handle_tags(@url, params[:url][:tag_names])
+    if @url.update(url_params)
+      @url.update_tags(params[:url][:tag_names])
       redirect_to urls_path, alert: 'URL was successfully updated.'
     else
       render :edit
@@ -81,7 +77,7 @@ class UrlsController < ApplicationController
   end
 
   def destroy
-    if @url.update(deleted: true)      
+    if @url.update(deleted: true)
       flash[:alert] = "Url marked as deleted successfully."
     else
       flash[:error] = "Failed to mark batch as deleted."
@@ -93,42 +89,14 @@ class UrlsController < ApplicationController
 
   def rate_limit
     user_identifier = current_user ? "user:#{current_user.id}" : "ip:#{request.remote_ip}"
-    rate_limiter = RateLimiter.for(user_identifier: user_identifier)
-
-    if rate_limiter.allow_request?
+    if RateLimiterService.rate_limit_exceeded?(user_identifier)
       flash[:alert] = "Rate limit exceeded."
       redirect_to rate_limit_exceeded_path
     end
   end
 
-  def log_visit
-    return false unless @url
-  
-    existing_visit = @url.visits.find_by(user_id: current_user&.id, ip_address: request.remote_ip)
-  
-    if existing_visit
-      existing_visit.increment!(:visit_count)
-      return true
-    end
-  
-    @url.visits.create(
-      user: current_user,
-      ip_address: request.remote_ip,
-      ip_address: request.remote_ip,
-      visit_count: 1
-    )
-  end
-
   def url_params
     params.require(:url).permit(:file, :long_url, :short_url, tag_names: [])
-  end
-
-  def handle_tags(url, tags)
-    tag_names = tags.split(',').map { |tag| tag.strip.downcase }.reject(&:blank?)
-    url.tags.where.not(name: tag_names).destroy_all
-    tag_names.each do |name|
-      url.tags.find_or_create_by(name: name)
-    end
   end
 
   def file_missing?

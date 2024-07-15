@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   get '/download', to: 'download_csv#download_sample_csv'
   get 'home', to: 'home#index'
+  get 'rate_limit_exceeded', to: 'errors#rate_limit_exceeded', as: 'rate_limit_exceeded'
 
   root 'urls#index'
 end

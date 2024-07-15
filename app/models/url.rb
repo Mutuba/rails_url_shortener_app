@@ -35,4 +35,5 @@ class Url < ApplicationRecord
 
   scope :active, -> { where(deleted: false) }
   scope :recently_created, -> { order(created_at: :desc) }
+  has_many :visits, dependent: :destroy
 end

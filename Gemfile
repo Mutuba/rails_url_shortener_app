@@ -50,7 +50,6 @@ gem 'bootsnap', require: false
 # gem "sassc-rails"
 gem 'devise'
 gem 'kaminari'
-# gem 'pry', '~> 0.13.1'
 gem 'unicorn', '~> 6.1.0'
 
 # gem 'hiredis'
@@ -58,6 +57,7 @@ gem 'unicorn', '~> 6.1.0'
 gem 'redis', '>= 4.0'
 gem 'twitter-bootstrap-rails'
 gem 'faker'
+gem 'ruby_rate_limiter', '~> 2.0.2'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]

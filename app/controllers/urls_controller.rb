@@ -5,6 +5,7 @@ class UrlsController < ApplicationController
   require 'securerandom'
   before_action :set_url, only: %i[show edit update destroy]
   before_action :authenticate_user!
+  before_action :rate_limit, only: %i[show]
 
   def index
     return redirect_to home_path unless user_signed_in?
@@ -25,19 +26,21 @@ class UrlsController < ApplicationController
   end
 
   def show
-    if @url.update(click: @url.click + 1)
+    if log_visit
       respond_to do |format|
         format.html do
           render inline: <<-HTML.strip_heredoc
             <script>
               var longUrl = '<%= j @url.long_url %>';
-              var rootPath = '<%= j root_path %>';
               window.open(longUrl, '_blank');
-              window.location = rootPath;
+              window.location = '<%= j root_path %>';
             </script>
           HTML
         end
-      end 
+      end
+    else
+      flash[:alert] = "Failed to track URL visit."
+      redirect_to root_path
     end
   end
 
@@ -87,6 +90,34 @@ class UrlsController < ApplicationController
   end
 
   private
+
+  def rate_limit
+    user_identifier = current_user ? "user:#{current_user.id}" : "ip:#{request.remote_ip}"
+    rate_limiter = RateLimiter.for(user_identifier: user_identifier)
+
+    if rate_limiter.allow_request?
+      flash[:alert] = "Rate limit exceeded."
+      redirect_to rate_limit_exceeded_path
+    end
+  end
+
+  def log_visit
+    return false unless @url
+  
+    existing_visit = @url.visits.find_by(user_id: current_user&.id, ip_address: request.remote_ip)
+  
+    if existing_visit
+      existing_visit.increment!(:visit_count)
+      return true
+    end
+  
+    @url.visits.create(
+      user: current_user,
+      ip_address: request.remote_ip,
+      ip_address: request.remote_ip,
+      visit_count: 1
+    )
+  end
 
   def url_params
     params.require(:url).permit(:file, :long_url, :short_url, tag_names: [])

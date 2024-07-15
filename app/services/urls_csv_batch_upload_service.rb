@@ -1,8 +1,7 @@
 # frozen_string_literal: true
+require 'csv'
 
 class UrlsCsvBatchUploadService < ApplicationService
-  require 'csv'
-
   def initialize(**params)
     super()
     @file_path = params.fetch(:file_path)

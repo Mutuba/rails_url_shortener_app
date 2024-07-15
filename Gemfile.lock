@@ -70,8 +70,6 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    acts-as-taggable-on (10.0.0)
-      activerecord (>= 6.1, < 7.2)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     annotate (3.2.0)
@@ -375,7 +373,6 @@ PLATFORMS
 DEPENDENCIES
   action-cable-testing
   activerecord-import
-  acts-as-taggable-on
   annotate
   bootsnap
   byebug

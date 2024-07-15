@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end
 
   get '/download', to: 'download_csv#download_sample_csv'
-  get 'get_started', to: 'home#index'
+  get 'home', to: 'home#index'
 
   root 'urls#index'
 end

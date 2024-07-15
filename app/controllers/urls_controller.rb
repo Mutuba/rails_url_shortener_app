@@ -7,7 +7,7 @@ class UrlsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    return redirect_to get_started_path unless user_signed_in?
+    return redirect_to home_path unless user_signed_in?
 
     @tags = current_user.urls.joins(:tags).distinct.pluck(:name)
     if params[:tags].present?

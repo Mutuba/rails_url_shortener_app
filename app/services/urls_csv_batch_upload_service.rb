@@ -80,7 +80,7 @@ class UrlsCsvBatchUploadService < ApplicationService
 
   def create_tags(url, tag_names)
     tag_names.each do |tag_name|
-      url.tags.find_or_create_by(name: tag_name)
+      url.tags.find_or_create_by(name: tag_name.downcase)
     end
   end
 

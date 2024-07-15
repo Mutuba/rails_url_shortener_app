@@ -93,7 +93,7 @@ class UrlsController < ApplicationController
   end
 
   def handle_tags(url, tags)
-    tag_names = tags.split(',').map(&:strip).reject(&:blank?)    
+    tag_names = tags.split(',').map { |tag| tag.strip.downcase }.reject(&:blank?)
     url.tags.where.not(name: tag_names).destroy_all
     tag_names.each do |name|
       url.tags.find_or_create_by(name: name)

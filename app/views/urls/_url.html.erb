@@ -1,28 +1,40 @@
-  <div id="<%= dom_id(url) %>">
-    <div class="card">
-      <div class="card-body">
+<div id="<%= dom_id(url) %>">
+  <div class="card">
+    <div class="card-body">
+      <p>
+        <strong>Short url:</strong>
+        <%= link_to url.short_url, url_path(:id => url.id) %>
+      </p>
+      <p>
+        <strong>Number of visits:</strong>
+        <%= url.click %>
+      </p>
+      <% if url.tags.present? %>
         <p>
-          <strong>Short url:</strong>
-          <%= link_to url.short_url, url_path(:id => url.id) %>
-        </p>
-        <p>
-          <strong>Number of visits:</strong>
-          <%= url.click %>
-        </p>
-        <% if url.tags.present? %>
-          <p>
           <strong>Tags:</strong>
-          <% url.tags.each do |tag|%>
+          <% url.tags.each do |tag| %>
             <span class="badge bg-primary"><%= tag.name %></span>
           <% end %>
         </p>
-        <% end %>
-        <div class="url-buttons">
-          <%= link_to 'Edit', edit_url_path(url), class: "btn btn-primary" %>
-          <%= button_to 'Delete', url_path(url), method: :delete, data: { turbo_confirm: "Are you sure you want to delete URL?" }, class: "btn btn-danger" %>
-        </div>
+      <% end %>
+      <div class="url-buttons">
+        <%= link_to 'Edit', edit_url_path(url), class: "btn btn-primary" %>
+        <button type="button" class="btn btn-secondary" onclick="copyToClipboard('<%= url.short_url %>')">
+        <i class="bi bi-clipboard"></i> Share
+        </button>
+        <%= button_to 'Delete', url_path(url), method: :delete, data: { turbo_confirm: "Are you sure you want to delete URL?" }, class: "btn btn-danger" %>
       </div>
     </div>
-    <br/>
   </div>
+  <br/>
+</div>
 
+<script>
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+      alert('Copied to clipboard!');
+    }, function(err) {
+      console.error('Async: Could not copy text: ', err);
+    });
+  }
+</script>

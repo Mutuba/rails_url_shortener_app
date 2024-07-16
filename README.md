@@ -63,20 +63,25 @@ d job processing
 Screenshots:
 
 Urls page
+<img width="1440" alt="Screenshot 2024-07-16 at 07 53 09" src="https://github.com/user-attachments/assets/7eb4ba04-4972-4ed7-9dd6-e5bf9616be97">
 
-<img width="718" alt="Screenshot 2022-09-28 at 15 17 41" src="https://user-images.githubusercontent.com/39365725/192776509-1d621cea-8f1d-46e5-9b49-71058657a51b.png">
 
 Batches page
+<img width="1440" alt="Screenshot 2024-07-16 at 07 52 52" src="https://github.com/user-attachments/assets/75c5a6c7-9e4e-4fe3-9f13-aeb48af42c91">
 
-<img width="1439" alt="Screenshot 2022-09-28 at 15 18 45" src="https://user-images.githubusercontent.com/39365725/192776810-751c7ab7-feef-4c50-bc45-45f1ba78a21b.png">
 
 CSV upload Page
+<img width="1440" alt="Screenshot 2024-07-16 at 07 53 44" src="https://github.com/user-attachments/assets/7e0dbe9b-9d67-4625-9686-f58bfeac517d">
 
-<img width="1432" alt="Screenshot 2022-09-28 at 15 19 49" src="https://user-images.githubusercontent.com/39365725/192776929-223fb1ea-b6d2-4809-934f-a2ee897ef069.png">
 
 Upload Progress page
 
-<img width="716" alt="Screenshot 2022-09-28 at 15 22 14" src="https://user-images.githubusercontent.com/39365725/192777396-19d4097c-835d-4ddc-9219-4b8a2a9c3055.png">
+<img width="1440" alt="Screenshot 2024-07-16 at 07 54 10" src="https://github.com/user-attachments/assets/26875810-3781-4e58-9c94-6aed88c8d0e8">
+
+Url update page
+<img width="1440" alt="Screenshot 2024-07-16 at 07 53 32" src="https://github.com/user-attachments/assets/7298ac61-1f31-4e32-a841-2fff897b5887">
+
+
 
 
 

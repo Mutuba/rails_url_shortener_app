@@ -4,7 +4,7 @@
 class UrlsController < ApplicationController
   require 'securerandom'
   before_action :set_url, only: %i[show edit update destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[show]
   before_action :rate_limit, only: %i[show]
 
   def index

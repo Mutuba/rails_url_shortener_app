@@ -89,7 +89,7 @@ class UrlsController < ApplicationController
 
   def rate_limit
     user_identifier = current_user ? "user:#{current_user.id}" : "ip:#{request.remote_ip}"
-    if RateLimiterService.rate_limit_exceeded?(user_identifier)
+    if RateLimiterService.rate_limit_exceeded?(user_identifier:)
       flash[:alert] = "Rate limit exceeded."
       redirect_to rate_limit_exceeded_path
     end

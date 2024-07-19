@@ -57,7 +57,7 @@ gem 'unicorn', '~> 6.1.0'
 gem 'redis', '>= 4.0'
 gem 'twitter-bootstrap-rails'
 gem 'faker'
-gem 'ruby_rate_limiter', '~> 2.0.2'
+gem 'ruby_rate_limiter', '~> 2.0.9'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]

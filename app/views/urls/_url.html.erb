@@ -3,7 +3,7 @@
     <div class="card-body">
       <p>
         <strong>Short url:</strong>
-        <%= link_to url.short_url, url_path(:id => url.id) %>
+        <%= link_to url.short_url, 'javascript:void(0);', class: 'disabled-link' %>
       </p>
       <p>
         <strong>Number of visits:</strong>

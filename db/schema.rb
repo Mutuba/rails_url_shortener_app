@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_15_061526) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_19_134504) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_15_061526) do
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
     t.boolean "deleted", default: false
+    t.integer "visits_count", default: 0
     t.index ["batch_id"], name: "index_urls_on_batch_id"
     t.index ["user_id"], name: "index_urls_on_user_id"
   end
@@ -74,7 +75,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_15_061526) do
     t.uuid "url_id", null: false
     t.uuid "user_id", null: false
     t.string "ip_address"
-    t.integer "visit_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["url_id"], name: "index_visits_on_url_id"

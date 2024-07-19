@@ -2,14 +2,12 @@
 #
 # Table name: visits
 #
-#  id          :uuid             not null, primary key
-#  ip_address  :string
-#  visit_count :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  session_id  :string
-#  url_id      :uuid             not null
-#  user_id     :uuid             not null
+#  id         :uuid             not null, primary key
+#  ip_address :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  url_id     :uuid             not null
+#  user_id    :uuid             not null
 #
 # Indexes
 #

@@ -4,15 +4,16 @@
 #
 # Table name: urls
 #
-#  id         :uuid             not null, primary key
-#  click      :integer          default(0)
-#  deleted    :boolean          default(FALSE)
-#  long_url   :string
-#  short_url  :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  batch_id   :uuid             not null
-#  user_id    :uuid             not null
+#  id           :uuid             not null, primary key
+#  click        :integer          default(0)
+#  deleted      :boolean          default(FALSE)
+#  long_url     :string
+#  short_url    :string
+#  visits_count :integer          default(0)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  batch_id     :uuid             not null
+#  user_id      :uuid             not null
 #
 # Indexes
 #
@@ -34,7 +35,7 @@ class Url < ApplicationRecord
   validates :user_id, :batch_id, :short_url, presence: true
 
   scope :active, -> { where(deleted: false) }
-  scope :recently_created, -> { order(created_at: :desc) }
+  scope :recently_created, -> { order(updated_at: :desc) }
   has_many :visits, dependent: :destroy
 
   scope :active, -> { where(deleted: false) }
@@ -52,15 +53,8 @@ class Url < ApplicationRecord
   end
 
   def log_visit(user, ip_address)
-    existing_visit = visits.find_by(user_id: user&.id, ip_address: ip_address)
-
-    if existing_visit
-      existing_visit.increment!(:visit_count)
+      visits.create!(user: user, ip_address: ip_address)
       true
-    else
-      visits.create(user: user, ip_address: ip_address, visit_count: 1)
-      true
-    end
   rescue StandardError => e
     Rails.logger.error("Error logging visit: #{e.message}")
     false

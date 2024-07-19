@@ -4,15 +4,16 @@
 #
 # Table name: urls
 #
-#  id         :uuid             not null, primary key
-#  click      :integer          default(0)
-#  deleted    :boolean          default(FALSE)
-#  long_url   :string
-#  short_url  :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  batch_id   :uuid             not null
-#  user_id    :uuid             not null
+#  id           :uuid             not null, primary key
+#  click        :integer          default(0)
+#  deleted      :boolean          default(FALSE)
+#  long_url     :string
+#  short_url    :string
+#  visits_count :integer          default(0)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  batch_id     :uuid             not null
+#  user_id      :uuid             not null
 #
 # Indexes
 #

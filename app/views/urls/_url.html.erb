@@ -2,8 +2,10 @@
   <div class="card">
     <div class="card-body">
       <p>
-        <strong>Short url:</strong>
-        <%= link_to url.short_url, 'javascript:void(0);', class: 'disabled-link' %>
+        <strong>Short URL:</strong>
+        <button type="button" class="btn btn-link" onclick="handleRedirect('<%= url.short_url %>')">
+          <%= url.short_url %>
+        </button>
       </p>
       <p>
         <strong>Number of visits:</strong>
@@ -20,7 +22,7 @@
       <div class="url-buttons">
         <%= link_to 'Edit', edit_url_path(url), class: "btn btn-primary" %>
         <button type="button" class="btn btn-secondary" onclick="copyToClipboard('<%= url.short_url %>')">
-        <i class="bi bi-clipboard"></i> Share
+          <i class="bi bi-clipboard"></i> Share
         </button>
         <%= button_to 'Delete', url_path(url), method: :delete, data: { turbo_confirm: "Are you sure you want to delete URL?" }, class: "btn btn-danger" %>
       </div>
@@ -30,6 +32,11 @@
 </div>
 
 <script>
+  function handleRedirect(shortUrl) {
+    var longUrl = '<%= url_path(id: url.id) %>';
+    window.location.href = longUrl;
+  }
+
   function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
       alert('Copied to clipboard!');

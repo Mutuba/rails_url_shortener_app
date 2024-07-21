@@ -5,10 +5,7 @@ class BatchMetricsController < ApplicationController
   before_action :set_batch, only: %i[batch_urls destroy]
   before_action :authenticate_user!
 
-  def batch_urls
-    
-    # binding.pry
-    
+  def batch_urls        
     @tags = current_user.urls
                         .joins(:tags)
                         .distinct
@@ -43,7 +40,7 @@ class BatchMetricsController < ApplicationController
     else
       flash[:error] = "Failed to mark batch as deleted."
     end
-    redirect_to batch_metrics_batch_stats_path
+    redirect_to batch_stats_path
   end
 
   private

@@ -3,18 +3,18 @@
 # spec/controllers/batch_metrics_controller_spec.rb
 
 require 'rails_helper'
-RSpec.describe 'BatchMetrics', type: :request do
+RSpec.describe BatchMetricsController, type: :request do
   describe 'GET /batch_urls' do
     let(:user) { create(:user) }
     let(:batch) { create(:batch, user:) }
-    let(:url) { create_list(:url, 10, user:, batch:) }
+    let(:url) { create_list(:url, 10, :with_tags, user:, batch:) }
 
     before do
       sign_in user
     end
 
     it 'returns stats for current batch' do
-      get batch_metrics_batch_urls_path(id: batch.id)
+      get batch_urls_path(id: batch.id)
       expect(response.status).to eq 200
     end
   end
@@ -27,7 +27,7 @@ RSpec.describe 'BatchMetrics', type: :request do
       sign_in user
     end
     it 'return available batches' do
-      get batch_metrics_batch_stats_path
+      get batch_stats_path
 
       expect(response.status).to eq 200
     end
@@ -43,7 +43,7 @@ RSpec.describe 'BatchMetrics', type: :request do
         sign_in user
       end
       it 'request is successful' do
-        get batch_metrics_upload_status_path
+        get upload_status_path
 
         expect(response).to be_successful
         expect(response.status).to eq 200
@@ -58,7 +58,7 @@ RSpec.describe 'BatchMetrics', type: :request do
       end
 
       it 'request is successful' do
-        get batch_metrics_upload_status_path
+        get upload_status_path
 
         expect(response.body).to include('Sorry, batch number not found!')
       end

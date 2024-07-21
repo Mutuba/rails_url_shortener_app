@@ -3,7 +3,7 @@
 # spec/factories/batch.rb
 FactoryBot.define do
   factory :batch do
-    name { Faker::Internet.url }
+    name { Faker::Name.name }
     association :user, factory: :user
   end
 end

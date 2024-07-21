@@ -16,7 +16,7 @@
                     Uploading!
                   </div>
                   <p>
-                    <%= link_to "View Progress", batch_metrics_upload_status_path, class: "btn btn-primary" %>
+                    <%= link_to "View Progress", upload_status_path, class: "btn btn-primary" %>
                   </p>
                 <% else %>
                   <p><strong>Batch name:</strong> <%= batch.name %></p>
@@ -24,7 +24,7 @@
                   <p><strong>Failed Count:</strong> <%= batch.failed_urls.size %></p>
                   <div class="d-flex justify-content-between">
                     <p>
-                      <%= link_to "View Batch Urls", batch_metrics_batch_urls_path(id: batch.id), class: "btn btn-primary" %>
+                      <%= link_to "View Batch Urls", batch_urls_path(id: batch.id), class: "btn btn-primary" %>
                     </p>
                     <p class="ml-auto">
                       <%= button_to "Delete Batch", batch_metric_path(id: batch.id), method: :delete, data: { turbo_confirm: "Are you sure you want to delete the batch?" }, class: "btn btn-danger" %>

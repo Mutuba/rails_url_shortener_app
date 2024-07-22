@@ -23,7 +23,7 @@ class ProgramConfig
   
         next_month = current_date.next_month
         if current_date.day == current_date.end_of_month.day &&
-           current_date.day < next_month.end_of_month.day
+          current_date.day < next_month.end_of_month.day
           current_date = next_month.end_of_month
         else
           current_date = next_month

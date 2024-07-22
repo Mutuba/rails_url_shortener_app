@@ -20,9 +20,9 @@ Rails.application.routes.draw do
   get '/upload_status' => 'batch_metrics#upload_status', as: :upload_status
   get '/batch_urls' => 'batch_metrics#batch_urls', as: :batch_urls
 
-  get '/download', => 'download_csv#download_sample_csv', as: :download_csv
-  get 'home', => 'home#index', as: :home
-  get 'rate_limit_exceeded', => 'errors#rate_limit_exceeded', as: :rate_limit_exceeded
+  get '/download' => 'download_csv#download_sample_csv', as: :download_csv
+  get 'home' => 'home#index', as: :home
+  get 'rate_limit_exceeded' => 'errors#rate_limit_exceeded', as: :rate_limit_exceeded
 
   root 'urls#index'
 end

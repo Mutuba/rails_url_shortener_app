@@ -11,7 +11,7 @@ RSpec.describe UrlsCsvBatchUploadService do
     described_class.call(
       file_path:,
       base_url:,
-      current_user:,
+      current_user:
     )
   end
 
@@ -25,7 +25,7 @@ RSpec.describe UrlsCsvBatchUploadService do
         expect do
           ActionCable.server.broadcast(
             "#{current_user.id}#{current_user.batches[0].id}",
-            { content: '100' },
+            { content: '100' }
           )
         end.to have_broadcasted_to("#{current_user.id}#{current_user.batches[0].id}")
           .with(content: '100')
@@ -43,7 +43,7 @@ RSpec.describe UrlsCsvBatchUploadService do
       described_class.call(
         file_path:,
         base_url:,
-        current_user:,
+        current_user:
       )
     end
 

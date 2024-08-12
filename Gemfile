@@ -6,7 +6,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.2'
 ruby File.read('.ruby-version').strip
 
-
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4'
 
@@ -54,34 +53,33 @@ gem 'unicorn', '~> 6.1.0'
 
 # gem 'hiredis'
 
-gem 'redis', '>= 4.0'
-gem 'twitter-bootstrap-rails'
 gem 'faker'
+gem 'redis', '>= 4.0'
 gem 'ruby_rate_limiter', '~> 2.1.0'
+gem 'twitter-bootstrap-rails'
 
 group :development, :test do
-  gem 'debug', platforms: %i[mri mingw x64_mingw]
-  gem 'rspec-rails'
   gem 'byebug'
-  gem 'pry-rails' 
+  gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-doc'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'rubocop', '~> 1.0' # Code linting
 end
 
 group :development do
   gem 'annotate'
-  gem 'rubocop', '~> 0.77'
-  gem 'rubocop-rails', '~> 2.3'
-  gem 'web-console' 
+  gem 'web-console'
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'action-cable-testing'
   gem 'capybara'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '4.0.0.rc1'
-  gem 'action-cable-testing'
 end
 
 group :production do

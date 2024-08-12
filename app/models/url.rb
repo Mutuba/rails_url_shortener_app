@@ -53,8 +53,8 @@ class Url < ApplicationRecord
   end
 
   def log_visit(user, ip_address)
-      visits.create!(user: user, ip_address: ip_address)
-      true
+    visits.create!(user:, ip_address:)
+    true
   rescue StandardError => e
     Rails.logger.error("Error logging visit: #{e.message}")
     false
@@ -68,6 +68,6 @@ class Url < ApplicationRecord
     old_tags = current_tags - tag_names
 
     tags.where(name: old_tags).destroy_all
-    new_tags.each { |name| tags.find_or_create_by(name: name) }
+    new_tags.each { |name| tags.find_or_create_by(name:) }
   end
 end

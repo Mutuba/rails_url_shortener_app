@@ -65,7 +65,7 @@ RSpec.describe BatchMetricsController, type: :request do
     end
   end
 
-  describe "DELETE /delete" do
+  describe 'DELETE /delete' do
     let(:user) { create(:user) }
     let(:batch) { create(:batch, user:) }
 
@@ -76,7 +76,7 @@ RSpec.describe BatchMetricsController, type: :request do
     context 'when batches exist' do
       it 'request is successful' do
         delete batch_metric_path(batch)
-        batch.reload        
+        batch.reload
         expect(batch.deleted).to eq(true)
         expect(response.status).to eq 302
         expect(flash[:alert]).to eq 'Batch marked as deleted successfully.'

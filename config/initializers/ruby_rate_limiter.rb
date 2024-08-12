@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # config/initializers/ruby_rate_limiter.rb
 require 'ruby_rate_limiter'
 require 'redis'
@@ -7,13 +9,11 @@ module RateLimiter
 
   def self.for(user_identifier:, time_unit: DEFAULT_TIME_UNIT)
     RubyRateLimiter::TokenBucket.new(
-      user_identifier: user_identifier,
+      user_identifier:,
       storage: redis_storage,
-      time_unit: time_unit
+      time_unit:
     )
   end
-
-  private
 
   def self.redis_client
     @redis_client ||= Redis.new(url: ENV['REDIS_URL'])

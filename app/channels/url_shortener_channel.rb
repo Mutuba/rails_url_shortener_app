@@ -4,7 +4,7 @@ class UrlShortenerChannel < ApplicationCable::Channel
   def subscribed
     user_id = current_user.id
     batch_id = params[:batch_id]
-    
+
     logger.info "Subscribing to user and batch channels for user id #{user_id} and batch id #{batch_id} in UrlShortenerChannel"
 
     if user_id.nil?

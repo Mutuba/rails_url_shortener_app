@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: tags
@@ -15,11 +17,9 @@
 #  index_tags_on_taggable                                (taggable_type,taggable_id)
 #
 class Tag < ApplicationRecord
-
-  validates :name, presence: true, uniqueness: { case_sensitive: false, scope: [:taggable_type, :taggable_id] }
+  validates :name, presence: true, uniqueness: { case_sensitive: false, scope: %i[taggable_type taggable_id] }
   belongs_to :taggable, polymorphic: true
 end
-
 
 # class GoodnessValidator < ActiveModel::Validator
 #   def validate(record)

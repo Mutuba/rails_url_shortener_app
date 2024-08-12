@@ -14,8 +14,8 @@ class UrlsController < ApplicationController
     if params[:tags].present?
       selected_tags = params[:tags].map(&:strip).reject(&:blank?)
       @urls = current_user.urls
-                         .with_tags(selected_tags)
-                         .page(params[:page])
+                          .with_tags(selected_tags)
+                          .page(params[:page])
     else
       @urls = current_user.urls.order(updated_at: :desc).page(params[:page])
     end
@@ -35,7 +35,7 @@ class UrlsController < ApplicationController
         end
       end
     else
-      flash[:alert] = "Failed to track URL visit."
+      flash[:alert] = 'Failed to track URL visit.'
       redirect_to root_path
     end
   end
@@ -54,9 +54,9 @@ class UrlsController < ApplicationController
     file = url_params[:file]
     begin
       FileWriterService.call(
-        file: file,
-        base_url: base_url,
-        current_user: current_user
+        file:,
+        base_url:,
+        current_user:
       )
       redirect_to new_url_path, alert: 'File upload in progress. Hold tight'
     rescue StandardError => e
@@ -65,7 +65,7 @@ class UrlsController < ApplicationController
     end
   end
 
-  def edit;end
+  def edit; end
 
   def update
     if @url.update(url_params)
@@ -78,9 +78,9 @@ class UrlsController < ApplicationController
 
   def destroy
     if @url.update(deleted: true)
-      flash[:alert] = "Url marked as deleted successfully."
+      flash[:alert] = 'Url marked as deleted successfully.'
     else
-      flash[:error] = "Failed to mark batch as deleted."
+      flash[:error] = 'Failed to mark batch as deleted.'
     end
     redirect_to urls_path
   end
@@ -89,10 +89,10 @@ class UrlsController < ApplicationController
 
   def rate_limit
     user_identifier = current_user ? "user:#{current_user.id}" : "ip:#{request.remote_ip}"
-    if RateLimiterService.rate_limit_exceeded?(user_identifier:)
-      flash[:alert] = "Rate limit exceeded."
-      redirect_to rate_limit_exceeded_path
-    end
+    return unless RateLimiterService.rate_limit_exceeded?(user_identifier:)
+
+    flash[:alert] = 'Rate limit exceeded.'
+    redirect_to rate_limit_exceeded_path
   end
 
   def url_params
@@ -107,6 +107,3 @@ class UrlsController < ApplicationController
     @url = Url.active.find(params[:id])
   end
 end
-
-
-

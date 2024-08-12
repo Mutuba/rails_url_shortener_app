@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'csv'
 
 class UrlsCsvBatchUploadService < ApplicationService
@@ -25,7 +26,7 @@ class UrlsCsvBatchUploadService < ApplicationService
         url_hash = process_url_hash(row, batch)
         urls_array << url_hash
         tag_names = row['tags']&.split(',')&.map(&:strip)&.reject(&:blank?)
-        url_tag_associations << { url_hash: url_hash, tag_names: tag_names } if tag_names
+        url_tag_associations << { url_hash:, tag_names: } if tag_names
       end
     rescue Errno::ENOENT, Errno::EACCES, CSV::MalformedCSVError => e
       logger.info e.message
@@ -42,7 +43,7 @@ class UrlsCsvBatchUploadService < ApplicationService
 
   def process_url_hash(row, batch)
     Url.new(
-      batch: batch,
+      batch:,
       long_url: row[0],
       short_url: row[1].nil? ? generate_short_url : "#{@base_url}/#{row[1]}",
       created_at: Time.zone.now,
@@ -54,7 +55,7 @@ class UrlsCsvBatchUploadService < ApplicationService
   def create_batch
     Batch.create!(
       name: "#{Faker::TvShows::GameOfThrones.house} #{SecureRandom.hex(5)}",
-      user: @current_user,
+      user: @current_user
     )
   end
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ApplicationCable
   # Connection class
   class Connection < ActionCable::Connection::Base
@@ -10,7 +11,7 @@ module ApplicationCable
 
     private
 
-    def find_verified_user            
+    def find_verified_user
       env['warden'].user || reject_unauthorized_connection
     end
   end

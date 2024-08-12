@@ -1,4 +1,5 @@
-# require 'rspec'
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 require_relative './transfer'
@@ -38,12 +39,11 @@ RSpec.describe ProgramConfig do
       transfers = config.generate_transfers
 
       expect(transfers.size).to eq(4)
-           
+
       expect(transfers[0].scheduled_date_time).to eq(Date.new(2024, 1, 31))
       expect(transfers[1].scheduled_date_time).to eq(Date.new(2024, 2, 29))
       expect(transfers[2].scheduled_date_time).to eq(Date.new(2024, 3, 31))
       expect(transfers[3].scheduled_date_time).to eq(Date.new(2024, 4, 30))
-
     end
   end
 end

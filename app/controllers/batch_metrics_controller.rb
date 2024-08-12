@@ -5,7 +5,7 @@ class BatchMetricsController < ApplicationController
   before_action :set_batch, only: %i[batch_urls destroy]
   before_action :authenticate_user!
 
-  def batch_urls        
+  def batch_urls
     @tags = current_user.urls
                         .joins(:tags)
                         .distinct
@@ -14,15 +14,15 @@ class BatchMetricsController < ApplicationController
                   .active
                   .recently_created
                   .page(params[:page])
-  
+
     render template: 'batch_metrics/batch_urls', locals: { urls: @urls, batch: @batch }
   end
-  
+
   def batch_stats
     @batches = current_user.batches
-    .active
-    .recently_created
-    .page(params[:page])
+                           .active
+                           .recently_created
+                           .page(params[:page])
     render template: 'batch_metrics/batch_metrics', locals: { batches: @batches }
   end
 
@@ -36,9 +36,9 @@ class BatchMetricsController < ApplicationController
 
   def destroy
     if @batch.update(deleted: true)
-      flash[:alert] = "Batch marked as deleted successfully."
+      flash[:alert] = 'Batch marked as deleted successfully.'
     else
-      flash[:error] = "Failed to mark batch as deleted."
+      flash[:error] = 'Failed to mark batch as deleted.'
     end
     redirect_to batch_stats_path
   end

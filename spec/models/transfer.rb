@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Transfer
   attr_accessor :scheduled_date_time, :amount
 

@@ -9,7 +9,7 @@ RSpec.describe UrlsCsvBatchUploadJob, type: :job do
     'spec/fixtures/sample_urls_upload_file.csv'
   end
   let(:file_path) do
-    Rails.root.join(string_file_path)  # Absolute path of the file
+    Rails.root.join(string_file_path) # Absolute path of the file
   end
 
   describe '#perform_later' do
@@ -18,7 +18,7 @@ RSpec.describe UrlsCsvBatchUploadJob, type: :job do
         UrlsCsvBatchUploadJob.perform_later(
           string_file_path:,
           base_url:,
-          current_user: user,
+          current_user: user
         )
       end.to change {
         ActiveJob::Base.queue_adapter.enqueued_jobs.count
@@ -35,7 +35,7 @@ RSpec.describe UrlsCsvBatchUploadJob, type: :job do
       described_class.perform_now(
         string_file_path:,
         base_url:,
-        current_user: user,
+        current_user: user
       )
     end
 
@@ -43,7 +43,7 @@ RSpec.describe UrlsCsvBatchUploadJob, type: :job do
       expect(UrlsCsvBatchUploadService).to receive(:call).with(
         file_path:,
         base_url:,
-        current_user: user,
+        current_user: user
       )
       perform_job
       expect { perform_job }.not_to raise_error
@@ -54,7 +54,7 @@ RSpec.describe UrlsCsvBatchUploadJob, type: :job do
     before do
       allow(UrlsCsvBatchUploadService).to receive(:call).and_raise(
         StandardError,
-        'Some error',
+        'Some error'
       )
     end
 
@@ -62,13 +62,13 @@ RSpec.describe UrlsCsvBatchUploadJob, type: :job do
       described_class.perform_now(
         string_file_path:,
         base_url:,
-        current_user: user,
+        current_user: user
       )
     end
 
     it 'calls the service with correct params' do
       expect(Rails.logger).to receive(:error).with(
-        /An error occurred:/,
+        /An error occurred:/
       )
       perform_job
     end

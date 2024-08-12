@@ -23,8 +23,6 @@ class UrlsCsvBatchUploadJob < ApplicationJob
   end
 end
 
-
-
 # numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 # result = numbers.inject(1) do |prod, number|
 #   prod * case
@@ -33,4 +31,3 @@ end
 #     else 1
 #   end
 # end
-

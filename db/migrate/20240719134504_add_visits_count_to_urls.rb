@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddVisitsCountToUrls < ActiveRecord::Migration[7.0]
   def up
     add_column :urls, :visits_count, :integer, default: 0

@@ -7,7 +7,7 @@ RSpec.describe FileWriterService, type: :service do
   let(:file) do
     Rack::Test::UploadedFile.new(
       Rails.root.join('spec/fixtures/sample_urls_upload_file.csv'),
-      'text/csv',
+      'text/csv'
     )
   end
   let(:base_url) { 'http://example.com' }
@@ -16,7 +16,7 @@ RSpec.describe FileWriterService, type: :service do
     described_class.call(
       file:,
       base_url:,
-      current_user:,
+      current_user:
     )
   end
 

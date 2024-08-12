@@ -14,8 +14,8 @@ class PurgeExpiredUrlsJob < ApplicationJob
   sidekiq_options retry: false
 
   def perform
-    logger.info "PurgeExpiredUrlsJob running"
+    logger.info 'PurgeExpiredUrlsJob running'
     PurgeExpiredUrlsService.call
-    logger.info "PurgeExpiredUrlsJob finished "
+    logger.info 'PurgeExpiredUrlsJob finished '
   end
 end

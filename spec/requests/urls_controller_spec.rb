@@ -9,7 +9,7 @@ RSpec.describe 'Urls', type: :request do
     let(:file) do
       Rack::Test::UploadedFile.new(
         Rails.root.join('spec/fixtures/sample_urls_upload_file.csv'),
-        'text/csv',
+        'text/csv'
       )
     end
 
@@ -18,7 +18,7 @@ RSpec.describe 'Urls', type: :request do
     end
     context 'params contains the file to be uploaded' do
       it 'uploads the uploaded' do
-        post urls_path, params: { url: { file: file } }
+        post urls_path, params: { url: { file: } }
         expect(response).to redirect_to(new_url_path)
 
         expect(UrlsCsvBatchUploadJob).to have_been_enqueued.exactly(:once)
@@ -72,7 +72,7 @@ RSpec.describe 'Urls', type: :request do
   end
 
   describe 'DELETE /urls/delete' do
-    let(:user) { create (:user) }
+    let(:user) { create(:user) }
     let(:batch) { create(:batch, user:) }
     let(:url) { create(:url, user:, batch:) }
 
@@ -84,7 +84,7 @@ RSpec.describe 'Urls', type: :request do
     context 'when the url id is passed in params' do
       it 'deleted the url' do
         delete url_path(url)
-        url.reload        
+        url.reload
         expect(url.deleted).to eq(true)
         expect(response.status).to eq 302
         expect(flash[:alert]).to eq 'Url marked as deleted successfully.'

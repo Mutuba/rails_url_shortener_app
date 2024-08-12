@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Taggable
   extend ActiveSupport::Concern
 
@@ -5,7 +7,6 @@ module Taggable
     has_many :tags, as: :taggable, dependent: :destroy
   end
 end
-
 
 # # app/jobs/process_payment_job.rb
 # class ProcessPaymentJob
@@ -65,7 +66,6 @@ end
 #     end
 #   end
 # end
-
 
 # # Define a common interface for payment gateways
 # class BaseGateway

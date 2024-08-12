@@ -8,5 +8,4 @@ class ApplicationController < ActionController::Base
   include Error::ErrorHandler
 
   include Devise::Controllers::Helpers
-
 end

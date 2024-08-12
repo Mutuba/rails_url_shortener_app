@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Error module to Handle errors globally
 module Error
   module ErrorHandler
@@ -7,10 +9,11 @@ module Error
     end
 
     private
+
     def record_not_found(_e)
-      resource_type = identify_resource_type(_e)      
+      resource_type = identify_resource_type(_e)
       respond_to do |format|
-        format.html { render 'errors/404', status: :not_found, locals: { resource_type: resource_type } }
+        format.html { render 'errors/404', status: :not_found, locals: { resource_type: } }
       end
     end
 
